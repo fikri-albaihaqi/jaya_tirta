@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "171260151340",
+    "project_id": "jaya-tirta",
+    "storage_bucket": "jaya-tirta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171260151340:android:77496a5106ec4ab2ca3389",
+        "android_client_info": {
+          "package_name": "com.example.jaya_tirta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171260151340-a3l7hn6v8fmn2q2i3tt3jmriig2kgige.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF6FbUnTqXQsNBoNS3bEd6SGyD77EH9Ng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171260151340-a3l7hn6v8fmn2q2i3tt3jmriig2kgige.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "171260151340-6tl3cd27r1gf7t7lc6ifgra68lbclv96.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.polban.jayatirta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
