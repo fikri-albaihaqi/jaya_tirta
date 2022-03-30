@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'login.dart';
-import 'colors.dart';
+import 'presentation/login/login.dart';
+import 'utils/colors.dart';
 
 class JayaTirtaApp extends StatelessWidget {
   const JayaTirtaApp({Key? key}) : super(key: key);

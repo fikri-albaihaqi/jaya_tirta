@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const kJayaTirtaBlue50 = Color(0xFFBDDCF9);
 const kJayaTirtaBlue100 = Color(0xFF67ABEB);
 const kJayaTirtaBlue300 = Color(0xFF2A82D4);
+const kJayaTirtaBlue500 = Color(0xFF22587E);
 
 const kJayaTirtaBlack900 = Color(0xFF202C44);
 
