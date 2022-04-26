@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:jaya_tirta/data/repositories/authentication_repository.dart';
+import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

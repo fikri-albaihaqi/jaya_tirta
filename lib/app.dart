@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'presentation/login/login.dart';
+import 'package:jaya_tirta/presentation/authentication/authentication_screen.dart';
+import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'utils/colors.dart';
 
 class JayaTirtaApp extends StatelessWidget {
@@ -8,8 +9,8 @@ class JayaTirtaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
-      initialRoute: '/login',
+      home: AuthenticationScreen(),
+      initialRoute: '/welcome',
       onGenerateRoute: _getRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -18,13 +19,13 @@ class JayaTirtaApp extends StatelessWidget {
   }
 
   Route<dynamic>? _getRoute(RouteSettings settings) {
-    if (settings.name != '/login') {
+    if (settings.name != '/welcome') {
       return null;
     }
 
     return MaterialPageRoute<void>(
       settings: settings,
-      builder: (BuildContext context) => const LoginPage(),
+      builder: (BuildContext context) => const WelcomePage(),
       fullscreenDialog: true,
     );
   }

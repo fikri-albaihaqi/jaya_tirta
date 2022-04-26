@@ -1,19 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jaya_tirta/presentation/home/home.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:jaya_tirta/utils/validator.dart';
 
-import '../../bloc/authentication_bloc.dart';
+import '../../bloc/authentication/authentication_bloc.dart';
+import '../main_screen/main_screen.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatefulWidget {
+  const AuthenticationScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailTextController = TextEditingController();
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state is Authenticated) {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+                  MaterialPageRoute(builder: (context) => MainScreen()));
             }
             if (state is AuthError) {
               // Showing the error message if the user has entered invalid credentials

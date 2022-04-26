@@ -2,17 +2,45 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:jaya_tirta/bloc/authentication_bloc.dart';
-import 'package:jaya_tirta/data/repositories/authentication_repository.dart';
+import 'package:jaya_tirta/bloc/authentication/authentication_bloc.dart';
+import 'package:jaya_tirta/bloc/crud_produk/crud_produk_bloc.dart';
+import 'package:jaya_tirta/bloc/navigation/navigation_cubit.dart';
+import 'package:jaya_tirta/bloc/produk/produk_bloc.dart';
+import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jaya_tirta/presentation/home/home.dart';
+import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 import 'app.dart';
+import 'presentation/main_screen/main_screen.dart';
 import 'utils/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => NavigationCubit(),
+        ),
+        BlocProvider(
+          create: (_) => AuthenticationBloc(
+            authRepository: RepositoryProvider.of<AuthenticationRepository>(_),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => ProdukBloc(
+            produkRepository: ProdukRepository(),
+          )..add(LoadProduk()),
+        ),
+        BlocProvider(
+          create: (_) => CrudProdukBloc(
+            produkRepository: ProdukRepository(),
+          ),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +66,7 @@ class MyApp extends StatelessWidget {
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                 if (snapshot.hasData) {
-                  return const HomePage();
+                  return MainScreen();
                 }
                 return SplashScreen();
               }),
