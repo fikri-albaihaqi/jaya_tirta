@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jaya_tirta/bloc/produk/produk_bloc.dart';
-import 'package:jaya_tirta/data/models/models.dart';
-import 'package:jaya_tirta/presentation/produk/detail_produk.dart';
-import 'package:jaya_tirta/presentation/produk/tambah_produk_screen.dart';
+import 'package:jaya_tirta/bloc/blocs.dart';
+import 'package:jaya_tirta/presentation/konsumen/home/pesan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
-class ProdukScreen extends StatefulWidget {
-  const ProdukScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProdukScreen> createState() => _ProdukScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ProdukScreenState extends State<ProdukScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,28 +29,6 @@ class _ProdukScreenState extends State<ProdukScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 24.0,
                   color: kJayaTirtaBlack900,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 32.0, right: 32.0, top: 24.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TambahProdukScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Tambah Produk',
-                    style: TextStyle(
-                        fontFamily: 'Nunito', fontWeight: FontWeight.w600),
-                  ),
                 ),
               ),
             ),
@@ -75,7 +51,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailProdukScreen(
+                              builder: (context) => PesanScreen(
                                 produk: state.produk[index],
                               ),
                             ),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/crud_produk/crud_produk_bloc.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
-import '../../bloc/blocs.dart';
+import '../../../bloc/blocs.dart';
 
 class TambahProdukScreen extends StatefulWidget {
   const TambahProdukScreen({Key? key}) : super(key: key);
@@ -53,7 +53,6 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                 color: kJayaTirtaBlue50,
                 child: ListView(
                   children: [
-                    Text(state.produk.toString()),
                     Container(
                       width: double.infinity,
                       decoration: const BoxDecoration(

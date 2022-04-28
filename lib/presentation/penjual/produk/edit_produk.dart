@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 
-import '../../bloc/blocs.dart';
-import '../../utils/colors.dart';
+import '../../../bloc/blocs.dart';
+import '../../../utils/colors.dart';
 
 class EditProdukScreen extends StatefulWidget {
   EditProdukScreen({Key? key, required this.produk}) : super(key: key);

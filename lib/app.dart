@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaya_tirta/presentation/authentication/authentication_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/authentication/authentication_screen.dart';
 import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'utils/colors.dart';
 
@@ -25,7 +25,7 @@ class JayaTirtaApp extends StatelessWidget {
 
     return MaterialPageRoute<void>(
       settings: settings,
-      builder: (BuildContext context) => const WelcomePage(),
+      builder: (BuildContext context) => const WelcomeScreen(),
       fullscreenDialog: true,
     );
   }

@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
-import 'package:jaya_tirta/bloc/navigation/navigation_cubit.dart';
-import 'package:jaya_tirta/presentation/home/pesanan_screen.dart';
+import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
+import 'package:jaya_tirta/presentation/penjual/home/pesanan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'package:jaya_tirta/utils/colors.dart';
-import '../../bloc/authentication/authentication_bloc.dart';
+import '../../../bloc/authentication/authentication_bloc.dart';
 import '../authentication/authentication_screen.dart';
 import '../produk/produk_screen.dart';
 import '../profil/profil_screen.dart';
@@ -25,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
         if (state is UnAuthenticated) {
           // Navigate to the sign in screen when the user Signs Out
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => AuthenticationScreen()),
+            MaterialPageRoute(builder: (context) => WelcomeScreen()),
             (route) => false,
           );
         }
@@ -72,7 +73,8 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
+        bottomNavigationBar:
+            BlocBuilder<PenjualNavigationCubit, PenjualNavigationState>(
           builder: (context, state) {
             return BottomNavigationBar(
               currentIndex: state.index,
@@ -102,31 +104,31 @@ class _MainScreenState extends State<MainScreen> {
               ],
               onTap: (index) {
                 if (index == 0) {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .getNavBarItem(NavbarItem.pesanan);
+                  BlocProvider.of<PenjualNavigationCubit>(context)
+                      .getPenjualNavBarItem(PenjualNavbarItem.pesanan);
                 } else if (index == 1) {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .getNavBarItem(NavbarItem.produk);
+                  BlocProvider.of<PenjualNavigationCubit>(context)
+                      .getPenjualNavBarItem(PenjualNavbarItem.produk);
                 } else if (index == 2) {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .getNavBarItem(NavbarItem.ringkasan);
+                  BlocProvider.of<PenjualNavigationCubit>(context)
+                      .getPenjualNavBarItem(PenjualNavbarItem.ringkasan);
                 } else if (index == 3) {
-                  BlocProvider.of<NavigationCubit>(context)
-                      .getNavBarItem(NavbarItem.profil);
+                  BlocProvider.of<PenjualNavigationCubit>(context)
+                      .getPenjualNavBarItem(PenjualNavbarItem.profil);
                 }
               },
             );
           },
         ),
-        body: BlocBuilder<NavigationCubit, NavigationState>(
+        body: BlocBuilder<PenjualNavigationCubit, PenjualNavigationState>(
             builder: (context, state) {
-          if (state.navbarItem == NavbarItem.pesanan) {
+          if (state.navbarItem == PenjualNavbarItem.pesanan) {
             return PesananScreen();
-          } else if (state.navbarItem == NavbarItem.produk) {
+          } else if (state.navbarItem == PenjualNavbarItem.produk) {
             return ProdukScreen();
-          } else if (state.navbarItem == NavbarItem.ringkasan) {
+          } else if (state.navbarItem == PenjualNavbarItem.ringkasan) {
             return RingkasanScreen();
-          } else if (state.navbarItem == NavbarItem.profil) {
+          } else if (state.navbarItem == PenjualNavbarItem.profil) {
             return ProfilScreen();
           }
           return Container();

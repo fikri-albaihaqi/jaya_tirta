@@ -16,11 +16,11 @@ class ProdukBloc extends Bloc<ProdukEvent, ProdukState> {
   ProdukBloc({required ProdukRepository produkRepository})
       : _produkRepository = produkRepository,
         super(ProdukLoading()) {
-    on<LoadProduk>(_onLoadProducts);
+    on<LoadProduk>(_onLoadProduk);
     on<LoadedProduk>(_onLoadedProduk);
   }
 
-  void _onLoadProducts(
+  void _onLoadProduk(
     LoadProduk event,
     Emitter<ProdukState> emit,
   ) {

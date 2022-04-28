@@ -3,7 +3,7 @@ import 'package:jaya_tirta/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:jaya_tirta/utils/validator.dart';
 
-import '../../bloc/authentication/authentication_bloc.dart';
+import '../../../bloc/authentication/authentication_bloc.dart';
 import '../main_screen/main_screen.dart';
 
 class AuthenticationScreen extends StatefulWidget {

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jaya_tirta/presentation/authentication/authentication_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/home/home_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/main_screen/main_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/authentication/authentication_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
-class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<WelcomePage> createState() => _WelcomePageState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +33,9 @@ class _WelcomePageState extends State<WelcomePage> {
                       color: Colors.white,
                     ),
                   ),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
                   const Text(
                     'Untuk melakukan pemesanan tekan tombol "Mulai Memesan Sekarang!"',
                     style: TextStyle(
@@ -40,10 +45,20 @@ class _WelcomePageState extends State<WelcomePage> {
                       color: Colors.white,
                     ),
                   ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
                   Container(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainScreen(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Mulai Memesan Sekarang!',
                         style: TextStyle(
@@ -62,12 +77,12 @@ class _WelcomePageState extends State<WelcomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const AuthenticationScreen()),
+                            builder: (context) => const AuthenticationScreen(),
+                          ),
                         );
                       },
                       child: const Text(
-                        'Login Sebagai Mitra/Penjual',
+                        'Login Sebagai Penjual',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'Nunito',
