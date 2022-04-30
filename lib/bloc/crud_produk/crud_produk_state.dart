@@ -10,6 +10,7 @@ abstract class CrudProdukState extends Equatable {
 class CrudProdukLoading extends CrudProdukState {}
 
 class CrudProdukLoaded extends CrudProdukState {
+  final String? id;
   final String? namaProduk;
   final String? gambar;
   final String? harga;
@@ -17,11 +18,13 @@ class CrudProdukLoaded extends CrudProdukState {
   final Produk produk;
 
   CrudProdukLoaded({
+    this.id,
     this.namaProduk,
     this.gambar,
     this.harga,
     this.stok,
   }) : produk = Produk(
+          id: id,
           namaProduk: namaProduk,
           gambar: gambar,
           harga: harga,
@@ -31,6 +34,7 @@ class CrudProdukLoaded extends CrudProdukState {
   @override
   // TODO: implement props
   List<Object?> get props => [
+        id,
         namaProduk,
         gambar,
         harga,

@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:jaya_tirta/utils/validator.dart';
+import 'package:jaya_tirta/bloc/blocs.dart';
 
-import '../../../bloc/authentication/authentication_bloc.dart';
 import '../main_screen/main_screen.dart';
 
 class AuthenticationScreen extends StatefulWidget {
@@ -28,7 +28,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     if (_formKey.currentState!.validate()) {
       // If email is valid adding new Event [SignInRequested].
       BlocProvider.of<AuthenticationBloc>(context).add(
-        LogInRequested(_emailTextController.text, _passwordTextController.text),
+        PenjualLogInRequested(
+            _emailTextController.text, _passwordTextController.text),
       );
     }
   }

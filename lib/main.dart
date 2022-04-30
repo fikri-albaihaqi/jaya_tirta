@@ -2,16 +2,14 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:jaya_tirta/bloc/authentication/authentication_bloc.dart';
-import 'package:jaya_tirta/bloc/crud_konsumen/crud_konsumen_bloc.dart';
-import 'package:jaya_tirta/bloc/crud_produk/crud_produk_bloc.dart';
+import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
-import 'package:jaya_tirta/bloc/produk/produk_bloc.dart';
 import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
+import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
 import 'app.dart';
 import 'presentation/penjual/main_screen/main_screen.dart';
 import 'utils/colors.dart';
@@ -60,12 +58,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => AuthenticationRepository(),
+      create: (context) {
+        return AuthenticationRepository();
+      },
       child: BlocProvider(
-        create: (context) => AuthenticationBloc(
-          authRepository:
-              RepositoryProvider.of<AuthenticationRepository>(context),
-        ),
+        create: (context) {
+          return AuthenticationBloc(
+            authRepository:
+                RepositoryProvider.of<AuthenticationRepository>(context),
+          );
+        },
         child: MaterialApp(
           title: 'Jaya Tirta',
           theme: ThemeData(
@@ -76,8 +78,10 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
-                if (snapshot.hasData) {
+                if (snapshot.data?.email != null) {
                   return MainScreen();
+                } else if (snapshot.data?.email == null) {
+                  return KonsumenMainScreen();
                 }
                 return SplashScreen();
               }),

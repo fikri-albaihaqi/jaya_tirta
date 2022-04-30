@@ -12,6 +12,20 @@ class PesanScreen extends StatefulWidget {
 }
 
 class _PesanScreenState extends State<PesanScreen> {
+  int jumlah = 0;
+
+  void _tambahJumlah() {
+    setState(() {
+      jumlah++;
+    });
+  }
+
+  void _kurangiJumlah() {
+    setState(() {
+      jumlah--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +90,9 @@ class _PesanScreenState extends State<PesanScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _kurangiJumlah();
+                      },
                       icon: Icon(Icons.remove_circle),
                       color: Colors.white,
                       iconSize: 32.0,
@@ -85,7 +101,7 @@ class _PesanScreenState extends State<PesanScreen> {
                       width: 16.0,
                     ),
                     Text(
-                      '1',
+                      '$jumlah',
                       style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 24,
@@ -97,7 +113,9 @@ class _PesanScreenState extends State<PesanScreen> {
                       width: 16.0,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _tambahJumlah();
+                      },
                       icon: Icon(Icons.add_circle),
                       color: Colors.white,
                       iconSize: 32.0,

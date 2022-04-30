@@ -11,11 +11,7 @@ class ProdukRepository extends BaseProdukRepository {
   @override
   Stream<List<Produk>> getAllProduk() {
     return _firebaseFirestore.collection('produk').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final model = Produk.fromSnapshot(doc);
-        model.id = doc.id;
-        return model;
-      }).toList();
+      return snapshot.docs.map((doc) => Produk.fromSnapshot(doc)).toList();
     });
   }
 

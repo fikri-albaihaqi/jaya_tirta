@@ -26,4 +26,12 @@ class AuthenticationRepository {
       throw Exception(e);
     }
   }
+
+  Future<void> konsumenLogIn() async {
+    try {
+      await FirebaseAuth.instance.signInAnonymously();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e);
+    }
+  }
 }

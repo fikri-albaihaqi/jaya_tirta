@@ -76,6 +76,7 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
       final state = this.state as CrudProdukLoaded;
       emit(
         CrudProdukLoaded(
+          id: event.id ?? state.id,
           namaProduk: event.namaProduk ?? state.namaProduk,
           gambar: event.gambar ?? state.gambar,
           harga: event.harga ?? state.harga,

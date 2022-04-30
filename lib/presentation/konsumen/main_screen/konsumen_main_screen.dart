@@ -1,25 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
-import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
-import 'package:jaya_tirta/presentation/penjual/home/pesanan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
+import 'package:jaya_tirta/presentation/konsumen/home/home_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/pesanan/pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/profil_screen.dart';
 import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'package:jaya_tirta/utils/colors.dart';
-import 'package:jaya_tirta/bloc/blocs.dart';
-import '../produk/produk_screen.dart';
-import '../profil/profil_screen.dart';
-import '../ringkasan/ringkasan_screen.dart';
 
-class MainScreen extends StatefulWidget {
+import '../../../bloc/blocs.dart';
+
+class KonsumenMainScreen extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _KonsumenMainScreenState createState() => _KonsumenMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is UnAuthenticated) {
@@ -44,18 +44,10 @@ class _MainScreenState extends State<MainScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${user.email}',
+                '${user?.uid}',
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 18.0,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              const Text(
-                'Owner Jaya Tirta',
-                style: TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 12.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
@@ -73,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         bottomNavigationBar:
-            BlocBuilder<PenjualNavigationCubit, PenjualNavigationState>(
+            BlocBuilder<KonsumenNavigationCubit, KonsumenNavigationState>(
           builder: (context, state) {
             return BottomNavigationBar(
               currentIndex: state.index,
@@ -83,16 +75,12 @@ class _MainScreenState extends State<MainScreen> {
               unselectedItemColor: kJayaTirtaBlack900,
               items: const [
                 BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
                   icon: Icon(Icons.receipt_long_outlined),
                   label: 'Pesanan',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.inventory_2_outlined),
-                  label: 'Produk',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.article_outlined),
-                  label: 'Ringkasan',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
@@ -103,31 +91,26 @@ class _MainScreenState extends State<MainScreen> {
               ],
               onTap: (index) {
                 if (index == 0) {
-                  BlocProvider.of<PenjualNavigationCubit>(context)
-                      .getPenjualNavBarItem(PenjualNavbarItem.pesanan);
+                  BlocProvider.of<KonsumenNavigationCubit>(context)
+                      .getKonsumenNavBarItem(KonsumenNavbarItem.home);
                 } else if (index == 1) {
-                  BlocProvider.of<PenjualNavigationCubit>(context)
-                      .getPenjualNavBarItem(PenjualNavbarItem.produk);
+                  BlocProvider.of<KonsumenNavigationCubit>(context)
+                      .getKonsumenNavBarItem(KonsumenNavbarItem.pesanan);
                 } else if (index == 2) {
-                  BlocProvider.of<PenjualNavigationCubit>(context)
-                      .getPenjualNavBarItem(PenjualNavbarItem.ringkasan);
-                } else if (index == 3) {
-                  BlocProvider.of<PenjualNavigationCubit>(context)
-                      .getPenjualNavBarItem(PenjualNavbarItem.profil);
+                  BlocProvider.of<KonsumenNavigationCubit>(context)
+                      .getKonsumenNavBarItem(KonsumenNavbarItem.profil);
                 }
               },
             );
           },
         ),
-        body: BlocBuilder<PenjualNavigationCubit, PenjualNavigationState>(
+        body: BlocBuilder<KonsumenNavigationCubit, KonsumenNavigationState>(
             builder: (context, state) {
-          if (state.navbarItem == PenjualNavbarItem.pesanan) {
+          if (state.navbarItem == KonsumenNavbarItem.home) {
+            return HomeScreen();
+          } else if (state.navbarItem == KonsumenNavbarItem.pesanan) {
             return PesananScreen();
-          } else if (state.navbarItem == PenjualNavbarItem.produk) {
-            return ProdukScreen();
-          } else if (state.navbarItem == PenjualNavbarItem.ringkasan) {
-            return RingkasanScreen();
-          } else if (state.navbarItem == PenjualNavbarItem.profil) {
+          } else if (state.navbarItem == KonsumenNavbarItem.profil) {
             return ProfilScreen();
           }
           return Container();

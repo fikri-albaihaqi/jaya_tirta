@@ -12,7 +12,7 @@ class AuthenticationBloc
   AuthenticationBloc({required this.authRepository})
       : super(UnAuthenticated()) {
     // When User Presses the SignIn Button, we will send the SignInRequested Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
-    on<LogInRequested>((event, emit) async {
+    on<PenjualLogInRequested>((event, emit) async {
       emit(Loading());
       try {
         await authRepository.logIn(
@@ -28,6 +28,16 @@ class AuthenticationBloc
       emit(Loading());
       await authRepository.logOut();
       emit(UnAuthenticated());
+    });
+    on<KonsumenLogInRequested>((event, emit) async {
+      emit(Loading());
+      try {
+        await authRepository.konsumenLogIn();
+        emit(Authenticated());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
+      }
     });
   }
 }

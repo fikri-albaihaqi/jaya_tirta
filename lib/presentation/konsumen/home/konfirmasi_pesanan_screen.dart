@@ -24,6 +24,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
   final _focusAlamat = FocusNode();
   final _focusNoTelp = FocusNode();
 
+  late final Pesanan pesanan;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

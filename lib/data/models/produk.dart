@@ -2,18 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Produk extends Equatable {
-  String? _id = '';
-  String? get id => _id;
-  set id(String? value) {
-    _id = value;
-  }
-
+  final String? id;
   final String? namaProduk;
   final String? gambar;
   final String? harga;
   final String? stok;
 
   Produk({
+    this.id,
     required this.namaProduk,
     required this.gambar,
     required this.harga,
@@ -22,6 +18,7 @@ class Produk extends Equatable {
 
   static Produk fromSnapshot(DocumentSnapshot snap) {
     Produk produk = Produk(
+      id: snap.id,
       namaProduk: snap['namaProduk'],
       gambar: snap['gambar'],
       harga: snap['harga'],
@@ -33,6 +30,7 @@ class Produk extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [
+        id,
         namaProduk,
         gambar,
         harga,
@@ -41,6 +39,7 @@ class Produk extends Equatable {
 
   static List<Produk> produks = [
     Produk(
+      id: '1',
       namaProduk: 'Galon Prima 19 Liter',
       gambar: 'graphics/prima.png',
       harga: '17000',

@@ -8,12 +8,14 @@ abstract class CrudProdukEvent extends Equatable {
 }
 
 class AddProduk extends CrudProdukEvent {
+  final String? id;
   final String? namaProduk;
   final String? gambar;
   final String? harga;
   final String? stok;
 
   AddProduk({
+    this.id,
     this.namaProduk,
     this.gambar,
     this.harga,
@@ -22,6 +24,7 @@ class AddProduk extends CrudProdukEvent {
 
   @override
   List<Object?> get props => [
+        id,
         namaProduk,
         gambar,
         harga,
@@ -39,12 +42,14 @@ class ConfirmAddProduk extends CrudProdukEvent {
 }
 
 class UpdateProduk extends CrudProdukEvent {
+  final String? id;
   final String? namaProduk;
   final String? gambar;
   final String? harga;
   final String? stok;
 
   UpdateProduk({
+    this.id,
     this.namaProduk,
     this.gambar,
     this.harga,
@@ -53,6 +58,7 @@ class UpdateProduk extends CrudProdukEvent {
 
   @override
   List<Object?> get props => [
+        id,
         namaProduk,
         gambar,
         harga,
