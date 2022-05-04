@@ -107,7 +107,9 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
         body: BlocBuilder<KonsumenNavigationCubit, KonsumenNavigationState>(
             builder: (context, state) {
           if (state.navbarItem == KonsumenNavbarItem.home) {
-            return HomeScreen();
+            return HomeScreen(
+              user: user,
+            );
           } else if (state.navbarItem == KonsumenNavbarItem.pesanan) {
             return PesananScreen();
           } else if (state.navbarItem == KonsumenNavbarItem.profil) {

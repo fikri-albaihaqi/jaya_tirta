@@ -31,6 +31,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
       final state = this.state as CrudKonsumenLoaded;
       emit(
         CrudKonsumenLoaded(
+          id: event.id ?? state.id,
           nama: event.nama ?? state.nama,
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
@@ -47,6 +48,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
     if (this.state is CrudKonsumenLoaded) {
       try {
         await _konsumenRepository.addKonsumen(event.konsumen);
+        await _konsumenRepository.storeDataKonsumen(event.konsumen);
         print('done');
         emit(CrudKonsumenLoaded());
       } catch (_) {}
@@ -75,6 +77,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
       final state = this.state as CrudKonsumenLoaded;
       emit(
         CrudKonsumenLoaded(
+          id: event.id ?? state.id,
           nama: event.nama ?? state.nama,
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,

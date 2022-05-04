@@ -1,18 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class PesanScreen extends StatefulWidget {
-  PesanScreen({Key? key, required this.produk}) : super(key: key);
+  PesanScreen({Key? key, required this.produk, required this.user})
+      : super(key: key);
   Produk produk;
+  User? user;
 
   @override
   State<PesanScreen> createState() => _PesanScreenState();
 }
 
 class _PesanScreenState extends State<PesanScreen> {
-  int jumlah = 0;
+  int jumlah = 1;
+  int total = 0;
 
   void _tambahJumlah() {
     setState(() {
@@ -24,6 +30,10 @@ class _PesanScreenState extends State<PesanScreen> {
     setState(() {
       jumlah--;
     });
+  }
+
+  int hitungTotal(Produk produk) {
+    return total = int.parse(produk.harga!) * jumlah;
   }
 
   @override
@@ -122,33 +132,48 @@ class _PesanScreenState extends State<PesanScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, top: 24.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                KonfirmasiPesananScreen(produk: widget.produk),
+                BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(
+                  builder: (context, state) {
+                    if (state is SharedPreferencesLoaded) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16.0, right: 16.0, top: 24.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => KonfirmasiPesananScreen(
+                                    produk: widget.produk,
+                                    total: hitungTotal(widget.produk),
+                                    jumlah: jumlah,
+                                    user: widget.user,
+                                  ),
+                                ),
+                              );
+                              context
+                                  .read<SharedPreferencesBloc>()
+                                  .add(LoadSharedPreferences());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                            ),
+                            child: const Text(
+                              'Beli',
+                              style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontWeight: FontWeight.bold,
+                                  color: kJayaTirtaBlue300),
+                            ),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                      ),
-                      child: const Text(
-                        'Beli',
-                        style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.bold,
-                            color: kJayaTirtaBlue300),
-                      ),
-                    ),
-                  ),
+                        ),
+                      );
+                    } else {
+                      return Text('error');
+                    }
+                  },
                 ),
               ],
             ),

@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jaya_tirta/data/models/konsumen.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
+
+import '../../data/models/models.dart';
 
 part 'konsumen_event.dart';
 part 'konsumen_state.dart';

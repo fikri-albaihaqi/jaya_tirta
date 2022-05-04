@@ -10,16 +10,19 @@ abstract class CrudKonsumenState extends Equatable {
 class CrudKonsumenLoading extends CrudKonsumenState {}
 
 class CrudKonsumenLoaded extends CrudKonsumenState {
+  final String? id;
   final String? nama;
   final String? alamat;
   final String? noTelp;
   final Konsumen konsumen;
 
   CrudKonsumenLoaded({
+    this.id,
     this.nama,
     this.alamat,
     this.noTelp,
   }) : konsumen = Konsumen(
+          id: id,
           nama: nama,
           alamat: alamat,
           noTelp: noTelp,
@@ -27,6 +30,7 @@ class CrudKonsumenLoaded extends CrudKonsumenState {
 
   @override
   List<Object?> get props => [
+        id,
         nama,
         alamat,
         noTelp,

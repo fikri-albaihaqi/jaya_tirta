@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app.dart';
 import 'presentation/penjual/main_screen/main_screen.dart';
 import 'utils/colors.dart';
@@ -17,6 +18,7 @@ import 'utils/colors.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -45,7 +47,22 @@ Future<void> main() async {
           create: (_) => CrudKonsumenBloc(
             konsumenRepository: KonsumenRepository(),
           ),
-        )
+        ),
+        BlocProvider(
+          create: (_) => CrudPesananBloc(
+            konsumenRepository: KonsumenRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => KonsumenBloc(
+            konsumenRepository: KonsumenRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => SharedPreferencesBloc(
+            konsumenRepository: KonsumenRepository(),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),

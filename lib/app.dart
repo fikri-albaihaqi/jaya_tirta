@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jaya_tirta/presentation/penjual/authentication/authentication_screen.dart';
 import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'utils/colors.dart';
 
@@ -9,7 +8,7 @@ class JayaTirtaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AuthenticationScreen(),
+      home: WelcomeScreen(),
       initialRoute: '/welcome',
       onGenerateRoute: _getRoute,
       theme: ThemeData(

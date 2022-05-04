@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
@@ -5,7 +6,8 @@ import 'package:jaya_tirta/presentation/konsumen/home/pesan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key, required this.user}) : super(key: key);
+  User? user;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -53,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(
                               builder: (context) => PesanScreen(
                                 produk: state.produk[index],
+                                user: widget.user,
                               ),
                             ),
                           );

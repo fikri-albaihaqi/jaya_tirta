@@ -8,11 +8,13 @@ abstract class CrudKonsumenEvent extends Equatable {
 }
 
 class AddKonsumen extends CrudKonsumenEvent {
+  final String? id;
   final String? nama;
   final String? alamat;
   final String? noTelp;
 
   AddKonsumen({
+    this.id,
     this.nama,
     this.alamat,
     this.noTelp,
@@ -20,6 +22,7 @@ class AddKonsumen extends CrudKonsumenEvent {
 
   @override
   List<Object?> get props => [
+        id,
         nama,
         alamat,
         noTelp,
@@ -36,11 +39,13 @@ class ConfirmAddKonsumen extends CrudKonsumenEvent {
 }
 
 class UpdateKonsumen extends CrudKonsumenEvent {
+  final String? id;
   final String? nama;
   final String? alamat;
   final String? noTelp;
 
   UpdateKonsumen({
+    this.id,
     this.nama,
     this.alamat,
     this.noTelp,
@@ -48,6 +53,7 @@ class UpdateKonsumen extends CrudKonsumenEvent {
 
   @override
   List<Object?> get props => [
+        id,
         nama,
         alamat,
         noTelp,
