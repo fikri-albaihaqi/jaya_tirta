@@ -8,9 +8,9 @@ import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart
 import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
+import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'app.dart';
 import 'presentation/penjual/main_screen/main_screen.dart';
 import 'utils/colors.dart';
@@ -18,7 +18,6 @@ import 'utils/colors.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -39,6 +38,11 @@ Future<void> main() async {
           )..add(LoadProduk()),
         ),
         BlocProvider(
+          create: (_) => PesananBloc(
+            pesananRepository: PesananRepository(),
+          )..add(LoadPesanan()),
+        ),
+        BlocProvider(
           create: (_) => CrudProdukBloc(
             produkRepository: ProdukRepository(),
           ),
@@ -50,7 +54,7 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (_) => CrudPesananBloc(
-            konsumenRepository: KonsumenRepository(),
+            pesananRepository: PesananRepository(),
           ),
         ),
         BlocProvider(
@@ -96,11 +100,11 @@ class MyApp extends StatelessWidget {
               builder: (context, snapshot) {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                 if (snapshot.data?.email != null) {
-                  return MainScreen();
+                  return const MainScreen();
                 } else if (snapshot.data?.email == null) {
-                  return KonsumenMainScreen();
+                  return const KonsumenMainScreen();
                 }
-                return SplashScreen();
+                return const SplashScreen();
               }),
           debugShowCheckedModeBanner: false,
         ),
@@ -119,14 +123,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => JayaTirtaApp(),
+          builder: (context) => const JayaTirtaApp(),
         ),
       ),
     );

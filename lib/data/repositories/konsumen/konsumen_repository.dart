@@ -9,23 +9,15 @@ class KonsumenRepository {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   Stream<List<Konsumen>> getAllKonsumen() {
-    return _firebaseFirestore
-        .collection('konsumen')
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) => Konsumen.fromSnapshot(doc)).toList();
-    });
+    return _firebaseFirestore.collection('konsumen').snapshots().map(
+        (snapshot) =>
+            snapshot.docs.map((doc) => Konsumen.fromSnapshot(doc)).toList());
   }
 
-  Future<void> getKonsumen(String id) {
-    return _firebaseFirestore.collection('konsumen').doc(id).get();
-  }
-
-  Future<void> getKonsumenPesan(String id) {
-    return _firebaseFirestore
-        .collection('konsumen')
-        .where('id', isEqualTo: id)
-        .get();
+  getKonsumenPesan(String id) {
+    return _firebaseFirestore.collection('konsumen').doc(id).get().then(
+          (doc) => Konsumen.fromSnapshot(doc),
+        );
   }
 
   Future<void> addKonsumen(Konsumen konsumen) {
@@ -55,13 +47,14 @@ class KonsumenRepository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> konsumen = [];
 
-    konsumen.add(prefs.getString('id')!);
-    konsumen.add(prefs.getString('nama')!);
-    konsumen.add(prefs.getString('alamat')!);
-    konsumen.add(prefs.getString('noTelp')!);
-    print(prefs.getString('nama'));
+    return Future.delayed(const Duration(milliseconds: 600), () {
+      konsumen.add(prefs.getString('id')!);
+      konsumen.add(prefs.getString('nama')!);
+      konsumen.add(prefs.getString('alamat')!);
+      konsumen.add(prefs.getString('noTelp')!);
 
-    return konsumen;
+      return konsumen;
+    });
   }
 
   Future<void> storeDataKonsumen(Konsumen konsumen) async {

@@ -39,12 +39,12 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
           centerTitle: true,
           backgroundColor: kJayaTirtaBlue500,
           elevation: 0,
-          title: Text('Tambah Produk'),
+          title: const Text('Tambah Produk'),
         ),
         body: BlocBuilder<CrudProdukBloc, CrudProdukState>(
           builder: (context, state) {
             if (state is CrudProdukLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -86,7 +86,7 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                           .add(AddProduk(namaProduk: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _gambarTextController,
                                     focusNode: _focusGambar,
@@ -106,7 +106,7 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                           .add(AddProduk(gambar: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _stokTextController,
                                     focusNode: _focusStok,
@@ -126,7 +126,7 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                           .add(AddProduk(stok: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _hargaTextController,
                                     focusNode: _focusHarga,
@@ -146,7 +146,8 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                           .add(AddProduk(harga: value));
                                     },
                                   ),
-                                  SizedBox(height: 24.0),
+                                  const SizedBox(height: 24.0),
+                                  Text(state.toString()),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -178,7 +179,7 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                 ),
               );
             } else {
-              return Text('Something went wrong');
+              return const Text('Something went wrong');
             }
           },
         ),

@@ -13,7 +13,7 @@ class AddKonsumen extends CrudKonsumenEvent {
   final String? alamat;
   final String? noTelp;
 
-  AddKonsumen({
+  const AddKonsumen({
     this.id,
     this.nama,
     this.alamat,
@@ -44,7 +44,7 @@ class UpdateKonsumen extends CrudKonsumenEvent {
   final String? alamat;
   final String? noTelp;
 
-  UpdateKonsumen({
+  const UpdateKonsumen({
     this.id,
     this.nama,
     this.alamat,

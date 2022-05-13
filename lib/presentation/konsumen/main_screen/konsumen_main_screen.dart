@@ -12,6 +12,8 @@ import 'package:jaya_tirta/utils/colors.dart';
 import '../../../bloc/blocs.dart';
 
 class KonsumenMainScreen extends StatefulWidget {
+  const KonsumenMainScreen({Key? key}) : super(key: key);
+
   @override
   _KonsumenMainScreenState createState() => _KonsumenMainScreenState();
 }
@@ -25,7 +27,7 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
         if (state is UnAuthenticated) {
           // Navigate to the sign in screen when the user Signs Out
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
             (route) => false,
           );
         }
@@ -56,11 +58,11 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.mail_outline),
+              icon: const Icon(Icons.mail_outline),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_outlined),
+              icon: const Icon(Icons.notifications_outlined),
             ),
           ],
         ),
@@ -111,9 +113,9 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
               user: user,
             );
           } else if (state.navbarItem == KonsumenNavbarItem.pesanan) {
-            return PesananScreen();
+            return const PesananScreen();
           } else if (state.navbarItem == KonsumenNavbarItem.profil) {
-            return ProfilScreen();
+            return const ProfilScreen();
           }
           return Container();
         }),

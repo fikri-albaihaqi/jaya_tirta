@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
-import 'package:jaya_tirta/presentation/penjual/home/pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/pesanan/pesanan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/presentation/welcome/welcome.dart';
@@ -12,6 +12,8 @@ import '../profil/profil_screen.dart';
 import '../ringkasan/ringkasan_screen.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -25,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
         if (state is UnAuthenticated) {
           // Navigate to the sign in screen when the user Signs Out
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
             (route) => false,
           );
         }
@@ -64,11 +66,11 @@ class _MainScreenState extends State<MainScreen> {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.mail_outline),
+              icon: const Icon(Icons.mail_outline),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.notifications_outlined),
+              icon: const Icon(Icons.notifications_outlined),
             ),
           ],
         ),
@@ -122,13 +124,13 @@ class _MainScreenState extends State<MainScreen> {
         body: BlocBuilder<PenjualNavigationCubit, PenjualNavigationState>(
             builder: (context, state) {
           if (state.navbarItem == PenjualNavbarItem.pesanan) {
-            return PesananScreen();
+            return const PesananScreen();
           } else if (state.navbarItem == PenjualNavbarItem.produk) {
-            return ProdukScreen();
+            return const ProdukScreen();
           } else if (state.navbarItem == PenjualNavbarItem.ringkasan) {
-            return RingkasanScreen();
+            return const RingkasanScreen();
           } else if (state.navbarItem == PenjualNavbarItem.profil) {
-            return ProfilScreen();
+            return const ProfilScreen();
           }
           return Container();
         }),

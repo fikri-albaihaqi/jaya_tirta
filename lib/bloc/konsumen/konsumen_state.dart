@@ -12,7 +12,7 @@ class KonsumenLoading extends KonsumenState {}
 class KonsumenLoaded extends KonsumenState {
   final List<Konsumen> konsumen;
 
-  KonsumenLoaded({this.konsumen = const <Konsumen>[]});
+  const KonsumenLoaded({this.konsumen = const <Konsumen>[]});
 
   @override
   List<Object> get props => [konsumen];

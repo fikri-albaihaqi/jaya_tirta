@@ -8,7 +8,7 @@ class Produk extends Equatable {
   final String? harga;
   final String? stok;
 
-  Produk({
+  const Produk({
     this.id,
     required this.namaProduk,
     required this.gambar,
@@ -28,7 +28,6 @@ class Produk extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         namaProduk,
@@ -38,7 +37,7 @@ class Produk extends Equatable {
       ];
 
   static List<Produk> produks = [
-    Produk(
+    const Produk(
       id: '1',
       namaProduk: 'Galon Prima 19 Liter',
       gambar: 'graphics/prima.png',

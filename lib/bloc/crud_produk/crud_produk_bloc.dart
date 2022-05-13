@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jaya_tirta/data/models/produk.dart';
+import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 
 part 'crud_produk_event.dart';
@@ -48,7 +48,6 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
     if (this.state is CrudProdukLoaded) {
       try {
         await _produkRepository.addProduk(event.produk);
-        print('done');
         emit(CrudProdukLoaded());
       } catch (_) {}
     }
@@ -62,7 +61,6 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
     if (this.state is CrudProdukLoaded) {
       try {
         await _produkRepository.deleteProduk(event.id);
-        print('done');
         emit(CrudProdukLoaded());
       } catch (_) {}
     }
@@ -94,7 +92,6 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
     if (this.state is CrudProdukLoaded) {
       try {
         await _produkRepository.updateProduk(event.produk, event.id!);
-        print('done');
         emit(CrudProdukLoaded());
       } catch (_) {}
     }

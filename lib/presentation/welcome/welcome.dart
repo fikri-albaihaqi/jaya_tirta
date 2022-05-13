@@ -19,8 +19,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => KonsumenMainScreen()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const KonsumenMainScreen()));
           }
           if (state is AuthError) {
             // Showing the error message if the user has entered invalid credentials
@@ -42,7 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: ListView(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Column(
                         children: [
                           Image.asset('graphics/welcome.png'),
@@ -70,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           const SizedBox(
                             height: 24.0,
                           ),
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
@@ -90,7 +92,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   primary: Colors.white),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: OutlinedButton(
                               onPressed: () {
@@ -125,7 +127,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               );
             } else {
-              return Text('Something went wrong');
+              return const Text('Something went wrong');
             }
           },
         ),

@@ -12,7 +12,7 @@ class SharedPreferencesLoading extends SharedPreferencesState {}
 class SharedPreferencesLoaded extends SharedPreferencesState {
   final List<String> konsumen;
 
-  SharedPreferencesLoaded({this.konsumen = const <String>[]});
+  const SharedPreferencesLoaded({this.konsumen = const <String>[]});
 
   @override
   List<Object> get props => [konsumen];

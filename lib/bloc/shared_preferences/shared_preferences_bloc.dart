@@ -11,7 +11,7 @@ class SharedPreferencesBloc
 
   SharedPreferencesBloc({required KonsumenRepository konsumenRepository})
       : _konsumenRepository = konsumenRepository,
-        super(SharedPreferencesLoaded()) {
+        super(const SharedPreferencesLoaded()) {
     on<LoadSharedPreferences>(_onLoadSharedPreferences);
     on<LoadedSharedPreferences>(_onLoadedSharedPreferences);
   }

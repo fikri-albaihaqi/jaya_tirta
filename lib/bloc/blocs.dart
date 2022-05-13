@@ -5,3 +5,4 @@ export 'crud_pesanan/crud_pesanan_bloc.dart';
 export 'crud_konsumen/crud_konsumen_bloc.dart';
 export 'konsumen/konsumen_bloc.dart';
 export 'shared_preferences/shared_preferences_bloc.dart';
+export 'pesanan/pesanan_bloc.dart';

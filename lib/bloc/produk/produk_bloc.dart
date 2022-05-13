@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
-
-import '../../data/models/models.dart';
+import 'package:jaya_tirta/data/models/models.dart';
 
 part 'produk_event.dart';
 part 'produk_state.dart';

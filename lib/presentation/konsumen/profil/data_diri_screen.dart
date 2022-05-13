@@ -1,12 +1,26 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
+import 'package:jaya_tirta/data/models/models.dart';
+import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class DataDiriScreen extends StatefulWidget {
-  DataDiriScreen({Key? key, required this.user}) : super(key: key);
+  Produk produk;
+  int total;
+  int jumlah;
   User? user;
+
+  DataDiriScreen(
+      {Key? key,
+      required this.produk,
+      required this.total,
+      required this.jumlah,
+      required this.user})
+      : super(key: key);
 
   @override
   State<DataDiriScreen> createState() => _DataDiriScreenState();
@@ -34,14 +48,14 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kJayaTirtaBlue500,
-          title: Text('Data Diri'),
+          title: const Text('Data Diri'),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: BlocBuilder<CrudKonsumenBloc, CrudKonsumenState>(
             builder: (context, state) {
               if (state is CrudKonsumenLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -49,7 +63,7 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                 return ListView(
                   shrinkWrap: true,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 32.0,
                     ),
                     Padding(
@@ -93,7 +107,7 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                         .add(AddKonsumen(nama: value));
                                   },
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _alamatTextController,
                                   focusNode: _focusAlamat,
@@ -112,7 +126,7 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                         .add(AddKonsumen(alamat: value));
                                   },
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _noTelpTextController,
                                   focusNode: _focusNoTelp,
@@ -138,6 +152,7 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                 const SizedBox(
                                   height: 24.0,
                                 ),
+                                Text(state.toString()),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -146,8 +161,27 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           context.read<CrudKonsumenBloc>().add(
-                                              ConfirmAddKonsumen(
-                                                  konsumen: state.konsumen));
+                                                ConfirmAddKonsumen(
+                                                    konsumen: state.konsumen),
+                                              );
+                                          Timer(
+                                              const Duration(milliseconds: 700),
+                                              () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    KonfirmasiPesananScreen(
+                                                        produk: widget.produk,
+                                                        total: widget.total,
+                                                        jumlah: widget.jumlah,
+                                                        user: widget.user),
+                                              ),
+                                            );
+                                            context
+                                                .read<SharedPreferencesBloc>()
+                                                .add(LoadSharedPreferences());
+                                          });
                                         },
                                         child: const Text(
                                           'Simpan',
@@ -166,7 +200,7 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                   ],
                 );
               } else {
-                return Text('Something went wrong');
+                return const Text('Something went wrong');
               }
             },
           ),

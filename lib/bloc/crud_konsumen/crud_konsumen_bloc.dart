@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jaya_tirta/data/models/konsumen.dart';
+import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
 
 part 'crud_konsumen_event.dart';
@@ -49,7 +49,6 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
       try {
         await _konsumenRepository.addKonsumen(event.konsumen);
         await _konsumenRepository.storeDataKonsumen(event.konsumen);
-        print('done');
         emit(CrudKonsumenLoaded());
       } catch (_) {}
     }
@@ -63,7 +62,6 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
     if (this.state is CrudKonsumenLoaded) {
       try {
         await _konsumenRepository.deleteKonsumen(event.id);
-        print('done');
         emit(CrudKonsumenLoaded());
       } catch (_) {}
     }
@@ -94,7 +92,6 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
     if (this.state is CrudKonsumenLoaded) {
       try {
         await _konsumenRepository.updateKonsumen(event.konsumen, event.id!);
-        print('done');
         emit(CrudKonsumenLoaded());
       } catch (_) {}
     }

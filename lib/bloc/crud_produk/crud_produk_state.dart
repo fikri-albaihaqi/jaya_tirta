@@ -32,7 +32,6 @@ class CrudProdukLoaded extends CrudProdukState {
         );
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         namaProduk,

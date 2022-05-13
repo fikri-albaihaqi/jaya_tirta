@@ -7,12 +7,21 @@ abstract class KonsumenEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadKonsumen extends KonsumenEvent {}
+class LoadAllKonsumen extends KonsumenEvent {}
+
+class LoadKonsumen extends KonsumenEvent {
+  final String? id;
+
+  const LoadKonsumen({required this.id});
+
+  @override
+  List<Object> get props => [];
+}
 
 class LoadedKonsumen extends KonsumenEvent {
   final List<Konsumen> konsumen;
 
-  LoadedKonsumen(this.konsumen);
+  const LoadedKonsumen(this.konsumen);
 
   @override
   List<Object> get props => [konsumen];

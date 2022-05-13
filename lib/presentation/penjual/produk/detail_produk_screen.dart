@@ -21,12 +21,12 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
       backgroundColor: kJayaTirtaBlue50,
       appBar: AppBar(
         backgroundColor: kJayaTirtaBlue500,
-        title: Text('Detail Produk'),
+        title: const Text('Detail Produk'),
       ),
       body: BlocBuilder<CrudProdukBloc, CrudProdukState>(
         builder: (context, state) {
           if (state is CrudProdukLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -35,7 +35,7 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
                         Container(
@@ -46,27 +46,27 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Text(
                             widget.produk.namaProduk!,
-                            style:
-                                TextStyle(fontFamily: 'Kanit', fontSize: 36.0),
+                            style: const TextStyle(
+                                fontFamily: 'Kanit', fontSize: 36.0),
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Image.asset(widget.produk.gambar!),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Text(
                           'Stok: ${widget.produk.stok!}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16.0,
                         ),
                         Text(
                           'Harga: ${widget.produk.harga!}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
@@ -78,7 +78,7 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
                                   DeleteProduk(id: widget.produk.id!),
                                 );
                           },
-                          icon: Icon(Icons.delete_outline),
+                          icon: const Icon(Icons.delete_outline),
                         ),
                         IconButton(
                           onPressed: () {
@@ -91,7 +91,7 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
                               ),
                             );
                           },
-                          icon: Icon(Icons.edit_outlined),
+                          icon: const Icon(Icons.edit_outlined),
                         ),
                       ],
                     ),
@@ -100,7 +100,7 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
               ),
             );
           } else {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
         },
       ),

@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<ProdukBloc, ProdukState>(
               builder: (context, state) {
                 if (state is ProdukLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -67,20 +67,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Image.asset(state.produk[index].gambar!),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   state.produk[index].namaProduk!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 16.0,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(bottom: 8.0),
+                                padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
-                                  '\Rp. ${state.produk[index].harga}',
-                                  style: TextStyle(
+                                  'Rp. ${state.produk[index].harga}',
+                                  style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Divider(),
                   );
                 } else {
-                  return Text('Something went wrong');
+                  return const Text('Something went wrong');
                 }
               },
             ),

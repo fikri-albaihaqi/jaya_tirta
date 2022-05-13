@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,14 +43,14 @@ class _PesanScreenState extends State<PesanScreen> {
     return Scaffold(
       backgroundColor: kJayaTirtaBlue500,
       appBar: AppBar(
-        title: Text('Pesan Produk'),
+        title: const Text('Pesan Produk'),
         centerTitle: true,
         backgroundColor: kJayaTirtaBlue500,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(26.0),
+          padding: const EdgeInsets.all(26.0),
           child: Container(
             alignment: Alignment.center,
             child: Column(
@@ -57,12 +59,12 @@ class _PesanScreenState extends State<PesanScreen> {
                   'graphics/prima.png',
                   scale: 1.2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16.0,
                 ),
                 Text(
                   widget.produk.namaProduk!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Kanit',
                       fontSize: 36.0,
                       fontWeight: FontWeight.w500,
@@ -70,25 +72,25 @@ class _PesanScreenState extends State<PesanScreen> {
                 ),
                 Text(
                   'Stok: ${widget.produk.stok!} pcs',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16.0,
                 ),
                 Text(
                   'Stok: Rp ${widget.produk.harga!}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
-                SizedBox(height: 32.0),
-                Text(
+                const SizedBox(height: 32.0),
+                const Text(
                   'Jumlah Pembelian',
                   style: TextStyle(
                     fontFamily: 'Nunito',
@@ -103,30 +105,30 @@ class _PesanScreenState extends State<PesanScreen> {
                       onPressed: () {
                         _kurangiJumlah();
                       },
-                      icon: Icon(Icons.remove_circle),
+                      icon: const Icon(Icons.remove_circle),
                       color: Colors.white,
                       iconSize: 32.0,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16.0,
                     ),
                     Text(
                       '$jumlah',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16.0,
                     ),
                     IconButton(
                       onPressed: () {
                         _tambahJumlah();
                       },
-                      icon: Icon(Icons.add_circle),
+                      icon: const Icon(Icons.add_circle),
                       color: Colors.white,
                       iconSize: 32.0,
                     ),
@@ -142,17 +144,20 @@ class _PesanScreenState extends State<PesanScreen> {
                               left: 16.0, right: 16.0, top: 24.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => KonfirmasiPesananScreen(
-                                    produk: widget.produk,
-                                    total: hitungTotal(widget.produk),
-                                    jumlah: jumlah,
-                                    user: widget.user,
+                              Timer(const Duration(milliseconds: 700), () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        KonfirmasiPesananScreen(
+                                      produk: widget.produk,
+                                      total: hitungTotal(widget.produk),
+                                      jumlah: jumlah,
+                                      user: widget.user,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              });
                               context
                                   .read<SharedPreferencesBloc>()
                                   .add(LoadSharedPreferences());
@@ -171,7 +176,7 @@ class _PesanScreenState extends State<PesanScreen> {
                         ),
                       );
                     } else {
-                      return Text('error');
+                      return const Text('Something went wrong');
                     }
                   },
                 ),

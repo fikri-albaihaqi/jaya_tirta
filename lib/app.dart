@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jaya_tirta/presentation/welcome/welcome.dart';
-import 'utils/colors.dart';
 
 class JayaTirtaApp extends StatelessWidget {
   const JayaTirtaApp({Key? key}) : super(key: key);
@@ -8,7 +7,7 @@ class JayaTirtaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
       initialRoute: '/welcome',
       onGenerateRoute: _getRoute,
       theme: ThemeData(
@@ -28,30 +27,4 @@ class JayaTirtaApp extends StatelessWidget {
       fullscreenDialog: true,
     );
   }
-}
-
-final ThemeData _kShrineTheme = _buildShrineTheme();
-
-ThemeData _buildShrineTheme() {
-  final ThemeData base = ThemeData.light();
-  return base.copyWith(
-    colorScheme: base.colorScheme.copyWith(
-      primary: kJayaTirtaBlue100,
-      onPrimary: kJayaTirtaBlack900,
-      secondary: kJayaTirtaBlack900,
-      error: kJayaTirtaErrorRed,
-    ),
-    textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: kJayaTirtaBlue100,
-    ),
-    // inputDecorationTheme: const InputDecorationTheme(
-    //   focusedBorder: OutlineInputBorder(
-    //     borderSide: BorderSide(
-    //       width: 2.0,
-    //       color: kShrineBrown900,
-    //     ),
-    //   ),
-    //   border: CutCornersBorder(),
-    // ),
-  );
 }

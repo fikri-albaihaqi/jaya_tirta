@@ -14,7 +14,7 @@ class AddProduk extends CrudProdukEvent {
   final String? harga;
   final String? stok;
 
-  AddProduk({
+  const AddProduk({
     this.id,
     this.namaProduk,
     this.gambar,
@@ -48,7 +48,7 @@ class UpdateProduk extends CrudProdukEvent {
   final String? harga;
   final String? stok;
 
-  UpdateProduk({
+  const UpdateProduk({
     this.id,
     this.namaProduk,
     this.gambar,

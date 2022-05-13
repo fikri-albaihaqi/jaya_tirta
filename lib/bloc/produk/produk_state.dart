@@ -12,7 +12,7 @@ class ProdukLoading extends ProdukState {}
 class ProdukLoaded extends ProdukState {
   final List<Produk> produk;
 
-  ProdukLoaded({this.produk = const <Produk>[]});
+  const ProdukLoaded({this.produk = const <Produk>[]});
 
   @override
   List<Object> get props => [produk];

@@ -39,12 +39,12 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
           centerTitle: true,
           backgroundColor: kJayaTirtaBlue500,
           elevation: 0,
-          title: Text('Edit Produk'),
+          title: const Text('Edit Produk'),
         ),
         body: BlocBuilder<CrudProdukBloc, CrudProdukState>(
           builder: (context, state) {
             if (state is CrudProdukLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -86,7 +86,7 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                           .add(UpdateProduk(namaProduk: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _gambarTextController,
                                     focusNode: _focusGambar,
@@ -106,7 +106,7 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                           .add(UpdateProduk(gambar: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _stokTextController,
                                     focusNode: _focusStok,
@@ -126,7 +126,7 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                           .add(UpdateProduk(stok: value));
                                     },
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextFormField(
                                     controller: _hargaTextController,
                                     focusNode: _focusHarga,
@@ -146,7 +146,7 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                           .add(UpdateProduk(harga: value));
                                     },
                                   ),
-                                  SizedBox(height: 24.0),
+                                  const SizedBox(height: 24.0),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -179,7 +179,7 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                 ),
               );
             } else {
-              return Text('Something went wrong');
+              return const Text('Something went wrong');
             }
           },
         ),

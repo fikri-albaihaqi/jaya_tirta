@@ -12,7 +12,7 @@ class LoadSharedPreferences extends SharedPreferencesEvent {}
 class LoadedSharedPreferences extends SharedPreferencesEvent {
   final List<String> konsumen;
 
-  LoadedSharedPreferences(this.konsumen);
+  const LoadedSharedPreferences(this.konsumen);
 
   @override
   List<Object> get props => [konsumen];

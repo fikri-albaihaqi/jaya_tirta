@@ -4,7 +4,7 @@ class PenjualNavigationState extends Equatable {
   final PenjualNavbarItem navbarItem;
   final int index;
 
-  PenjualNavigationState(this.navbarItem, this.index);
+  const PenjualNavigationState(this.navbarItem, this.index);
 
   @override
   List<Object> get props => [this.navbarItem, this.index];

@@ -22,7 +22,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
 
-  bool _isProcessing = false;
+  final bool _isProcessing = false;
 
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
@@ -46,7 +46,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
           listener: (context, state) {
             if (state is Authenticated) {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MainScreen()));
+                  MaterialPageRoute(builder: (context) => const MainScreen()));
             }
             if (state is AuthError) {
               // Showing the error message if the user has entered invalid credentials
@@ -125,7 +125,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 8.0),
+                                    const SizedBox(height: 8.0),
                                     TextFormField(
                                       controller: _passwordTextController,
                                       focusNode: _focusPassword,
@@ -145,9 +145,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 24.0),
+                                    const SizedBox(height: 24.0),
                                     _isProcessing
-                                        ? CircularProgressIndicator()
+                                        ? const CircularProgressIndicator()
                                         : Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,

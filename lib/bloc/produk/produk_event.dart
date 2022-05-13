@@ -12,7 +12,7 @@ class LoadProduk extends ProdukEvent {}
 class LoadedProduk extends ProdukEvent {
   final List<Produk> produk;
 
-  LoadedProduk(this.produk);
+  const LoadedProduk(this.produk);
 
   @override
   List<Object> get props => [produk];

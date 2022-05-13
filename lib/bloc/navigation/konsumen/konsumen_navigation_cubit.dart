@@ -6,18 +6,18 @@ part 'konsumen_navigation_state.dart';
 
 class KonsumenNavigationCubit extends Cubit<KonsumenNavigationState> {
   KonsumenNavigationCubit()
-      : super(KonsumenNavigationState(KonsumenNavbarItem.home, 0));
+      : super(const KonsumenNavigationState(KonsumenNavbarItem.home, 0));
 
   void getKonsumenNavBarItem(KonsumenNavbarItem navbarItem) {
     switch (navbarItem) {
       case KonsumenNavbarItem.home:
-        emit(KonsumenNavigationState(KonsumenNavbarItem.home, 0));
+        emit(const KonsumenNavigationState(KonsumenNavbarItem.home, 0));
         break;
       case KonsumenNavbarItem.pesanan:
-        emit(KonsumenNavigationState(KonsumenNavbarItem.pesanan, 1));
+        emit(const KonsumenNavigationState(KonsumenNavbarItem.pesanan, 1));
         break;
       case KonsumenNavbarItem.profil:
-        emit(KonsumenNavigationState(KonsumenNavbarItem.profil, 2));
+        emit(const KonsumenNavigationState(KonsumenNavbarItem.profil, 2));
         break;
     }
   }

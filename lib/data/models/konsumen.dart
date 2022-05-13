@@ -7,7 +7,7 @@ class Konsumen extends Equatable {
   final String? alamat;
   final String? noTelp;
 
-  Konsumen({
+  const Konsumen({
     required this.id,
     required this.nama,
     required this.alamat,
@@ -16,7 +16,7 @@ class Konsumen extends Equatable {
 
   static Konsumen fromSnapshot(DocumentSnapshot snap) {
     Konsumen konsumen = Konsumen(
-      id: snap['id'],
+      id: snap.id,
       nama: snap['nama'],
       alamat: snap['alamat'],
       noTelp: snap['noTelp'],
@@ -25,8 +25,7 @@ class Konsumen extends Equatable {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw [
+  List<Object?> get props => [
         id,
         nama,
         alamat,
