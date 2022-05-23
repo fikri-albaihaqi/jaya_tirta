@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
+import 'package:jaya_tirta/bloc/pesanan_konsumen/pesanan_konsumen_bloc.dart';
 import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
@@ -41,6 +42,11 @@ Future<void> main() async {
           create: (_) => PesananBloc(
             pesananRepository: PesananRepository(),
           )..add(LoadPesanan()),
+        ),
+        BlocProvider(
+          create: (_) => PesananKonsumenBloc(
+            pesananRepository: PesananRepository(),
+          ),
         ),
         BlocProvider(
           create: (_) => CrudProdukBloc(

@@ -113,7 +113,9 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
               user: user,
             );
           } else if (state.navbarItem == KonsumenNavbarItem.pesanan) {
-            return const PesananScreen();
+            return PesananScreen(
+              user: user,
+            );
           } else if (state.navbarItem == KonsumenNavbarItem.profil) {
             return const ProfilScreen();
           }

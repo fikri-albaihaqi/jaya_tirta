@@ -9,9 +9,17 @@ class PesananRepository {
 
   Stream<List<Pesanan>> getAllPesanan() {
     return _firebaseFirestore.collection('pesanan').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return Pesanan.fromSnapshot(doc);
-      }).toList();
+      return snapshot.docs.map((doc) => Pesanan.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Stream<List<Pesanan>> getPesananKonsumen(String id) {
+    return _firebaseFirestore
+        .collection('pesanan')
+        .where('konsumen.idKonsumen', isEqualTo: id)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) => Pesanan.fromSnapshot(doc)).toList();
     });
   }
 
@@ -26,21 +34,27 @@ class PesananRepository {
     return _firebaseFirestore.collection('pesanan').doc(id).delete();
   }
 
-  // @override
-  // Future<void> updatePesanan(Pesanan pesanan, String id) {
-  //   return _firebaseFirestore
-  //       .collection('pesanan')
-  //       .doc(id)
-  //       .update(
-  //         {
-  //           'status': pesanan.status,
-  //           'jumlah': pesanan.jumlah,
-  //           'total': pesanan.total,
-  //           'produk': pesanan.produk,
-  //           'konsumen': pesanan.konsumen,
-  //         },
-  //       )
-  //       .then((_) => print(pesanan.status))
-  //       .catchError((onError) => print('Update failed: $onError'));
-  // }
+  Future<void> updatePesanan(Pesanan pesanan, String id) {
+    return _firebaseFirestore
+        .collection('pesanan')
+        .doc(id)
+        .update(
+          {
+            'status': pesanan.status,
+            'jumlah': pesanan.jumlah,
+            'total': pesanan.total,
+            'produk.idProduk': pesanan.idProduk,
+            'produk.namaProduk': pesanan.namaProduk,
+            'produk.gambar': pesanan.gambar,
+            'produk.harga': pesanan.harga,
+            'produk.stok': pesanan.stok,
+            'konsumen.idKonsumen': pesanan.idKonsumen,
+            'konsumen.namaKonsumen': pesanan.namaKonsumen,
+            'konsumen.alamat': pesanan.alamat,
+            'konsumen.noTelp': pesanan.noTelp,
+          },
+        )
+        .then((_) => print(pesanan.status))
+        .catchError((onError) => print('Update failed: $onError'));
+  }
 }

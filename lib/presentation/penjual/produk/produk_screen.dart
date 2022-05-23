@@ -90,7 +90,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
                                   state.produk[index].namaProduk!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 16.0,
                                   ),
@@ -100,7 +100,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                                 padding: EdgeInsets.only(bottom: 8.0),
                                 child: Text(
                                   '\Rp. ${state.produk[index].harga}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,

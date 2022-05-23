@@ -70,16 +70,30 @@ class UpdatePesanan extends CrudPesananEvent {
   final String? status;
   final String? jumlah;
   final String? total;
-  final Produk? produk;
-  final Konsumen? konsumen;
+  final String? idProduk;
+  final String? namaProduk;
+  final String? gambar;
+  final String? harga;
+  final String? stok;
+  final String? idKonsumen;
+  final String? namaKonsumen;
+  final String? alamat;
+  final String? noTelp;
 
   const UpdatePesanan({
     this.id,
     this.status,
     this.jumlah,
     this.total,
-    this.produk,
-    this.konsumen,
+    this.idProduk,
+    this.namaProduk,
+    this.gambar,
+    this.harga,
+    this.stok,
+    this.idKonsumen,
+    this.namaKonsumen,
+    this.alamat,
+    this.noTelp,
   });
 
   @override
@@ -88,8 +102,15 @@ class UpdatePesanan extends CrudPesananEvent {
         status,
         jumlah,
         total,
-        produk,
-        konsumen,
+        idProduk,
+        namaProduk,
+        gambar,
+        harga,
+        stok,
+        idKonsumen,
+        namaKonsumen,
+        alamat,
+        noTelp,
       ];
 }
 

@@ -84,7 +84,6 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                               ),
                             ),
                           ),
-                          Text(widget.user!.uid),
                           Form(
                             key: _formKey,
                             child: Column(
@@ -152,7 +151,6 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                 const SizedBox(
                                   height: 24.0,
                                 ),
-                                Text(state.toString()),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
+import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
 import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
@@ -305,7 +306,7 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                       .add(
                                                         AddPesanan(
                                                           status:
-                                                              'Menunggu Konfirmasi Penjual',
+                                                              'Menunggu Konfirmasi',
                                                           jumlah: widget.jumlah
                                                               .toString(),
                                                           total: widget.total
@@ -343,6 +344,13 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                         .add(ConfirmAddPesanan(
                                                             pesanan:
                                                                 state.pesanan));
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const KonsumenMainScreen(),
+                                                      ),
+                                                    );
                                                   });
                                                 },
                                                 child: const Text(

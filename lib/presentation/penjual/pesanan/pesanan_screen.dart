@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
+import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class PesananScreen extends StatefulWidget {
@@ -46,7 +47,16 @@ class _PesananScreenState extends State<PesananScreen> {
                     itemCount: state.pesanan.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailPesananScreen(
+                                pesanan: state.pesanan[index],
+                              ),
+                            ),
+                          );
+                        },
                         child: Card(
                           clipBehavior: Clip.antiAlias,
                           elevation: 16,
@@ -55,6 +65,30 @@ class _PesananScreenState extends State<PesananScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '18 Mei 2022',
+                                      style: const TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      state.pesanan[index].status!,
+                                      style: const TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 16,
+                                        color: Colors.orange,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(
+                                  height: 16,
+                                ),
                                 Row(
                                   children: [
                                     Image.asset(
@@ -91,14 +125,14 @@ class _PesananScreenState extends State<PesananScreen> {
                                           ),
                                         ),
                                         Text(
-                                          'Jumlah: ${state.pesanan[index].jumlah}',
+                                          'Produk: ${state.pesanan[index].namaProduk}',
                                           style: const TextStyle(
                                             fontFamily: 'Nunito',
                                             fontSize: 16,
                                           ),
                                         ),
                                         Text(
-                                          'Total Harga: Rp.${state.pesanan[index].total}',
+                                          'Jumlah: ${state.pesanan[index].jumlah}',
                                           style: const TextStyle(
                                             fontFamily: 'Nunito',
                                             fontSize: 16,
@@ -107,6 +141,17 @@ class _PesananScreenState extends State<PesananScreen> {
                                       ],
                                     ),
                                   ],
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  'Total Harga: Rp.${state.pesanan[index].total}',
+                                  style: const TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
