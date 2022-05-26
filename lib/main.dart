@@ -41,7 +41,7 @@ Future<void> main() async {
         BlocProvider(
           create: (_) => PesananBloc(
             pesananRepository: PesananRepository(),
-          )..add(LoadPesanan()),
+          ),
         ),
         BlocProvider(
           create: (_) => PesananKonsumenBloc(

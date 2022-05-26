@@ -8,7 +8,7 @@ import 'package:jaya_tirta/presentation/welcome/welcome.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import '../produk/produk_screen.dart';
-import '../profil/profil_screen.dart';
+import '../profil/profil_penjual_screen.dart';
 import '../ringkasan/ringkasan_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -130,7 +130,7 @@ class _MainScreenState extends State<MainScreen> {
           } else if (state.navbarItem == PenjualNavbarItem.ringkasan) {
             return const RingkasanScreen();
           } else if (state.navbarItem == PenjualNavbarItem.profil) {
-            return const ProfilScreen();
+            return ProfilPenjualScreen(user: user);
           }
           return Container();
         }),

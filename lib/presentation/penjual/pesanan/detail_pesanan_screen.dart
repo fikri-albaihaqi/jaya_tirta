@@ -171,7 +171,8 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                       items: <String>[
                         'Pesanan Diproses',
                         'Pesanan Dikirim',
-                        'Pesanan Selesai'
+                        'Pesanan Selesai',
+                        'Pesanan Dibatalkan',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -362,8 +363,9 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                   ));
                               context.read<CrudPesananBloc>().add(
                                     ConfirmUpdatePesanan(
-                                        pesanan: state.pesanan,
-                                        id: widget.pesanan.id),
+                                      pesanan: state.pesanan,
+                                      id: widget.pesanan.id,
+                                    ),
                                   );
                             },
                             child: const Text(

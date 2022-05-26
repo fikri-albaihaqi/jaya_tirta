@@ -117,7 +117,9 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
               user: user,
             );
           } else if (state.navbarItem == KonsumenNavbarItem.profil) {
-            return const ProfilScreen();
+            return ProfilScreen(
+              user: user,
+            );
           }
           return Container();
         }),

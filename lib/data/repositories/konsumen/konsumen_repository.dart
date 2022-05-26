@@ -14,14 +14,23 @@ class KonsumenRepository {
             snapshot.docs.map((doc) => Konsumen.fromSnapshot(doc)).toList());
   }
 
-  getKonsumenPesan(String id) {
-    return _firebaseFirestore.collection('konsumen').doc(id).get().then(
-          (doc) => Konsumen.fromSnapshot(doc),
-        );
+  Stream<List<Konsumen>> getProfil(String id) {
+    return _firebaseFirestore
+        .collection('konsumen')
+        .where('id', isEqualTo: id)
+        .snapshots()
+        .map((snapshots) {
+      return snapshots.docs.map((docs) => Konsumen.fromSnapshot(docs)).toList();
+    });
   }
 
   Future<void> addKonsumen(Konsumen konsumen) {
-    return _firebaseFirestore.collection('konsumen').add(konsumen.toDocument());
+    return _firebaseFirestore.collection('konsumen').doc(konsumen.id).set({
+      'id': konsumen.id,
+      'nama': konsumen.nama,
+      'alamat': konsumen.alamat,
+      'noTelp': konsumen.noTelp,
+    });
   }
 
   Future<void> deleteKonsumen(String id) {
@@ -34,6 +43,7 @@ class KonsumenRepository {
         .doc(id)
         .update(
           {
+            'id': id,
             'nama': konsumen.nama,
             'alamat': konsumen.alamat,
             'noTelp': konsumen.noTelp,

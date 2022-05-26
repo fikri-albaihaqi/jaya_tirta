@@ -34,6 +34,7 @@ class _PesananScreenState extends State<PesananScreen> {
             ),
             BlocBuilder<PesananBloc, PesananState>(
               builder: (context, state) {
+                context.read<PesananBloc>()..add(LoadPesanan());
                 if (state is PesananLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),

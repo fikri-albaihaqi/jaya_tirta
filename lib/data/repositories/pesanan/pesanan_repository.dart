@@ -19,7 +19,7 @@ class PesananRepository {
         .where('konsumen.idKonsumen', isEqualTo: id)
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) => Pesanan.fromSnapshot(doc)).toList();
+      return snapshot.docs.map((docs) => Pesanan.fromSnapshot(docs)).toList();
     });
   }
 

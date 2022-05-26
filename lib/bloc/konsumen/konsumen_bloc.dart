@@ -36,7 +36,12 @@ class KonsumenBloc extends Bloc<KonsumenEvent, KonsumenState> {
     LoadKonsumen event,
     Emitter<KonsumenState> emit,
   ) {
-    KonsumenLoaded(konsumen: _konsumenRepository.getKonsumenPesan(event.id!));
+    _konsumenSubscription?.cancel();
+    _konsumenSubscription = _konsumenRepository.getProfil(event.id!).listen(
+          (konsumen) => add(
+            LoadedKonsumen(konsumen),
+          ),
+        );
   }
 
   void _onLoadedKonsumen(
