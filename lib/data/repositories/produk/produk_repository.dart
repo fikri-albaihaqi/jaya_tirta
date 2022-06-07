@@ -31,4 +31,12 @@ class ProdukRepository {
       },
     );
   }
+
+  Future<void> updateStok(String id, String stok) {
+    return _firebaseFirestore.collection('produk').doc(id).update(
+      {
+        'stok': stok,
+      },
+    );
+  }
 }

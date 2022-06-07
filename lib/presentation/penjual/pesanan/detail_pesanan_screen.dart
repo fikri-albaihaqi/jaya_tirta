@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
+import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/pesanan/pesanan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class DetailPesananScreen extends StatefulWidget {
@@ -57,78 +59,200 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [],
+                              children: const [
+                                Icon(
+                                  Icons.inventory_2_outlined,
+                                  size: 40,
+                                ),
+                                Icon(
+                                  Icons.local_shipping_outlined,
+                                  size: 40,
+                                ),
+                                Icon(
+                                  Icons.done_outlined,
+                                  size: 40,
+                                ),
+                              ],
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Stack(
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Builder(builder: (context) {
+                                if (widget.pesanan.status ==
+                                    'Pesanan Diproses') {
+                                  return Column(
                                     children: [
-                                      const Divider(
-                                        height: 108,
-                                        color: Colors.grey,
-                                        thickness: 2,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      Stack(
                                         children: [
-                                          Column(
-                                            children: [
-                                              Icon(
-                                                Icons.inventory_2_outlined,
-                                                size: 40,
-                                              ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, right: 8, top: 12),
+                                            child: Container(
+                                              height: 1.0,
+                                              width: double.infinity,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: const [
                                               Icon(
                                                 Icons.radio_button_checked,
-                                                color: Colors.greenAccent,
-                                              ),
-                                              Text(
-                                                'Pesanan Sedang \n Diproses',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Icon(
-                                                Icons.local_shipping_outlined,
-                                                size: 40,
+                                                color: Colors.green,
                                               ),
                                               Icon(
                                                 Icons.circle,
                                                 color: Colors.grey,
                                               ),
-                                              Text(
-                                                'Pesanan Sedang \n Dikirim',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Icon(
-                                                Icons.done_outlined,
-                                                size: 40,
-                                              ),
                                               Icon(
                                                 Icons.circle,
                                                 color: Colors.grey,
-                                              ),
-                                              Text(
-                                                'Pesanan Selesai',
-                                                textAlign: TextAlign.center,
                                               ),
                                             ],
                                           ),
                                         ],
                                       ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        '${widget.pesanan.status}',
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ],
-                                  ),
-                                )
-                              ],
+                                  );
+                                } else if (widget.pesanan.status ==
+                                    'Pesanan Dikirim') {
+                                  return Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, right: 8, top: 12),
+                                            child: Container(
+                                              height: 1.0,
+                                              width: double.infinity,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: const [
+                                              Icon(
+                                                Icons.circle,
+                                                color: Colors.grey,
+                                              ),
+                                              Icon(
+                                                Icons.radio_button_checked,
+                                                color: Colors.green,
+                                              ),
+                                              Icon(
+                                                Icons.circle,
+                                                color: Colors.grey,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        '${widget.pesanan.status}',
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else if (widget.pesanan.status ==
+                                    'Pesanan Selesai') {
+                                  return Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, right: 8, top: 12),
+                                            child: Container(
+                                              height: 1.0,
+                                              width: double.infinity,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: const [
+                                              Icon(
+                                                Icons.circle,
+                                                color: Colors.grey,
+                                              ),
+                                              Icon(
+                                                Icons.circle,
+                                                color: Colors.grey,
+                                              ),
+                                              Icon(
+                                                Icons.radio_button_checked,
+                                                color: Colors.green,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        '${widget.pesanan.status}',
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else if (widget.pesanan.status ==
+                                    'Pesanan Dibatalkan') {
+                                  return const Text(
+                                    'Pesanan Dibatalkan',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: kJayaTirtaErrorRed,
+                                    ),
+                                  );
+                                } else if (widget.pesanan.status ==
+                                    'Menunggu Konfirmasi') {
+                                  return const Text(
+                                    'Menunggu Konfirmasi',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                } else {
+                                  return const Text(
+                                    'Something went worng',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                }
+                              }),
                             )
                           ],
                         ),
@@ -171,8 +295,6 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                       items: <String>[
                         'Pesanan Diproses',
                         'Pesanan Dikirim',
-                        'Pesanan Selesai',
-                        'Pesanan Dibatalkan',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -345,31 +467,266 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
+                            style: widget.pesanan.status == 'Pesanan Selesai'
+                                ? ElevatedButton.styleFrom(
+                                    primary: Colors.grey,
+                                    splashFactory: NoSplash.splashFactory,
+                                  )
+                                : ElevatedButton.styleFrom(
+                                    primary: kJayaTirtaErrorRed),
                             onPressed: () {
-                              context.read<CrudPesananBloc>().add(UpdatePesanan(
-                                    id: widget.pesanan.id,
-                                    status: dropdownValue,
-                                    jumlah: widget.pesanan.jumlah,
-                                    total: widget.pesanan.total,
-                                    idProduk: widget.pesanan.idProduk,
-                                    namaProduk: widget.pesanan.namaProduk,
-                                    gambar: widget.pesanan.gambar,
-                                    harga: widget.pesanan.harga,
-                                    stok: widget.pesanan.stok,
-                                    idKonsumen: widget.pesanan.idKonsumen,
-                                    namaKonsumen: widget.pesanan.namaKonsumen,
-                                    alamat: widget.pesanan.alamat,
-                                    noTelp: widget.pesanan.noTelp,
-                                  ));
-                              context.read<CrudPesananBloc>().add(
-                                    ConfirmUpdatePesanan(
-                                      pesanan: state.pesanan,
-                                      id: widget.pesanan.id,
-                                    ),
-                                  );
+                              widget.pesanan.status == 'Pesanan Selesai'
+                                  ? null
+                                  : showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title:
+                                                const Text('Batalkan Pesanan'),
+                                            content: Text(
+                                                'Apakah anda yakin akan membatalkan pesanan ini?'),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'Batal'),
+                                                  child: const Text('Batal')),
+                                              TextButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<CrudPesananBloc>()
+                                                      .add(UpdatePesanan(
+                                                        id: widget.pesanan.id,
+                                                        status:
+                                                            'Pesanan Dibatalkan',
+                                                        jumlah: widget
+                                                            .pesanan.jumlah,
+                                                        total: widget
+                                                            .pesanan.total,
+                                                        keckelurahan: widget
+                                                            .pesanan
+                                                            .keckelurahan,
+                                                        idProduk: widget
+                                                            .pesanan.idProduk,
+                                                        namaProduk: widget
+                                                            .pesanan.namaProduk,
+                                                        gambar: widget
+                                                            .pesanan.gambar,
+                                                        harga: widget
+                                                            .pesanan.harga,
+                                                        stok:
+                                                            widget.pesanan.stok,
+                                                        idKonsumen: widget
+                                                            .pesanan.idKonsumen,
+                                                        namaKonsumen: widget
+                                                            .pesanan
+                                                            .namaKonsumen,
+                                                        alamat: widget
+                                                            .pesanan.alamat,
+                                                        noTelp: widget
+                                                            .pesanan.noTelp,
+                                                      ));
+                                                  context
+                                                      .read<CrudPesananBloc>()
+                                                      .add(
+                                                        ConfirmUpdatePesanan(
+                                                          pesanan:
+                                                              state.pesanan,
+                                                          id: widget.pesanan.id,
+                                                        ),
+                                                      );
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const MainScreen(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                  'Batalkan Pesanan',
+                                                ),
+                                              ),
+                                            ],
+                                          ));
                             },
                             child: const Text(
-                              'Simpan',
+                              'Batalkan Pesanan',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: widget.pesanan.status == 'Pesanan Dikirim'
+                                ? ElevatedButton.styleFrom(
+                                    primary: Theme.of(context).primaryColor)
+                                : ElevatedButton.styleFrom(
+                                    primary: Colors.grey,
+                                    splashFactory: NoSplash.splashFactory,
+                                  ),
+                            onPressed: () {
+                              widget.pesanan.status == 'Pesanan Dikirim'
+                                  ? showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title: const Text(
+                                                'Selesaikan Pesanan'),
+                                            content: Text(
+                                                'Apakah anda yakin akan menyelesaikan pesanan? Pastikan pesanan sudah selesai!'),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'Batal'),
+                                                  child: const Text('Batal')),
+                                              TextButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<CrudPesananBloc>()
+                                                      .add(UpdatePesanan(
+                                                        id: widget.pesanan.id,
+                                                        status:
+                                                            'Pesanan Selesai',
+                                                        jumlah: widget
+                                                            .pesanan.jumlah,
+                                                        total: widget
+                                                            .pesanan.total,
+                                                        keckelurahan: widget
+                                                            .pesanan
+                                                            .keckelurahan,
+                                                        idProduk: widget
+                                                            .pesanan.idProduk,
+                                                        namaProduk: widget
+                                                            .pesanan.namaProduk,
+                                                        gambar: widget
+                                                            .pesanan.gambar,
+                                                        harga: widget
+                                                            .pesanan.harga,
+                                                        stok:
+                                                            widget.pesanan.stok,
+                                                        idKonsumen: widget
+                                                            .pesanan.idKonsumen,
+                                                        namaKonsumen: widget
+                                                            .pesanan
+                                                            .namaKonsumen,
+                                                        alamat: widget
+                                                            .pesanan.alamat,
+                                                        noTelp: widget
+                                                            .pesanan.noTelp,
+                                                      ));
+                                                  context
+                                                      .read<CrudPesananBloc>()
+                                                      .add(
+                                                        ConfirmUpdatePesanan(
+                                                          pesanan:
+                                                              state.pesanan,
+                                                          id: widget.pesanan.id,
+                                                        ),
+                                                      );
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const MainScreen(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                  'Selesaikan Pesanan',
+                                                ),
+                                              ),
+                                            ],
+                                          ))
+                                  : null;
+                            },
+                            child: const Text(
+                              'Selesaikan Pesanan',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title:
+                                            const Text('Update Status Pesanan'),
+                                        content: Text(
+                                            'Apakah anda yakin akan mengubah status pesanan?'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Batal'),
+                                              child: const Text('Batal')),
+                                          TextButton(
+                                            onPressed: () {
+                                              context
+                                                  .read<CrudPesananBloc>()
+                                                  .add(UpdatePesanan(
+                                                    id: widget.pesanan.id,
+                                                    status: dropdownValue,
+                                                    jumlah:
+                                                        widget.pesanan.jumlah,
+                                                    total: widget.pesanan.total,
+                                                    keckelurahan: widget
+                                                        .pesanan.keckelurahan,
+                                                    idProduk:
+                                                        widget.pesanan.idProduk,
+                                                    namaProduk: widget
+                                                        .pesanan.namaProduk,
+                                                    gambar:
+                                                        widget.pesanan.gambar,
+                                                    harga: widget.pesanan.harga,
+                                                    stok: widget.pesanan.stok,
+                                                    idKonsumen: widget
+                                                        .pesanan.idKonsumen,
+                                                    namaKonsumen: widget
+                                                        .pesanan.namaKonsumen,
+                                                    alamat:
+                                                        widget.pesanan.alamat,
+                                                    noTelp:
+                                                        widget.pesanan.noTelp,
+                                                  ));
+                                              context
+                                                  .read<CrudPesananBloc>()
+                                                  .add(
+                                                    ConfirmUpdatePesanan(
+                                                      pesanan: state.pesanan,
+                                                      id: widget.pesanan.id,
+                                                    ),
+                                                  );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen(),
+                                                ),
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Ubah Status Pesanan',
+                                            ),
+                                          ),
+                                        ],
+                                      ));
+                            },
+                            child: const Text(
+                              'Ubah Status Pesanan',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

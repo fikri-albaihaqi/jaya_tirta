@@ -6,12 +6,14 @@ class Konsumen extends Equatable {
   final String? nama;
   final String? alamat;
   final String? noTelp;
+  final String? keckelurahan;
 
   const Konsumen({
     required this.id,
     required this.nama,
     required this.alamat,
     required this.noTelp,
+    required this.keckelurahan,
   });
 
   static Konsumen fromSnapshot(DocumentSnapshot snap) {
@@ -20,6 +22,7 @@ class Konsumen extends Equatable {
       nama: snap['nama'],
       alamat: snap['alamat'],
       noTelp: snap['noTelp'],
+      keckelurahan: snap['keckelurahan'],
     );
     return konsumen;
   }
@@ -30,6 +33,7 @@ class Konsumen extends Equatable {
         nama,
         alamat,
         noTelp,
+        keckelurahan,
       ];
 
   Map<String, Object> toDocument() {
@@ -38,6 +42,7 @@ class Konsumen extends Equatable {
       'nama': nama!,
       'alamat': alamat!,
       'noTelp': noTelp!,
+      'keckelurahan': keckelurahan!,
     };
   }
 }

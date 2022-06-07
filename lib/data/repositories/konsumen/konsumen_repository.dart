@@ -30,6 +30,7 @@ class KonsumenRepository {
       'nama': konsumen.nama,
       'alamat': konsumen.alamat,
       'noTelp': konsumen.noTelp,
+      'keckelurahan': konsumen.keckelurahan,
     });
   }
 
@@ -47,6 +48,7 @@ class KonsumenRepository {
             'nama': konsumen.nama,
             'alamat': konsumen.alamat,
             'noTelp': konsumen.noTelp,
+            'keckelurahan': konsumen.keckelurahan,
           },
         )
         .then((_) => print(konsumen.nama))
@@ -62,6 +64,7 @@ class KonsumenRepository {
       konsumen.add(prefs.getString('nama')!);
       konsumen.add(prefs.getString('alamat')!);
       konsumen.add(prefs.getString('noTelp')!);
+      konsumen.add(prefs.getString('keckelurahan')!);
 
       return konsumen;
     });
@@ -74,5 +77,6 @@ class KonsumenRepository {
     prefs.setString('nama', konsumen.nama!);
     prefs.setString('alamat', konsumen.alamat!);
     prefs.setString('noTelp', konsumen.noTelp!);
+    prefs.setString('keckelurahan', konsumen.keckelurahan!);
   }
 }

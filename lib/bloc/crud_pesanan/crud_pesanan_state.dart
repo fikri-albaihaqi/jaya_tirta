@@ -14,6 +14,7 @@ class CrudPesananLoaded extends CrudPesananState {
   final String? status;
   final String? jumlah;
   final String? total;
+  final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -23,27 +24,31 @@ class CrudPesananLoaded extends CrudPesananState {
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
+  final String? keckelurahan;
   final Pesanan pesanan;
 
-  CrudPesananLoaded({
-    this.id,
-    this.status,
-    this.jumlah,
-    this.total,
-    this.idProduk,
-    this.namaProduk,
-    this.gambar,
-    this.harga,
-    this.stok,
-    this.idKonsumen,
-    this.namaKonsumen,
-    this.alamat,
-    this.noTelp,
-  }) : pesanan = Pesanan(
+  CrudPesananLoaded(
+      {this.id,
+      this.status,
+      this.jumlah,
+      this.total,
+      this.tanggalPembelian,
+      this.idProduk,
+      this.namaProduk,
+      this.gambar,
+      this.harga,
+      this.stok,
+      this.idKonsumen,
+      this.namaKonsumen,
+      this.alamat,
+      this.noTelp,
+      this.keckelurahan})
+      : pesanan = Pesanan(
           id: id,
           status: status,
           jumlah: jumlah,
           total: total,
+          tanggalPembelian: tanggalPembelian,
           idProduk: idProduk,
           namaProduk: namaProduk,
           gambar: gambar,
@@ -53,6 +58,7 @@ class CrudPesananLoaded extends CrudPesananState {
           namaKonsumen: namaKonsumen,
           alamat: alamat,
           noTelp: noTelp,
+          keckelurahan: keckelurahan,
         );
 
   @override
@@ -61,6 +67,7 @@ class CrudPesananLoaded extends CrudPesananState {
         status,
         jumlah,
         total,
+        tanggalPembelian,
         idProduk,
         namaProduk,
         gambar,
@@ -70,5 +77,6 @@ class CrudPesananLoaded extends CrudPesananState {
         namaKonsumen,
         alamat,
         noTelp,
+        keckelurahan,
       ];
 }

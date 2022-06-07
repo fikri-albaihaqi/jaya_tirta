@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/bantuan.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/cara_pemesanan.dart';
 import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_screen.dart';
 import 'package:jaya_tirta/presentation/konsumen/profil/edit_data_diri.dart';
 import 'package:jaya_tirta/utils/colors.dart';
@@ -38,68 +40,126 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (state is KonsumenLoaded) {
-                      return Row(
-                        children: [
-                          const Icon(
-                            Icons.account_circle_outlined,
-                            size: 80,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${state.konsumen[0].nama}',
-                                      style: const TextStyle(
-                                        fontFamily: 'Nunito',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${state.konsumen[0].alamat}',
-                                      style: const TextStyle(
-                                        fontFamily: 'Nunito',
-                                      ),
-                                    ),
-                                    Text(
-                                      '${state.konsumen[0].noTelp}',
-                                      style: const TextStyle(
-                                        fontFamily: 'Nunito',
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                EditDataDiriScreen(
-                                              user: widget.user,
-                                              konsumen: state.konsumen,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(Icons.edit_outlined),
-                                    ),
-                                    const Text('Edit'),
-                                  ],
-                                ),
-                              ],
+                      if (state.konsumen.isEmpty) {
+                        return Row(
+                          children: [
+                            const Icon(
+                              Icons.account_circle_outlined,
+                              size: 80,
                             ),
-                          ),
-                        ],
-                      );
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text(
+                                        'Data diri belum ditambahkan!',
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DataDiriScreen(
+                                                user: widget.user,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        icon: const Icon(Icons.edit_outlined),
+                                      ),
+                                      const Text('Tambah Data'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Row(
+                          children: [
+                            const Icon(
+                              Icons.account_circle_outlined,
+                              size: 80,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${state.konsumen.elementAt(0).nama}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${state.konsumen.elementAt(0).alamat}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${state.konsumen.elementAt(0).noTelp}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditDataDiriScreen(
+                                                user: widget.user,
+                                                konsumen: state.konsumen,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        icon: const Icon(Icons.edit_outlined),
+                                      ),
+                                      const Text('Edit'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }
                     } else {
                       return const Text('Something went wrong');
                     }
@@ -111,7 +171,14 @@ class _ProfilScreenState extends State<ProfilScreen> {
               height: 16,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CaraPemesananScreen(),
+                  ),
+                );
+              },
               child: Container(
                 color: Colors.white,
                 child: Padding(
@@ -135,7 +202,14 @@ class _ProfilScreenState extends State<ProfilScreen> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BantuanScreen(),
+                  ),
+                );
+              },
               child: Container(
                 color: Colors.white,
                 child: Padding(

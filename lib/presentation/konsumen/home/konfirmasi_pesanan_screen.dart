@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
-import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_pesanan.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class KonfirmasiPesananScreen extends StatefulWidget {
@@ -40,6 +42,10 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int stokBaru = int.parse(widget.produk.stok!) - widget.jumlah;
+    DateTime now = DateTime.now();
+    initializeDateFormatting('id-ID', '');
+    String tanggal = DateFormat.yMMMMEEEEd('id-ID').format(now);
     return GestureDetector(
       onTap: () {
         _focusNama.unfocus();
@@ -140,6 +146,7 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                           nama: status.konsumen.elementAt(1),
                           alamat: status.konsumen.elementAt(2),
                           noTelp: status.konsumen.elementAt(3),
+                          keckelurahan: status.konsumen.elementAt(4),
                         );
                         return Container(
                           child: widget.user!.uid ==
@@ -173,6 +180,13 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                           ),
                                         ),
                                         Text(
+                                          'Kecamatan/Kelurahan: ${status.konsumen.elementAt(4)}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Nunito',
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                        Text(
                                           'Alamat: ${status.konsumen.elementAt(2)}',
                                           style: const TextStyle(
                                             fontFamily: 'Nunito',
@@ -200,7 +214,7 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          DataDiriScreen(
+                                                          DataDiriPesananScreen(
                                                         produk: widget.produk,
                                                         total: widget.total,
                                                         jumlah: widget.jumlah,
@@ -311,6 +325,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                               .toString(),
                                                           total: widget.total
                                                               .toString(),
+                                                          tanggalPembelian:
+                                                              tanggal,
                                                           idProduk:
                                                               widget.produk.id,
                                                           namaProduk: widget
@@ -320,8 +336,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                               .produk.gambar,
                                                           harga: widget
                                                               .produk.harga,
-                                                          stok: widget
-                                                              .produk.stok,
+                                                          stok: stokBaru
+                                                              .toString(),
                                                           idKonsumen: status
                                                               .konsumen
                                                               .elementAt(0),
@@ -334,6 +350,9 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                           noTelp: status
                                                               .konsumen
                                                               .elementAt(3),
+                                                          keckelurahan: status
+                                                              .konsumen
+                                                              .elementAt(4),
                                                         ),
                                                       );
                                                   Timer(
@@ -344,6 +363,13 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                         .add(ConfirmAddPesanan(
                                                             pesanan:
                                                                 state.pesanan));
+                                                    context
+                                                        .read<CrudProdukBloc>()
+                                                        .add(UpdateStok(
+                                                            id: widget
+                                                                .produk.id,
+                                                            stok: stokBaru
+                                                                .toString()));
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -393,7 +419,7 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DataDiriScreen(
+                                                        DataDiriPesananScreen(
                                                       produk: widget.produk,
                                                       total: widget.total,
                                                       jumlah: widget.jumlah,

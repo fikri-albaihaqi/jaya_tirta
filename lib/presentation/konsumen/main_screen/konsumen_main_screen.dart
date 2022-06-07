@@ -42,18 +42,45 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
           ),
           centerTitle: false,
           titleSpacing: 0.0,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${user?.uid}',
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ],
+          title: BlocBuilder<KonsumenBloc, KonsumenState>(
+            builder: (context, state) {
+              context.read<KonsumenBloc>().add(LoadKonsumen(id: user!.uid));
+              if (state is KonsumenLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is KonsumenLoaded) {
+                if (state.konsumen.isEmpty) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Selamat datang!',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${state.konsumen.elementAt(0).nama}',
+                        style: const TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              } else {
+                return const Text('Something went worng');
+              }
+            },
           ),
           actions: [
             IconButton(

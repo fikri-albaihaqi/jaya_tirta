@@ -6,6 +6,7 @@ class Pesanan extends Equatable {
   final String? status;
   final String? jumlah;
   final String? total;
+  final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -15,12 +16,14 @@ class Pesanan extends Equatable {
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
+  final String? keckelurahan;
 
   const Pesanan({
     this.id,
     required this.status,
     required this.jumlah,
     required this.total,
+    required this.tanggalPembelian,
     required this.idProduk,
     required this.namaProduk,
     required this.gambar,
@@ -30,6 +33,7 @@ class Pesanan extends Equatable {
     required this.namaKonsumen,
     required this.alamat,
     required this.noTelp,
+    required this.keckelurahan,
   });
 
   static Pesanan fromSnapshot(DocumentSnapshot snap) {
@@ -38,6 +42,7 @@ class Pesanan extends Equatable {
       status: snap['status'],
       jumlah: snap['jumlah'],
       total: snap['total'],
+      tanggalPembelian: snap['tanggalPembelian'],
       idProduk: snap['produk']['idProduk'],
       namaProduk: snap['produk']['namaProduk'],
       gambar: snap['produk']['gambar'],
@@ -47,6 +52,7 @@ class Pesanan extends Equatable {
       namaKonsumen: snap['konsumen']['namaKonsumen'],
       alamat: snap['konsumen']['alamat'],
       noTelp: snap['konsumen']['noTelp'],
+      keckelurahan: snap['konsumen']['keckelurahan'],
     );
     return pesanan;
   }
@@ -57,6 +63,7 @@ class Pesanan extends Equatable {
         status,
         jumlah,
         total,
+        tanggalPembelian,
         idProduk,
         namaProduk,
         gambar,
@@ -66,6 +73,7 @@ class Pesanan extends Equatable {
         namaKonsumen,
         alamat,
         noTelp,
+        keckelurahan,
       ];
 
   Map<String, Object> toDocument() {
@@ -81,11 +89,13 @@ class Pesanan extends Equatable {
     konsumen['namaKonsumen'] = namaKonsumen;
     konsumen['alamat'] = alamat;
     konsumen['noTelp'] = noTelp;
+    konsumen['keckelurahan'] = keckelurahan;
 
     return {
       'status': status!,
       'jumlah': jumlah!,
       'total': total!,
+      'tanggalPembelian': tanggalPembelian!,
       'produk': produk,
       'konsumen': konsumen,
     };

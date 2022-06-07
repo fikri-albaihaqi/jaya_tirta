@@ -17,3 +17,14 @@ class LoadedPesanan extends PesananEvent {
   @override
   List<Object> get props => [pesanan];
 }
+
+class LoadRiwayatPesanan extends PesananEvent {}
+
+class LoadedRiwayatPesanan extends PesananEvent {
+  final List<Pesanan> pesanan;
+
+  const LoadedRiwayatPesanan(this.pesanan);
+
+  @override
+  List<Object> get props => [pesanan];
+}

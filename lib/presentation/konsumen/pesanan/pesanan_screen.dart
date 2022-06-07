@@ -64,7 +64,7 @@ class _PesananScreenState extends State<PesananScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '18 Mei 2022',
+                                      state.pesanan[index].tanggalPembelian!,
                                       style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,

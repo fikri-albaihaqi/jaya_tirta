@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/pesanan/filter_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class PesananScreen extends StatefulWidget {
@@ -20,16 +21,59 @@ class _PesananScreenState extends State<PesananScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 32.0, right: 32.0, top: 16.0),
-              child: Text(
-                'Daftar Pesanan',
-                style: TextStyle(
-                  fontFamily: 'Kanit',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                  color: kJayaTirtaBlack900,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Daftar Pesanan',
+                    style: TextStyle(
+                      fontFamily: 'Kanit',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                      color: kJayaTirtaBlack900,
+                    ),
+                  ),
+                  SizedBox(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FilterScreen(),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text(
+                            'Filter',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'Nunito',
+                              color: kJayaTirtaBlack900,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Icon(
+                            Icons.tune,
+                            color: kJayaTirtaBlack900,
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        side: const BorderSide(
+                          width: 1.0,
+                          color: kJayaTirtaBlack900,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             BlocBuilder<PesananBloc, PesananState>(
@@ -71,7 +115,7 @@ class _PesananScreenState extends State<PesananScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '18 Mei 2022',
+                                      '${state.pesanan[index].tanggalPembelian}',
                                       style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,
@@ -113,6 +157,13 @@ class _PesananScreenState extends State<PesananScreen> {
                                         ),
                                         Text(
                                           'No Telepon: ${state.pesanan[index].noTelp}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Nunito',
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Kecamatan/Kelurahan: ${state.pesanan[index].keckelurahan}',
                                           style: const TextStyle(
                                             fontFamily: 'Nunito',
                                             fontSize: 16,

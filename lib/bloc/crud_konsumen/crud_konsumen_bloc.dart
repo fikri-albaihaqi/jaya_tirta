@@ -35,6 +35,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
           nama: event.nama ?? state.nama,
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
+          keckelurahan: event.keckelurahan ?? state.keckelurahan,
         ),
       );
     }
@@ -79,6 +80,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
           nama: event.nama ?? state.nama,
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
+          keckelurahan: event.keckelurahan ?? state.keckelurahan,
         ),
       );
     }

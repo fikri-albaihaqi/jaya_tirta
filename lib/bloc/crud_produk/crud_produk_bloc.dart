@@ -21,6 +21,7 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
     on<DeleteProduk>(_onDeleteProduk);
     on<UpdateProduk>(_onUpdateProduk);
     on<ConfirmUpdateProduk>(_onConfirmUpdateProduk);
+    on<UpdateStok>(_onConfirmUpdateStok);
   }
 
   void _onAddProduk(
@@ -92,6 +93,19 @@ class CrudProdukBloc extends Bloc<CrudProdukEvent, CrudProdukState> {
     if (this.state is CrudProdukLoaded) {
       try {
         await _produkRepository.updateProduk(event.produk, event.id!);
+        emit(CrudProdukLoaded());
+      } catch (_) {}
+    }
+  }
+
+  void _onConfirmUpdateStok(
+    UpdateStok event,
+    Emitter<CrudProdukState> emit,
+  ) async {
+    _crudProdukSubscription?.cancel();
+    if (this.state is CrudProdukLoaded) {
+      try {
+        await _produkRepository.updateStok(event.id!, event.stok!);
         emit(CrudProdukLoaded());
       } catch (_) {}
     }

@@ -13,6 +13,16 @@ class PesananRepository {
     });
   }
 
+  Stream<List<Pesanan>> getRiwayatPesanan() {
+    return _firebaseFirestore
+        .collection('pesanan')
+        .where('status', isEqualTo: 'Pesanan Selesai')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((docs) => Pesanan.fromSnapshot(docs)).toList();
+    });
+  }
+
   Stream<List<Pesanan>> getPesananKonsumen(String id) {
     return _firebaseFirestore
         .collection('pesanan')
@@ -52,6 +62,7 @@ class PesananRepository {
             'konsumen.namaKonsumen': pesanan.namaKonsumen,
             'konsumen.alamat': pesanan.alamat,
             'konsumen.noTelp': pesanan.noTelp,
+            'konsumen.keckelurahan': pesanan.keckelurahan,
           },
         )
         .then((_) => print(pesanan.status))

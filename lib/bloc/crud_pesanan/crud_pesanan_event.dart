@@ -12,6 +12,7 @@ class AddPesanan extends CrudPesananEvent {
   final String? status;
   final String? jumlah;
   final String? total;
+  final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -21,12 +22,14 @@ class AddPesanan extends CrudPesananEvent {
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
+  final String? keckelurahan;
 
   const AddPesanan({
     this.id,
     this.status,
     this.jumlah,
     this.total,
+    this.tanggalPembelian,
     this.idProduk,
     this.namaProduk,
     this.gambar,
@@ -36,6 +39,7 @@ class AddPesanan extends CrudPesananEvent {
     this.namaKonsumen,
     this.alamat,
     this.noTelp,
+    this.keckelurahan,
   });
 
   @override
@@ -44,6 +48,7 @@ class AddPesanan extends CrudPesananEvent {
         status,
         jumlah,
         total,
+        tanggalPembelian,
         idProduk,
         namaProduk,
         gambar,
@@ -53,6 +58,7 @@ class AddPesanan extends CrudPesananEvent {
         namaKonsumen,
         alamat,
         noTelp,
+        keckelurahan,
       ];
 }
 
@@ -70,6 +76,7 @@ class UpdatePesanan extends CrudPesananEvent {
   final String? status;
   final String? jumlah;
   final String? total;
+  final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -79,12 +86,14 @@ class UpdatePesanan extends CrudPesananEvent {
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
+  final String? keckelurahan;
 
   const UpdatePesanan({
     this.id,
     this.status,
     this.jumlah,
     this.total,
+    this.tanggalPembelian,
     this.idProduk,
     this.namaProduk,
     this.gambar,
@@ -94,6 +103,7 @@ class UpdatePesanan extends CrudPesananEvent {
     this.namaKonsumen,
     this.alamat,
     this.noTelp,
+    this.keckelurahan,
   });
 
   @override
@@ -102,6 +112,7 @@ class UpdatePesanan extends CrudPesananEvent {
         status,
         jumlah,
         total,
+        tanggalPembelian,
         idProduk,
         namaProduk,
         gambar,
@@ -111,6 +122,7 @@ class UpdatePesanan extends CrudPesananEvent {
         namaKonsumen,
         alamat,
         noTelp,
+        keckelurahan,
       ];
 }
 

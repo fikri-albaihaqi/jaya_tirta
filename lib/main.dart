@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
+import 'package:jaya_tirta/bloc/peramalan/peramalan_bloc.dart';
 import 'package:jaya_tirta/bloc/pesanan_konsumen/pesanan_konsumen_bloc.dart';
 import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
+import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
@@ -73,6 +75,16 @@ Future<void> main() async {
             konsumenRepository: KonsumenRepository(),
           ),
         ),
+        BlocProvider(
+          create: (_) => PeramalanBloc(
+            peramalanRepository: PeramalanRepository(),
+          )..add(LoadPeramalan()),
+        ),
+        BlocProvider(
+          create: (_) => FilterBloc(
+            pesananBloc: _.read<PesananBloc>(),
+          )..add(LoadFilter()),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -107,7 +119,7 @@ class MyApp extends StatelessWidget {
                 // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                 if (snapshot.data?.email != null) {
                   return const MainScreen();
-                } else if (snapshot.data?.email == null) {
+                } else if (snapshot.data?.isAnonymous == true) {
                   return const KonsumenMainScreen();
                 }
                 return const SplashScreen();

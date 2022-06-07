@@ -6,28 +6,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
-import 'package:jaya_tirta/presentation/konsumen/profil/profil_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
-class DataDiriScreen extends StatefulWidget {
+class DataDiriPesananScreen extends StatefulWidget {
+  Produk produk;
+  int total;
+  int jumlah;
   User? user;
 
-  DataDiriScreen({Key? key, required this.user}) : super(key: key);
+  DataDiriPesananScreen(
+      {Key? key,
+      required this.produk,
+      required this.total,
+      required this.jumlah,
+      required this.user})
+      : super(key: key);
 
   @override
-  State<DataDiriScreen> createState() => _DataDiriScreenState();
+  State<DataDiriPesananScreen> createState() => _DataDiriPesananScreenState();
 }
 
-class _DataDiriScreenState extends State<DataDiriScreen> {
+class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _namaTextController = TextEditingController();
   final _alamatTextController = TextEditingController();
   final _noTelpTextController = TextEditingController();
+  final _kecKelurahanTextController = TextEditingController();
 
   final _focusNama = FocusNode();
   final _focusAlamat = FocusNode();
   final _focusNoTelp = FocusNode();
+  final _focuskecKelurahan = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +110,25 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                 ),
                                 const SizedBox(height: 16.0),
                                 TextFormField(
+                                  controller: _kecKelurahanTextController,
+                                  focusNode: _focuskecKelurahan,
+                                  decoration: InputDecoration(
+                                    hintText: "Kecamatan/Kelurahan",
+                                    errorBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(6.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    context
+                                        .read<CrudKonsumenBloc>()
+                                        .add(AddKonsumen(keckelurahan: value));
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextFormField(
                                   controller: _alamatTextController,
                                   focusNode: _focusAlamat,
                                   decoration: InputDecoration(
@@ -161,7 +190,10 @@ class _DataDiriScreenState extends State<DataDiriScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ProfilScreen(
+                                                    KonfirmasiPesananScreen(
+                                                        produk: widget.produk,
+                                                        total: widget.total,
+                                                        jumlah: widget.jumlah,
                                                         user: widget.user),
                                               ),
                                             );

@@ -76,6 +76,16 @@ class ConfirmUpdateProduk extends CrudProdukEvent {
   List<Object> get props => [produk];
 }
 
+class UpdateStok extends CrudProdukEvent {
+  final String? id;
+  final String? stok;
+
+  const UpdateStok({required this.id, required this.stok});
+
+  @override
+  List<Object> get props => [];
+}
+
 class DeleteProduk extends CrudProdukEvent {
   final String id;
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc_list_manager/flutter_bloc_list_manager.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 
@@ -17,6 +18,8 @@ class PesananBloc extends Bloc<PesananEvent, PesananState> {
         super(PesananLoading()) {
     on<LoadPesanan>(_onLoadPesanan);
     on<LoadedPesanan>(_onLoadedPesanan);
+    on<LoadRiwayatPesanan>(_onLoadRiwayatPesanan);
+    on<LoadedRiwayatPesanan>(_onLoadedRiwayatPesanan);
   }
 
   void _onLoadPesanan(
@@ -33,6 +36,25 @@ class PesananBloc extends Bloc<PesananEvent, PesananState> {
 
   void _onLoadedPesanan(
     LoadedPesanan event,
+    Emitter<PesananState> emit,
+  ) {
+    emit(PesananLoaded(pesanan: event.pesanan));
+  }
+
+  void _onLoadRiwayatPesanan(
+    LoadRiwayatPesanan event,
+    Emitter<PesananState> emit,
+  ) {
+    _pesananSubscription?.cancel();
+    _pesananSubscription = _pesananRepository.getRiwayatPesanan().listen(
+          (pesanan) => add(
+            LoadedRiwayatPesanan(pesanan),
+          ),
+        );
+  }
+
+  void _onLoadedRiwayatPesanan(
+    LoadedRiwayatPesanan event,
     Emitter<PesananState> emit,
   ) {
     emit(PesananLoaded(pesanan: event.pesanan));
