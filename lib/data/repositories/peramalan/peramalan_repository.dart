@@ -7,13 +7,23 @@ class PeramalanRepository {
   PeramalanRepository({FirebaseFirestore? firebaseFirestore})
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
-  Stream<List<Peramalan>> getRamalanBulanan() {
+  Stream<List<Ramalan>> getRamalanBulanan() {
     return _firebaseFirestore
         .collection('ramalanBulanan')
-        .orderBy('bulanKe')
+        .orderBy('bulan')
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) => Peramalan.fromSnapshot(doc)).toList();
+      return snapshot.docs.map((doc) => Ramalan.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Stream<List<Ramalan>> getRamalanMingguan() {
+    return _firebaseFirestore
+        .collection('ramalanMingguan')
+        .orderBy('bulan')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) => Ramalan.fromSnapshot(doc)).toList();
     });
   }
 }

@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
-import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
+import 'package:jaya_tirta/utils/validator.dart';
 
 class EditDataPenjualScreen extends StatefulWidget {
   EditDataPenjualScreen({Key? key, required this.user}) : super(key: key);
@@ -20,20 +22,23 @@ class EditDataPenjualScreen extends StatefulWidget {
 class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
   final _namaTextController = TextEditingController();
-  final _alamatTextController = TextEditingController();
   final _noTelpTextController = TextEditingController();
 
+  final _focusEmail = FocusNode();
+  final _focusPassword = FocusNode();
   final _focusNama = FocusNode();
-  final _focusAlamat = FocusNode();
   final _focusNoTelp = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        _focusEmail.unfocus();
+        _focusPassword.unfocus();
         _focusNama.unfocus();
-        _focusAlamat.unfocus();
         _focusNoTelp.unfocus();
       },
       child: Scaffold(
@@ -43,14 +48,14 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
           centerTitle: true,
         ),
         body: SingleChildScrollView(
-          child: BlocBuilder<CrudKonsumenBloc, CrudKonsumenState>(
+          child: BlocBuilder<CrudPenjualBloc, CrudPenjualState>(
             builder: (context, state) {
-              if (state is CrudKonsumenLoading) {
+              if (state is CrudPenjualLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              if (state is CrudKonsumenLoaded) {
+              if (state is CrudPenjualLoaded) {
                 return ListView(
                   shrinkWrap: true,
                   children: [
@@ -65,10 +70,10 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
                           const Padding(
                             padding: EdgeInsets.only(bottom: 16.0),
                             child: Text(
-                              'Isi data di bawah ini dan pastikan data sudah benar',
+                              'Ubah Data Penjual',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontFamily: 'Kanit',
                                 fontWeight: FontWeight.w700,
                                 color: kJayaTirtaBlack900,
@@ -79,11 +84,20 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
                             key: _formKey,
                             child: Column(
                               children: <Widget>[
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _namaTextController,
                                   focusNode: _focusNama,
+                                  maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
+                                  validator: (value) => Validator.validateNama(
+                                    nama: value,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Nama",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -93,35 +107,26 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
                                   ),
                                   onChanged: (value) {
                                     context
-                                        .read<CrudKonsumenBloc>()
-                                        .add(UpdateKonsumen(nama: value));
-                                  },
-                                ),
-                                const SizedBox(height: 16.0),
-                                TextFormField(
-                                  controller: _alamatTextController,
-                                  focusNode: _focusAlamat,
-                                  decoration: InputDecoration(
-                                    hintText: "Alamat",
-                                    errorBorder: UnderlineInputBorder(
-                                      borderRadius: BorderRadius.circular(6.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                  onChanged: (value) {
-                                    context
-                                        .read<CrudKonsumenBloc>()
-                                        .add(UpdateKonsumen(alamat: value));
+                                        .read<CrudPenjualBloc>()
+                                        .add(UpdatePenjual(nama: value));
                                   },
                                 ),
                                 const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _noTelpTextController,
                                   focusNode: _focusNoTelp,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 13,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(13)
+                                  ],
+                                  validator: (value) =>
+                                      Validator.validateNoTelp(
+                                    noTelp: value,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Nomor Telepon",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -130,16 +135,16 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
                                     ),
                                   ),
                                   onChanged: (value) {
-                                    context.read<CrudKonsumenBloc>().add(
-                                        UpdateKonsumen(
-                                            noTelp: value,
-                                            id: widget.user!.uid));
+                                    context.read<CrudPenjualBloc>().add(
+                                          UpdatePenjual(
+                                              noTelp: value,
+                                              id: widget.user!.uid),
+                                        );
                                   },
                                 ),
                                 const SizedBox(
                                   height: 24.0,
                                 ),
-                                Text(state.toString()),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -147,12 +152,21 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          context.read<CrudKonsumenBloc>().add(
-                                                ConfirmUpdateKonsumen(
-                                                  konsumen: state.konsumen,
-                                                  id: widget.user!.uid,
-                                                ),
-                                              );
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            context.read<CrudPenjualBloc>().add(
+                                                  ConfirmUpdatePenjual(
+                                                    penjual: state.penjual,
+                                                    id: widget.user!.uid,
+                                                  ),
+                                                );
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen()),
+                                            );
+                                          }
                                         },
                                         child: const Text(
                                           'Simpan',

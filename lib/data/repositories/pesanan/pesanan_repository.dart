@@ -8,7 +8,11 @@ class PesananRepository {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   Stream<List<Pesanan>> getAllPesanan() {
-    return _firebaseFirestore.collection('pesanan').snapshots().map((snapshot) {
+    return _firebaseFirestore
+        .collection('pesanan')
+        .orderBy('tanggalPembelian')
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) => Pesanan.fromSnapshot(doc)).toList();
     });
   }
@@ -63,6 +67,7 @@ class PesananRepository {
             'konsumen.alamat': pesanan.alamat,
             'konsumen.noTelp': pesanan.noTelp,
             'konsumen.keckelurahan': pesanan.keckelurahan,
+            'konsumen.jumlahPinjaman': pesanan.jumlahPinjaman,
           },
         )
         .then((_) => print(pesanan.status))

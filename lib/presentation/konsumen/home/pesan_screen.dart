@@ -55,9 +55,9 @@ class _PesanScreenState extends State<PesanScreen> {
             alignment: Alignment.center,
             child: Column(
               children: [
-                Image.asset(
-                  'graphics/prima.png',
-                  scale: 1.2,
+                Image.network(
+                  widget.produk.gambar!,
+                  scale: 2.5,
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -101,14 +101,24 @@ class _PesanScreenState extends State<PesanScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        _kurangiJumlah();
-                      },
-                      icon: const Icon(Icons.remove_circle),
-                      color: Colors.white,
-                      iconSize: 32.0,
-                    ),
+                    jumlah <= 1
+                        ? IconButton(
+                            splashColor: Colors.transparent,
+                            onPressed: () {
+                              null;
+                            },
+                            icon: const Icon(Icons.remove_circle),
+                            color: Colors.grey,
+                            iconSize: 32.0,
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              _kurangiJumlah();
+                            },
+                            icon: const Icon(Icons.remove_circle),
+                            color: Colors.white,
+                            iconSize: 32.0,
+                          ),
                     const SizedBox(
                       width: 16.0,
                     ),
@@ -124,14 +134,24 @@ class _PesanScreenState extends State<PesanScreen> {
                     const SizedBox(
                       width: 16.0,
                     ),
-                    IconButton(
-                      onPressed: () {
-                        _tambahJumlah();
-                      },
-                      icon: const Icon(Icons.add_circle),
-                      color: Colors.white,
-                      iconSize: 32.0,
-                    ),
+                    jumlah >= 20
+                        ? IconButton(
+                            splashColor: Colors.transparent,
+                            onPressed: () {
+                              null;
+                            },
+                            icon: const Icon(Icons.add_circle),
+                            color: Colors.grey,
+                            iconSize: 32.0,
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              _tambahJumlah();
+                            },
+                            icon: const Icon(Icons.add_circle),
+                            color: Colors.white,
+                            iconSize: 32.0,
+                          ),
                   ],
                 ),
                 BlocBuilder<SharedPreferencesBloc, SharedPreferencesState>(

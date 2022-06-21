@@ -36,6 +36,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
           keckelurahan: event.keckelurahan ?? state.keckelurahan,
+          jumlahPinjaman: event.jumlahPinjaman ?? state.jumlahPinjaman,
         ),
       );
     }
@@ -81,6 +82,7 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
           keckelurahan: event.keckelurahan ?? state.keckelurahan,
+          jumlahPinjaman: event.jumlahPinjaman ?? state.jumlahPinjaman,
         ),
       );
     }
@@ -92,8 +94,10 @@ class CrudKonsumenBloc extends Bloc<CrudKonsumenEvent, CrudKonsumenState> {
   ) async {
     _crudKonsumenSubscription?.cancel();
     if (this.state is CrudKonsumenLoaded) {
+      final state = this.state as CrudKonsumenLoaded;
       try {
-        await _konsumenRepository.updateKonsumen(event.konsumen, event.id!);
+        await _konsumenRepository.updateKonsumen(state.konsumen, event.id!);
+        await _konsumenRepository.storeDataKonsumen(event.konsumen);
         emit(CrudKonsumenLoaded());
       } catch (_) {}
     }

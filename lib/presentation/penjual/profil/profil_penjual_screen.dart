@@ -18,102 +18,128 @@ class _ProfilPenjualScreenState extends State<ProfilPenjualScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kJayaTirtaBlue50,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.account_circle_outlined,
-                      size: 80,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
+      body: BlocBuilder<PenjualBloc, PenjualState>(
+        builder: (context, state) {
+          context.read<PenjualBloc>().add(LoadPenjual(id: widget.user!.uid));
+          if (state is PenjualLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is PenjualLoaded) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
+                  Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${widget.user!.email}',
-                                style: const TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                '0823952893',
-                                style: const TextStyle(
-                                  fontFamily: 'Nunito',
-                                ),
-                              ),
-                            ],
+                          const Icon(
+                            Icons.account_circle_outlined,
+                            size: 80,
                           ),
-                          Column(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditDataPenjualScreen(
-                                        user: widget.user,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.edit_outlined),
-                              ),
-                              const Text('Edit'),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            GestureDetector(
-              onTap: () {
-                context.read<AuthenticationBloc>().add(LogOutRequested());
-              },
-              child: Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: const [
-                          Icon(Icons.power_settings_new_outlined),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          Text('Log Out'),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Builder(builder: (context) {
+                                  if (state.penjual.isEmpty) {
+                                    return const Text(
+                                      'Selamat Datang!',
+                                      style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  } else {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${state.penjual[0].nama}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Nunito',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${state.penjual[0].noTelp}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Nunito',
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                }),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditDataPenjualScreen(
+                                              user: widget.user,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(Icons.edit_outlined),
+                                    ),
+                                    const Text('Edit'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                      const Icon(Icons.keyboard_arrow_right),
-                    ],
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      context.read<AuthenticationBloc>().add(LogOutRequested());
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(Icons.power_settings_new_outlined),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text('Log Out'),
+                              ],
+                            ),
+                            const Icon(Icons.keyboard_arrow_right),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else {
+            return const Text('Something went wrong');
+          }
+        },
       ),
     );
   }

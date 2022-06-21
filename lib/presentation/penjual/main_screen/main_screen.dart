@@ -42,26 +42,37 @@ class _MainScreenState extends State<MainScreen> {
           ),
           centerTitle: false,
           titleSpacing: 0.0,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${user.email}',
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              const Text(
-                'Owner Jaya Tirta',
-                style: TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ],
+          title: BlocBuilder<PenjualBloc, PenjualState>(
+            builder: (context, state) {
+              context.read<PenjualBloc>().add(LoadPenjual(id: user.uid));
+              if (state is PenjualLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is PenjualLoaded) {
+                if (state.penjual.isEmpty) {
+                  return const Text(
+                    'Selamat Datang!',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  );
+                } else {
+                  return Text(
+                    '${state.penjual[0].nama}',
+                    style: const TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  );
+                }
+              } else {
+                return const Text('Something went wrong');
+              }
+            },
           ),
           actions: [
             IconButton(

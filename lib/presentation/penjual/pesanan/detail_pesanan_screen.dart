@@ -213,7 +213,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                       ),
                                       Text(
                                         '${widget.pesanan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -535,13 +535,8 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                           id: widget.pesanan.id,
                                                         ),
                                                       );
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const MainScreen(),
-                                                    ),
-                                                  );
+                                                  Navigator.popUntil(context,
+                                                      (route) => route.isFirst);
                                                 },
                                                 child: const Text(
                                                   'Batalkan Pesanan',
@@ -630,13 +625,8 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                           id: widget.pesanan.id,
                                                         ),
                                                       );
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const MainScreen(),
-                                                    ),
-                                                  );
+                                                  Navigator.popUntil(context,
+                                                      (route) => route.isFirst);
                                                 },
                                                 child: const Text(
                                                   'Selesaikan Pesanan',
@@ -710,13 +700,11 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                       id: widget.pesanan.id,
                                                     ),
                                                   );
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const MainScreen(),
-                                                ),
-                                              );
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const MainScreen()));
                                             },
                                             child: const Text(
                                               'Ubah Status Pesanan',

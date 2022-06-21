@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         body: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             if (state is Authenticated) {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MainScreen(),
+                ),
+              );
             }
             if (state is AuthError) {
               // Showing the error message if the user has entered invalid credentials
@@ -110,12 +115,17 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     TextFormField(
                                       controller: _emailTextController,
                                       focusNode: _focusEmail,
+                                      maxLength: 75,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(75)
+                                      ],
                                       validator: (value) =>
                                           Validator.validateEmail(
                                         email: value,
                                       ),
                                       decoration: InputDecoration(
                                         hintText: "Email",
+                                        counterText: '',
                                         errorBorder: UnderlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(6.0),
@@ -130,12 +140,17 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       controller: _passwordTextController,
                                       focusNode: _focusPassword,
                                       obscureText: true,
+                                      maxLength: 50,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(50)
+                                      ],
                                       validator: (value) =>
                                           Validator.validatePassword(
                                         password: value,
                                       ),
                                       decoration: InputDecoration(
                                         hintText: "Password",
+                                        counterText: '',
                                         errorBorder: UnderlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(6.0),

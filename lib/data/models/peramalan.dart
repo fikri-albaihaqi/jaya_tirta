@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class Peramalan extends Equatable {
-  final int? bulanKe;
+class Ramalan extends Equatable {
+  final int? bulan;
   final double? hasilRamal;
 
-  const Peramalan({
-    required this.bulanKe,
+  const Ramalan({
+    required this.bulan,
     required this.hasilRamal,
   });
 
-  static Peramalan fromSnapshot(DocumentSnapshot snap) {
-    Peramalan peramalan = Peramalan(
-      bulanKe: snap['bulanKe'],
+  static Ramalan fromSnapshot(DocumentSnapshot snap) {
+    Ramalan peramalan = Ramalan(
+      bulan: snap['bulan'],
       hasilRamal: snap['hasilRamal'],
     );
     return peramalan;
@@ -20,13 +20,13 @@ class Peramalan extends Equatable {
 
   @override
   List<Object?> get props => [
-        bulanKe,
+        bulan,
         hasilRamal,
       ];
 
   Map<String, Object> toDocument() {
     return {
-      'bulanKe': bulanKe!,
+      'bulan': bulan!,
       'hasilRamal': hasilRamal!,
     };
   }

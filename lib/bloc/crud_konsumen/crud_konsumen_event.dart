@@ -13,6 +13,7 @@ class AddKonsumen extends CrudKonsumenEvent {
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
   const AddKonsumen({
     this.id,
@@ -20,6 +21,7 @@ class AddKonsumen extends CrudKonsumenEvent {
     this.alamat,
     this.noTelp,
     this.keckelurahan,
+    this.jumlahPinjaman,
   });
 
   @override
@@ -29,6 +31,7 @@ class AddKonsumen extends CrudKonsumenEvent {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 }
 
@@ -47,6 +50,7 @@ class UpdateKonsumen extends CrudKonsumenEvent {
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
   const UpdateKonsumen({
     this.id,
@@ -54,6 +58,7 @@ class UpdateKonsumen extends CrudKonsumenEvent {
     this.alamat,
     this.noTelp,
     this.keckelurahan,
+    this.jumlahPinjaman,
   });
 
   @override
@@ -63,6 +68,7 @@ class UpdateKonsumen extends CrudKonsumenEvent {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 }
 

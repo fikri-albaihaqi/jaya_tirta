@@ -23,6 +23,7 @@ class AddPesanan extends CrudPesananEvent {
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
   const AddPesanan({
     this.id,
@@ -40,6 +41,7 @@ class AddPesanan extends CrudPesananEvent {
     this.alamat,
     this.noTelp,
     this.keckelurahan,
+    this.jumlahPinjaman,
   });
 
   @override
@@ -59,6 +61,7 @@ class AddPesanan extends CrudPesananEvent {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 }
 
@@ -87,6 +90,7 @@ class UpdatePesanan extends CrudPesananEvent {
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
   const UpdatePesanan({
     this.id,
@@ -104,6 +108,7 @@ class UpdatePesanan extends CrudPesananEvent {
     this.alamat,
     this.noTelp,
     this.keckelurahan,
+    this.jumlahPinjaman,
   });
 
   @override
@@ -123,6 +128,7 @@ class UpdatePesanan extends CrudPesananEvent {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 }
 

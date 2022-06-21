@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jaya_tirta/data/models/produk.dart';
+import 'package:path/path.dart' as path;
 
 class ProdukRepository {
   final FirebaseFirestore _firebaseFirestore;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   ProdukRepository({FirebaseFirestore? firebaseFirestore})
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
@@ -38,5 +45,50 @@ class ProdukRepository {
         'stok': stok,
       },
     );
+  }
+
+  Future<String> uploadImage(String inputSource) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    pickedImage = await picker.pickImage(
+        source:
+            inputSource == 'camera' ? ImageSource.camera : ImageSource.gallery,
+        maxWidth: 1920);
+
+    final String fileName = path.basename(pickedImage!.path);
+    File imageFile = File(pickedImage.path);
+
+    // Uploading the selected image with some custom meta data
+    UploadTask uploadTask = storage.ref(fileName).putFile(
+        imageFile,
+        SettableMetadata(
+            customMetadata: {'uploaded_by': 'Admin', 'description': ''}));
+    String url = await (await uploadTask).ref.getDownloadURL();
+    return url;
+  }
+
+  Future<List<Map<String, dynamic>>> loadImages() async {
+    List<Map<String, dynamic>> files = [];
+
+    final ListResult result = await storage.ref().list();
+    final List<Reference> allFiles = result.items;
+
+    await Future.forEach<Reference>(allFiles, (file) async {
+      final String fileUrl = await file.getDownloadURL();
+      final FullMetadata fileMeta = await file.getMetadata();
+      files.add({
+        "url": fileUrl,
+        "path": file.fullPath,
+        "uploaded_by": fileMeta.customMetadata?['uploaded_by'] ?? 'Nobody',
+        "description":
+            fileMeta.customMetadata?['description'] ?? 'No description'
+      });
+    });
+
+    return files;
+  }
+
+  Future<void> deleteImage(String ref) async {
+    await storage.ref(ref).delete();
   }
 }

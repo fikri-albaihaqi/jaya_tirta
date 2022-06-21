@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/models/models.dart';
+import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
+import 'package:jaya_tirta/presentation/penjual/produk/produk_screen.dart';
+import 'package:jaya_tirta/utils/validator.dart';
 
 import '../../../bloc/blocs.dart';
 import '../../../utils/colors.dart';
@@ -16,6 +20,8 @@ class EditProdukScreen extends StatefulWidget {
 class _EditProdukScreenState extends State<EditProdukScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  ProdukRepository? produkRepository = ProdukRepository();
+
   @override
   Widget build(BuildContext context) {
     final _namaProdukTextController = TextEditingController();
@@ -27,6 +33,9 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
     final _focusGambar = FocusNode();
     final _focusStok = FocusNode();
     final _focusHarga = FocusNode();
+
+    String urlGambar = '';
+    print('url: ${urlGambar}');
     return GestureDetector(
       onTap: () {
         _focusNamaProduk.unfocus();
@@ -62,16 +71,42 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                         padding: const EdgeInsets.only(left: 24.0, right: 24.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const Text(
+                              'Edit Data Produk',
+                              style: TextStyle(
+                                fontFamily: 'Kanit',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: kJayaTirtaBlack900,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             Form(
                               key: _formKey,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   TextFormField(
                                     controller: _namaProdukTextController,
                                     focusNode: _focusNamaProduk,
+                                    validator: (value) =>
+                                        Validator.validateNamaProduk(
+                                      namaProduk: value,
+                                    ),
+                                    maxLength: 30,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(30)
+                                    ],
                                     decoration: InputDecoration(
                                       hintText: "Nama Produk",
+                                      counterText: '',
                                       errorBorder: UnderlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(6.0),
@@ -86,32 +121,46 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                           .add(UpdateProduk(namaProduk: value));
                                     },
                                   ),
-                                  const SizedBox(height: 8.0),
-                                  TextFormField(
-                                    controller: _gambarTextController,
-                                    focusNode: _focusGambar,
-                                    decoration: InputDecoration(
-                                      hintText: "Gambar",
-                                      errorBorder: UnderlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
-                                        borderSide: const BorderSide(
-                                          color: Colors.red,
-                                        ),
-                                      ),
+                                  const SizedBox(height: 24.0),
+                                  const Text(
+                                    'Gambar Produk',
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    onChanged: (value) {
-                                      context
-                                          .read<CrudProdukBloc>()
-                                          .add(UpdateProduk(gambar: value));
-                                    },
                                   ),
-                                  const SizedBox(height: 8.0),
+                                  ElevatedButton.icon(
+                                      onPressed: () async {
+                                        urlGambar = await produkRepository!
+                                            .uploadImage('galery');
+                                        context.read<CrudProdukBloc>().add(
+                                              AddProduk(
+                                                gambar: urlGambar,
+                                              ),
+                                            );
+                                      },
+                                      icon: const Icon(Icons.library_add),
+                                      label: const Text('Pilih Gambar')),
+                                  const SizedBox(height: 16.0),
+                                  urlGambar == ''
+                                      ? Image.network(widget.produk.gambar!)
+                                      : Image.network(urlGambar),
                                   TextFormField(
                                     controller: _stokTextController,
                                     focusNode: _focusStok,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) =>
+                                        Validator.validateStok(
+                                      stok: value,
+                                    ),
+                                    maxLength: 4,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(4)
+                                    ],
                                     decoration: InputDecoration(
                                       hintText: "Stok",
+                                      counterText: '',
                                       errorBorder: UnderlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(6.0),
@@ -130,8 +179,18 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                   TextFormField(
                                     controller: _hargaTextController,
                                     focusNode: _focusHarga,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) =>
+                                        Validator.validateHarga(
+                                      harga: value,
+                                    ),
+                                    maxLength: 8,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(8)
+                                    ],
                                     decoration: InputDecoration(
                                       hintText: "Harga",
+                                      counterText: '',
                                       errorBorder: UnderlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(6.0),
@@ -141,9 +200,17 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                       ),
                                     ),
                                     onChanged: (value) {
-                                      context
-                                          .read<CrudProdukBloc>()
-                                          .add(UpdateProduk(harga: value));
+                                      if (urlGambar == '') {
+                                        context.read<CrudProdukBloc>().add(
+                                            UpdateProduk(
+                                                harga: value,
+                                                gambar: widget.produk.gambar));
+                                      } else {
+                                        context.read<CrudProdukBloc>().add(
+                                            UpdateProduk(
+                                                harga: value,
+                                                gambar: urlGambar));
+                                      }
                                     },
                                   ),
                                   const SizedBox(height: 24.0),
@@ -154,10 +221,18 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                       Expanded(
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            context.read<CrudProdukBloc>().add(
-                                                ConfirmUpdateProduk(
-                                                    produk: state.produk,
-                                                    id: widget.produk.id));
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              context
+                                                  .read<CrudProdukBloc>()
+                                                  .add(
+                                                    ConfirmUpdateProduk(
+                                                        produk: state.produk,
+                                                        id: widget.produk.id),
+                                                  );
+                                              Navigator.popUntil(context,
+                                                  (route) => route.isFirst);
+                                            }
                                           },
                                           child: const Text(
                                             'Simpan',
@@ -167,10 +242,13 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
                           ],
                         ),
                       ),

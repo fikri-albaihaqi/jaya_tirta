@@ -8,7 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
-import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_pesanan.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/data_diri_pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/profil/edit_data_diri_pesanan.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class KonfirmasiPesananScreen extends StatefulWidget {
@@ -141,306 +142,455 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                         );
                       }
                       if (status is SharedPreferencesLoaded) {
-                        konsumen = Konsumen(
-                          id: status.konsumen.elementAt(0),
-                          nama: status.konsumen.elementAt(1),
-                          alamat: status.konsumen.elementAt(2),
-                          noTelp: status.konsumen.elementAt(3),
-                          keckelurahan: status.konsumen.elementAt(4),
-                        );
-                        return Container(
-                          child: widget.user!.uid ==
-                                  status.konsumen.elementAt(0)
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 24.0, right: 24.0),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 16.0),
-                                    child: Column(
-                                      children: [
-                                        const Text(
-                                          'Pastikan data sudah benar sebelum konfirmasi pesanan',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'Kanit',
-                                            fontWeight: FontWeight.w700,
-                                            color: kJayaTirtaBlack900,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Text(
-                                          'Nama: ${status.konsumen.elementAt(1)}',
-                                          style: const TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Kecamatan/Kelurahan: ${status.konsumen.elementAt(4)}',
-                                          style: const TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Alamat: ${status.konsumen.elementAt(2)}',
-                                          style: const TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Nomor Telepon: ${status.konsumen.elementAt(3)}',
-                                          style: const TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                        return Builder(builder: (context) {
+                          if (status.konsumen.isNotEmpty) {
+                            konsumen = Konsumen(
+                              id: status.konsumen.elementAt(0),
+                              nama: status.konsumen.elementAt(1),
+                              alamat: status.konsumen.elementAt(2),
+                              noTelp: status.konsumen.elementAt(3),
+                              keckelurahan: status.konsumen.elementAt(4),
+                            );
+                            return Container(
+                              child: widget.user!.uid ==
+                                      status.konsumen.elementAt(0)
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 24.0, right: 24.0),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16.0),
+                                        child: Column(
                                           children: [
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DataDiriPesananScreen(
-                                                        produk: widget.produk,
-                                                        total: widget.total,
-                                                        jumlah: widget.jumlah,
-                                                        user: widget.user,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: const Text(
-                                                  'Ubah Data',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
+                                            const Text(
+                                              'Pastikan data sudah benar sebelum konfirmasi pesanan',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily: 'Kanit',
+                                                fontWeight: FontWeight.w700,
+                                                color: kJayaTirtaBlack900,
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        Card(
-                                          clipBehavior: Clip.antiAlias,
-                                          elevation: 16,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            const SizedBox(
+                                              height: 24.0,
+                                            ),
+                                            Text(
+                                              'Nama: ${status.konsumen.elementAt(1)}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Kecamatan/Kelurahan: ${status.konsumen.elementAt(4)}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Alamat: ${status.konsumen.elementAt(2)}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Nomor Telepon: ${status.konsumen.elementAt(3)}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 24.0,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'graphics/prima.png',
-                                                      scale: 4,
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 8,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          widget.produk
-                                                              .namaProduk!,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontFamily:
-                                                                'Nunito',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16,
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EditDataDiriPesananScreen(
+                                                            produk:
+                                                                widget.produk,
+                                                            total: widget.total,
+                                                            jumlah:
+                                                                widget.jumlah,
+                                                            user: widget.user,
                                                           ),
                                                         ),
-                                                        Text(
-                                                          '${widget.jumlah} x ${widget.produk.harga}',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontFamily:
-                                                                'Nunito',
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                      );
+                                                    },
+                                                    child: const Text(
+                                                      'Ubah Data',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
                                                     ),
-                                                  ],
-                                                ),
-                                                const Divider(
-                                                  height: 20,
-                                                ),
-                                                const Text(
-                                                  'Total Harga',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Rp.${widget.total}',
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  context
-                                                      .read<CrudPesananBloc>()
-                                                      .add(
-                                                        AddPesanan(
-                                                          status:
-                                                              'Menunggu Konfirmasi',
-                                                          jumlah: widget.jumlah
-                                                              .toString(),
-                                                          total: widget.total
-                                                              .toString(),
-                                                          tanggalPembelian:
-                                                              tanggal,
-                                                          idProduk:
-                                                              widget.produk.id,
-                                                          namaProduk: widget
-                                                              .produk
-                                                              .namaProduk,
-                                                          gambar: widget
-                                                              .produk.gambar,
-                                                          harga: widget
-                                                              .produk.harga,
-                                                          stok: stokBaru
-                                                              .toString(),
-                                                          idKonsumen: status
-                                                              .konsumen
-                                                              .elementAt(0),
-                                                          namaKonsumen: status
-                                                              .konsumen
-                                                              .elementAt(1),
-                                                          alamat: status
-                                                              .konsumen
-                                                              .elementAt(2),
-                                                          noTelp: status
-                                                              .konsumen
-                                                              .elementAt(3),
-                                                          keckelurahan: status
-                                                              .konsumen
-                                                              .elementAt(4),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Card(
+                                              clipBehavior: Clip.antiAlias,
+                                              elevation: 16,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Image.asset(
+                                                          'graphics/prima.png',
+                                                          scale: 4,
                                                         ),
-                                                      );
-                                                  Timer(
-                                                      const Duration(
-                                                          seconds: 1), () {
-                                                    context
-                                                        .read<CrudPesananBloc>()
-                                                        .add(ConfirmAddPesanan(
-                                                            pesanan:
-                                                                state.pesanan));
-                                                    context
-                                                        .read<CrudProdukBloc>()
-                                                        .add(UpdateStok(
-                                                            id: widget
-                                                                .produk.id,
-                                                            stok: stokBaru
-                                                                .toString()));
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              widget.produk
+                                                                  .namaProduk!,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontFamily:
+                                                                    'Nunito',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              '${widget.jumlah} x ${widget.produk.harga}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontFamily:
+                                                                    'Nunito',
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Divider(
+                                                      height: 20,
+                                                    ),
+                                                    const Text(
+                                                      'Total Harga',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Rp.${widget.total}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: BlocBuilder<
+                                                      CrudKonsumenBloc,
+                                                      CrudKonsumenState>(
+                                                    builder:
+                                                        (context, keadaan) {
+                                                      if (keadaan
+                                                          is CrudKonsumenLoading) {
+                                                        return const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        );
+                                                      } else if (keadaan
+                                                          is CrudKonsumenLoaded) {
+                                                        return ElevatedButton(
+                                                          onPressed: () {
+                                                            context
+                                                                .read<
+                                                                    CrudPesananBloc>()
+                                                                .add(
+                                                                  AddPesanan(
+                                                                    status:
+                                                                        'Menunggu Konfirmasi',
+                                                                    jumlah: widget
+                                                                        .jumlah
+                                                                        .toString(),
+                                                                    total: widget
+                                                                        .total
+                                                                        .toString(),
+                                                                    tanggalPembelian:
+                                                                        tanggal,
+                                                                    idProduk:
+                                                                        widget
+                                                                            .produk
+                                                                            .id,
+                                                                    namaProduk: widget
+                                                                        .produk
+                                                                        .namaProduk,
+                                                                    gambar: widget
+                                                                        .produk
+                                                                        .gambar,
+                                                                    harga: widget
+                                                                        .produk
+                                                                        .harga,
+                                                                    stok: stokBaru
+                                                                        .toString(),
+                                                                    idKonsumen: status
+                                                                        .konsumen
+                                                                        .elementAt(
+                                                                            0),
+                                                                    namaKonsumen: status
+                                                                        .konsumen
+                                                                        .elementAt(
+                                                                            1),
+                                                                    alamat: status
+                                                                        .konsumen
+                                                                        .elementAt(
+                                                                            2),
+                                                                    noTelp: status
+                                                                        .konsumen
+                                                                        .elementAt(
+                                                                            3),
+                                                                    keckelurahan: status
+                                                                        .konsumen
+                                                                        .elementAt(
+                                                                            4),
+                                                                    jumlahPinjaman: widget
+                                                                        .jumlah
+                                                                        .toString(),
+                                                                  ),
+                                                                );
+                                                            context
+                                                                .read<
+                                                                    CrudKonsumenBloc>()
+                                                                .add(
+                                                                    UpdateKonsumen(
+                                                                  id: status
+                                                                      .konsumen
+                                                                      .elementAt(
+                                                                          0),
+                                                                  nama: status
+                                                                      .konsumen
+                                                                      .elementAt(
+                                                                          1),
+                                                                  alamat: status
+                                                                      .konsumen
+                                                                      .elementAt(
+                                                                          2),
+                                                                  noTelp: status
+                                                                      .konsumen
+                                                                      .elementAt(
+                                                                          3),
+                                                                  keckelurahan: status
+                                                                      .konsumen
+                                                                      .elementAt(
+                                                                          4),
+                                                                  jumlahPinjaman:
+                                                                      widget
+                                                                          .jumlah
+                                                                          .toString(),
+                                                                ));
+                                                            Timer(
+                                                                const Duration(
+                                                                    seconds: 1),
+                                                                () {
+                                                              context
+                                                                  .read<
+                                                                      CrudPesananBloc>()
+                                                                  .add(ConfirmAddPesanan(
+                                                                      pesanan: state
+                                                                          .pesanan));
+                                                              context
+                                                                  .read<
+                                                                      CrudKonsumenBloc>()
+                                                                  .add(
+                                                                    ConfirmUpdateKonsumen(
+                                                                      konsumen:
+                                                                          keadaan
+                                                                              .konsumen,
+                                                                      id: status
+                                                                          .konsumen
+                                                                          .elementAt(
+                                                                              0),
+                                                                    ),
+                                                                  );
+                                                              context
+                                                                  .read<
+                                                                      CrudProdukBloc>()
+                                                                  .add(
+                                                                    UpdateStok(
+                                                                      id: widget
+                                                                          .produk
+                                                                          .id,
+                                                                      stok: stokBaru
+                                                                          .toString(),
+                                                                    ),
+                                                                  );
+                                                              Navigator
+                                                                  .pushReplacement(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const KonsumenMainScreen(),
+                                                                ),
+                                                              );
+                                                            });
+                                                          },
+                                                          child: const Text(
+                                                            'Konfirmasi Pesanan',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        return const Text(
+                                                            'Something went wrong');
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'Yuk isi data diri terlebih dahulu dengan menekan tombol "Masukan Data Diri"',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontFamily: 'Kanit',
+                                              fontWeight: FontWeight.w700,
+                                              color: kJayaTirtaBlack900,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 32,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: ElevatedButton(
+                                                  onPressed: () {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const KonsumenMainScreen(),
+                                                            DataDiriPesananScreen(
+                                                          produk: widget.produk,
+                                                          total: widget.total,
+                                                          jumlah: widget.jumlah,
+                                                          user: widget.user,
+                                                        ),
                                                       ),
                                                     );
-                                                  });
-                                                },
-                                                child: const Text(
-                                                  'Konfirmasi Pesanan',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                                  },
+                                                  child: const Text(
+                                                    'Masukan Data Diri',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Yuk isi data diri terlebih dahulu dengan menekan tombol "Masukan Data Diri"',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Kanit',
-                                          fontWeight: FontWeight.w700,
-                                          color: kJayaTirtaBlack900,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 32,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DataDiriPesananScreen(
-                                                      produk: widget.produk,
-                                                      total: widget.total,
-                                                      jumlah: widget.jumlah,
-                                                      user: widget.user,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: const Text(
-                                                'Masukan Data Diri',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
+                                            ],
                                           ),
                                         ],
                                       ),
+                                    ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Yuk isi data diri terlebih dahulu dengan menekan tombol "Masukan Data Diri"',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Kanit',
+                                      fontWeight: FontWeight.w700,
+                                      color: kJayaTirtaBlack900,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 32,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DataDiriPesananScreen(
+                                                  produk: widget.produk,
+                                                  total: widget.total,
+                                                  jumlah: widget.jumlah,
+                                                  user: widget.user,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Masukan Data Diri',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                ),
-                        );
+                                ],
+                              ),
+                            );
+                          }
+                        });
                       } else {
                         return const Text('Something went wrong');
                       }

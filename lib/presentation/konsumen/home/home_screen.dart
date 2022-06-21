@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           elevation: 16.0,
                           child: Column(
                             children: [
-                              Image.asset(state.produk[index].gambar!),
+                              Image.network('${state.produk[index].gambar}'),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(

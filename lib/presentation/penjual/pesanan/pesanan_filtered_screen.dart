@@ -73,7 +73,7 @@ class _PesananFilteredScreenState extends State<PesananFilteredScreen> {
                       ),
                       Row(
                         children: [
-                          Image.asset(
+                          Image.network(
                             widget.daftarPesanan![index].gambar!,
                             scale: 2.8,
                           ),
@@ -92,14 +92,14 @@ class _PesananFilteredScreenState extends State<PesananFilteredScreen> {
                                 ),
                               ),
                               Text(
-                                'No Telepon: ${widget.daftarPesanan![index].noTelp}',
+                                'No Telp: ${widget.daftarPesanan![index].noTelp}',
                                 style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
-                                'Kecamatan/Kelurahan: ${widget.daftarPesanan![index].keckelurahan}',
+                                'Kec/Kel: ${widget.daftarPesanan![index].keckelurahan}',
                                 style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 16,

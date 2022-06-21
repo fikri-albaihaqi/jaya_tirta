@@ -45,6 +45,7 @@ class CrudPesananBloc extends Bloc<CrudPesananEvent, CrudPesananState> {
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
           keckelurahan: event.keckelurahan ?? state.keckelurahan,
+          jumlahPinjaman: event.jumlahPinjaman ?? state.jumlahPinjaman,
         ),
       );
     }
@@ -99,6 +100,7 @@ class CrudPesananBloc extends Bloc<CrudPesananEvent, CrudPesananState> {
           alamat: event.alamat ?? state.alamat,
           noTelp: event.noTelp ?? state.noTelp,
           keckelurahan: event.keckelurahan ?? state.keckelurahan,
+          jumlahPinjaman: event.jumlahPinjaman ?? state.jumlahPinjaman,
         ),
       );
     }

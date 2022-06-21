@@ -85,7 +85,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                           elevation: 16.0,
                           child: Column(
                             children: [
-                              Image.asset(state.produk[index].gambar!),
+                              Image.network(state.produk[index].gambar!),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(

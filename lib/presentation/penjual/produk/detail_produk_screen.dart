@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/penjual/produk/edit_produk.dart';
+import 'package:jaya_tirta/presentation/penjual/produk/produk_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 import '../../../bloc/blocs.dart';
@@ -51,7 +52,7 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
                           ),
                         ),
                         const SizedBox(height: 16.0),
-                        Image.asset(widget.produk.gambar!),
+                        Image.network(widget.produk.gambar!),
                         const SizedBox(height: 16.0),
                         Text(
                           'Stok: ${widget.produk.stok!}',
@@ -77,6 +78,8 @@ class _DetailProdukScreenState extends State<DetailProdukScreen> {
                             context.read<CrudProdukBloc>().add(
                                   DeleteProduk(id: widget.produk.id!),
                                 );
+                            Navigator.popUntil(
+                                context, (route) => route.isFirst);
                           },
                           icon: const Icon(Icons.delete_outline),
                         ),

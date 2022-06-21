@@ -5,15 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
-import 'package:jaya_tirta/bloc/peramalan/peramalan_bloc.dart';
-import 'package:jaya_tirta/bloc/pesanan_konsumen/pesanan_konsumen_bloc.dart';
+import 'package:jaya_tirta/bloc/peramalan_mingguan/peramalan_mingguan_bloc.dart';
 import 'package:jaya_tirta/data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
+import 'package:jaya_tirta/data/repositories/penjual/penjual_repository.dart';
 import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
 import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
+import 'package:jaya_tirta/presentation/welcome/welcome.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'app.dart';
 import 'presentation/penjual/main_screen/main_screen.dart';
 import 'utils/colors.dart';
@@ -76,14 +78,44 @@ Future<void> main() async {
           ),
         ),
         BlocProvider(
-          create: (_) => PeramalanBloc(
+          create: (_) => PeramalanBulananBloc(
             peramalanRepository: PeramalanRepository(),
-          )..add(LoadPeramalan()),
+          )..add(LoadPeramalanBulanan()),
+        ),
+        BlocProvider(
+          create: (_) => PeramalanMingguanBloc(
+            peramalanRepository: PeramalanRepository(),
+          )..add(LoadPeramalanMingguan()),
         ),
         BlocProvider(
           create: (_) => FilterBloc(
             pesananBloc: _.read<PesananBloc>(),
           )..add(LoadFilter()),
+        ),
+        BlocProvider(
+          create: (_) => FilterPesananKonsumenBloc(
+            pesananKonsumenBloc: _.read<PesananKonsumenBloc>(),
+          )..add(LoadFilterPesananKonsumen()),
+        ),
+        BlocProvider(
+          create: (_) => SearchBloc(
+            pesananBloc: _.read<PesananBloc>(),
+          )..add(LoadSearch()),
+        ),
+        BlocProvider(
+          create: (_) => SearchPesananKonsumenBloc(
+            pesananKonsumenBloc: _.read<PesananKonsumenBloc>(),
+          )..add(LoadPesananKonsumenSearch()),
+        ),
+        BlocProvider(
+          create: (_) => PenjualBloc(
+            penjualRepository: PenjualRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => CrudPenjualBloc(
+            penjualRepository: PenjualRepository(),
+          ),
         ),
       ],
       child: const MyApp(),
@@ -113,16 +145,31 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
+          builder: (context, widget) => ResponsiveWrapper.builder(
+              BouncingScrollWrapper.builder(context, widget!),
+              maxWidth: 1200,
+              minWidth: 450,
+              defaultScale: true,
+              breakpoints: const [
+                ResponsiveBreakpoint.resize(450, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+                ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
+                ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+              ],
+              background: Container(color: kJayaTirtaBlue500)),
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
-                // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
-                if (snapshot.data?.email != null) {
-                  return const MainScreen();
-                } else if (snapshot.data?.isAnonymous == true) {
-                  return const KonsumenMainScreen();
+                print('isEmpty: ${snapshot.data?.email}');
+                if (snapshot.data != null) {
+                  if (snapshot.data?.email != '') {
+                    return const MainScreen();
+                  } else if (snapshot.data?.email == '') {
+                    return const KonsumenMainScreen();
+                  }
                 }
-                return const SplashScreen();
+                return const WelcomeScreen();
               }),
           debugShowCheckedModeBanner: false,
         ),
@@ -147,7 +194,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const JayaTirtaApp(),
+          builder: (context) => const WelcomeScreen(),
         ),
       ),
     );

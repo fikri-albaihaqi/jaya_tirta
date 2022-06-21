@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
+import 'package:jaya_tirta/utils/validator.dart';
 
 class DataDiriPesananScreen extends StatefulWidget {
   Produk produk;
@@ -93,8 +95,16 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                 TextFormField(
                                   controller: _namaTextController,
                                   focusNode: _focusNama,
+                                  validator: (value) => Validator.validateNama(
+                                    nama: value,
+                                  ),
+                                  maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                   decoration: InputDecoration(
                                     hintText: "Nama",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -112,8 +122,17 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                 TextFormField(
                                   controller: _kecKelurahanTextController,
                                   focusNode: _focuskecKelurahan,
+                                  validator: (value) =>
+                                      Validator.validateKecKelurahan(
+                                    keckelurahan: value,
+                                  ),
+                                  maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                   decoration: InputDecoration(
                                     hintText: "Kecamatan/Kelurahan",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -131,8 +150,17 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                 TextFormField(
                                   controller: _alamatTextController,
                                   focusNode: _focusAlamat,
+                                  validator: (value) =>
+                                      Validator.validateAlamat(
+                                    alamat: value,
+                                  ),
+                                  maxLength: 200,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(200)
+                                  ],
                                   decoration: InputDecoration(
                                     hintText: "Alamat",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -150,8 +178,18 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                 TextFormField(
                                   controller: _noTelpTextController,
                                   focusNode: _focusNoTelp,
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) =>
+                                      Validator.validateNoTelp(
+                                    noTelp: value,
+                                  ),
+                                  maxLength: 13,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(13)
+                                  ],
                                   decoration: InputDecoration(
                                     hintText: "Nomor Telepon",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -161,9 +199,12 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                   ),
                                   onChanged: (value) {
                                     context.read<CrudKonsumenBloc>().add(
-                                        AddKonsumen(
+                                          AddKonsumen(
                                             noTelp: value,
-                                            id: widget.user!.uid));
+                                            id: widget.user!.uid,
+                                            jumlahPinjaman: "0",
+                                          ),
+                                        );
                                   },
                                 ),
                                 const SizedBox(
@@ -179,28 +220,34 @@ class _DataDiriPesananScreenState extends State<DataDiriPesananScreen> {
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          context.read<CrudKonsumenBloc>().add(
-                                                ConfirmAddKonsumen(
-                                                    konsumen: state.konsumen),
-                                              );
-                                          Timer(
-                                              const Duration(milliseconds: 700),
-                                              () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    KonfirmasiPesananScreen(
-                                                        produk: widget.produk,
-                                                        total: widget.total,
-                                                        jumlah: widget.jumlah,
-                                                        user: widget.user),
-                                              ),
-                                            );
+                                          if (_formKey.currentState!
+                                              .validate()) {
                                             context
-                                                .read<SharedPreferencesBloc>()
-                                                .add(LoadSharedPreferences());
-                                          });
+                                                .read<CrudKonsumenBloc>()
+                                                .add(
+                                                  ConfirmAddKonsumen(
+                                                      konsumen: state.konsumen),
+                                                );
+                                            Timer(
+                                                const Duration(
+                                                    milliseconds: 1000), () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      KonfirmasiPesananScreen(
+                                                    produk: widget.produk,
+                                                    total: widget.total,
+                                                    jumlah: widget.jumlah,
+                                                    user: widget.user,
+                                                  ),
+                                                ),
+                                              );
+                                              context
+                                                  .read<SharedPreferencesBloc>()
+                                                  .add(LoadSharedPreferences());
+                                            });
+                                          }
                                         },
                                         child: const Text(
                                           'Simpan',

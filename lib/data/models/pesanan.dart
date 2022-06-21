@@ -17,6 +17,7 @@ class Pesanan extends Equatable {
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
   const Pesanan({
     this.id,
@@ -34,6 +35,7 @@ class Pesanan extends Equatable {
     required this.alamat,
     required this.noTelp,
     required this.keckelurahan,
+    this.jumlahPinjaman,
   });
 
   static Pesanan fromSnapshot(DocumentSnapshot snap) {
@@ -53,6 +55,7 @@ class Pesanan extends Equatable {
       alamat: snap['konsumen']['alamat'],
       noTelp: snap['konsumen']['noTelp'],
       keckelurahan: snap['konsumen']['keckelurahan'],
+      jumlahPinjaman: snap['konsumen']['jumlahPinjaman'],
     );
     return pesanan;
   }
@@ -74,6 +77,7 @@ class Pesanan extends Equatable {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 
   Map<String, Object> toDocument() {
@@ -90,6 +94,7 @@ class Pesanan extends Equatable {
     konsumen['alamat'] = alamat;
     konsumen['noTelp'] = noTelp;
     konsumen['keckelurahan'] = keckelurahan;
+    konsumen['jumlahPinjaman'] = jumlahPinjaman;
 
     return {
       'status': status!,

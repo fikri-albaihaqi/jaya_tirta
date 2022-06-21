@@ -31,6 +31,7 @@ class KonsumenRepository {
       'alamat': konsumen.alamat,
       'noTelp': konsumen.noTelp,
       'keckelurahan': konsumen.keckelurahan,
+      'jumlahPinjaman': konsumen.jumlahPinjaman,
     });
   }
 
@@ -39,35 +40,57 @@ class KonsumenRepository {
   }
 
   Future<void> updateKonsumen(Konsumen konsumen, String id) {
-    return _firebaseFirestore
-        .collection('konsumen')
-        .doc(id)
-        .update(
-          {
-            'id': id,
-            'nama': konsumen.nama,
-            'alamat': konsumen.alamat,
-            'noTelp': konsumen.noTelp,
-            'keckelurahan': konsumen.keckelurahan,
-          },
-        )
-        .then((_) => print(konsumen.nama))
-        .catchError((onError) => print('Update failed: $onError'));
+    if (konsumen.jumlahPinjaman != null) {
+      return _firebaseFirestore
+          .collection('konsumen')
+          .doc(id)
+          .update(
+            {
+              'id': id,
+              'nama': konsumen.nama,
+              'alamat': konsumen.alamat,
+              'noTelp': konsumen.noTelp,
+              'keckelurahan': konsumen.keckelurahan,
+              'jumlahPinjaman': konsumen.jumlahPinjaman,
+            },
+          )
+          .then((_) => print(konsumen.nama))
+          .catchError((onError) => print('Update failed: $onError'));
+    } else {
+      return _firebaseFirestore
+          .collection('konsumen')
+          .doc(id)
+          .update(
+            {
+              'id': id,
+              'nama': konsumen.nama,
+              'alamat': konsumen.alamat,
+              'noTelp': konsumen.noTelp,
+              'keckelurahan': konsumen.keckelurahan,
+            },
+          )
+          .then((_) => print(konsumen.nama))
+          .catchError((onError) => print('Update failed: $onError'));
+    }
   }
 
   Future<List<String>> loadDataKonsumen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> konsumen = [];
 
-    return Future.delayed(const Duration(milliseconds: 600), () {
-      konsumen.add(prefs.getString('id')!);
-      konsumen.add(prefs.getString('nama')!);
-      konsumen.add(prefs.getString('alamat')!);
-      konsumen.add(prefs.getString('noTelp')!);
-      konsumen.add(prefs.getString('keckelurahan')!);
+    if (prefs.getString('id') != null) {
+      return Future.delayed(const Duration(milliseconds: 600), () {
+        konsumen.add(prefs.getString('id')!);
+        konsumen.add(prefs.getString('nama')!);
+        konsumen.add(prefs.getString('alamat')!);
+        konsumen.add(prefs.getString('noTelp')!);
+        konsumen.add(prefs.getString('keckelurahan')!);
 
+        return konsumen;
+      });
+    } else {
       return konsumen;
-    });
+    }
   }
 
   Future<void> storeDataKonsumen(Konsumen konsumen) async {

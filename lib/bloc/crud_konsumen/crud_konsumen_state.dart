@@ -16,15 +16,22 @@ class CrudKonsumenLoaded extends CrudKonsumenState {
   final String? noTelp;
   final Konsumen konsumen;
   final String? keckelurahan;
+  final String? jumlahPinjaman;
 
-  CrudKonsumenLoaded(
-      {this.id, this.nama, this.alamat, this.noTelp, this.keckelurahan})
-      : konsumen = Konsumen(
+  CrudKonsumenLoaded({
+    this.id,
+    this.nama,
+    this.alamat,
+    this.noTelp,
+    this.keckelurahan,
+    this.jumlahPinjaman,
+  }) : konsumen = Konsumen(
           id: id,
           nama: nama,
           alamat: alamat,
           noTelp: noTelp,
           keckelurahan: keckelurahan,
+          jumlahPinjaman: jumlahPinjaman,
         );
 
   @override
@@ -34,5 +41,6 @@ class CrudKonsumenLoaded extends CrudKonsumenState {
         alamat,
         noTelp,
         keckelurahan,
+        jumlahPinjaman,
       ];
 }

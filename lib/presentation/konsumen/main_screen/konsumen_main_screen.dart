@@ -44,7 +44,7 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
           titleSpacing: 0.0,
           title: BlocBuilder<KonsumenBloc, KonsumenState>(
             builder: (context, state) {
-              context.read<KonsumenBloc>().add(LoadKonsumen(id: user!.uid));
+              context.read<KonsumenBloc>().add(LoadKonsumen(id: user?.uid));
               if (state is KonsumenLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is KonsumenLoaded) {

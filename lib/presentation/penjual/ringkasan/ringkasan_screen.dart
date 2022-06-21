@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/penjual/ringkasan/detail_data_penjualan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/tambah_data_penjualan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
+import 'package:jaya_tirta/widgets/search_box.dart';
 
 class RingkasanScreen extends StatefulWidget {
   const RingkasanScreen({Key? key}) : super(key: key);
@@ -61,13 +63,12 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                         );
                       }
                       if (state is PesananLoaded) {
-                        return Column(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 32.0, right: 32.0, top: 24.0),
+                        return Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -86,243 +87,130 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                   ),
                                 ),
                               ),
-                            ),
-                            ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(16),
-                              itemCount: state.pesanan.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetailPesananScreen(
-                                          pesanan: state.pesanan[index],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Card(
-                                    clipBehavior: Clip.antiAlias,
-                                    elevation: 16,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                '${state.pesanan[index].tanggalPembelian}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Nunito',
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                state.pesanan[index].status!,
-                                                style: const TextStyle(
-                                                  fontFamily: 'Nunito',
-                                                  fontSize: 16,
-                                                  color: Colors.orange,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const Divider(
-                                            height: 16,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                state.pesanan[index].gambar!,
-                                                scale: 2.8,
-                                              ),
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Nama: ${state.pesanan[index].namaKonsumen}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'No Telepon: ${state.pesanan[index].noTelp}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Kecamatan/Kelurahan: ${state.pesanan[index].keckelurahan}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Alamat: ${state.pesanan[index].alamat}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Produk: ${state.pesanan[index].namaProduk}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Jumlah: ${state.pesanan[index].jumlah}',
-                                                    style: const TextStyle(
-                                                      fontFamily: 'Nunito',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          Text(
-                                            'Total Harga: Rp.${state.pesanan[index].total}',
-                                            style: const TextStyle(
-                                              fontFamily: 'Nunito',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return const Text('Something went wrong');
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  BlocBuilder<PeramalanBloc, PeramalanState>(
-                    builder: (context, state) {
-                      if (state is PeramalanLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (state is PeramalanLoaded) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Lihat Peramalan Penjualan Untuk',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                               const SizedBox(
                                 height: 16,
                               ),
-                              DropdownButtonFormField(
-                                elevation: 16,
-                                decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Nunito',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                icon: const Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.grey,
-                                ),
-                                value: dropdownValue,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue!;
-                                  });
-                                },
-                                items: <String>[
-                                  'Bulanan',
-                                  'Mingguan',
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
+                              const SearchBox(),
                               const SizedBox(
-                                height: 24,
-                              ),
-                              const Text(
-                                'Perkiraan Total Penjualan Untuk 12 Bulan Selanjutnya',
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                height: 16,
                               ),
                               ListView.separated(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                padding: const EdgeInsets.all(16),
-                                itemCount: state.peramalan.length,
+                                itemCount: state.pesanan.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return ListTile(
-                                    hoverColor: Colors.grey,
-                                    contentPadding:
-                                        EdgeInsets.only(top: 0, bottom: 0),
-                                    title: Text(
-                                      'Bulan ke: ${state.peramalan[index].bulanKe}',
-                                      style: TextStyle(
-                                        fontFamily: 'Nunito',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: Text(
-                                      '${state.peramalan[index].hasilRamal!.toInt()} galon',
-                                      style: TextStyle(
-                                        fontFamily: 'Nunito',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailDataPenjualanScreen(
+                                            penjualan: state.pesanan[index],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      elevation: 16,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  '${state.pesanan[index].tanggalPembelian}',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Divider(
+                                              height: 16,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Image.network(
+                                                  state.pesanan[index].gambar!,
+                                                  scale: 7,
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Nama: ${state.pesanan[index].namaKonsumen}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'No Telp: ${state.pesanan[index].noTelp}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Kec/Kel: ${state.pesanan[index].keckelurahan}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Alamat: ${state.pesanan[index].alamat}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Produk: ${state.pesanan[index].namaProduk}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Jumlah: ${state.pesanan[index].jumlah}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Text(
+                                              'Total Harga: Rp.${state.pesanan[index].total}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -339,6 +227,212 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                       }
                     },
                   ),
+                ],
+              ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Lihat Peramalan Penjualan Untuk',
+                          style: TextStyle(
+                            fontFamily: 'Kanit',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        DropdownButtonFormField(
+                          elevation: 16,
+                          decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Nunito',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.grey,
+                          ),
+                          value: dropdownValue,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                          items: <String>[
+                            'Bulanan',
+                            'Mingguan',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Builder(builder: (context) {
+                    if (dropdownValue == 'Bulanan') {
+                      return Column(
+                        children: [
+                          BlocBuilder<PeramalanBulananBloc,
+                              PeramalanBulananState>(
+                            builder: (context, state) {
+                              if (state is PeramalanBulananLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (state is PeramalanBulananLoaded) {
+                                if (state.peramalan.isEmpty) {
+                                  return const Text(
+                                      'Data Peramalan Tidak Tersedia');
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 24,
+                                        ),
+                                        const Text(
+                                          'Perkiraan Total Penjualan Untuk 12 Bulan Selanjutnya',
+                                          style: TextStyle(
+                                            fontFamily: 'Nunito',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        ListView.separated(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          padding: const EdgeInsets.all(16),
+                                          itemCount: state.peramalan.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return ListTile(
+                                              hoverColor: Colors.grey,
+                                              contentPadding: EdgeInsets.only(
+                                                  top: 0, bottom: 0),
+                                              title: Text(
+                                                'Bulan ke: ${state.peramalan[index].bulan}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Nunito',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              trailing: Text(
+                                                '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                                style: TextStyle(
+                                                  fontFamily: 'Nunito',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  const Divider(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else {
+                                return const Text('Something went wrong');
+                              }
+                            },
+                          ),
+                        ],
+                      );
+                    } else if (dropdownValue == 'Mingguan') {
+                      return Column(
+                        children: [
+                          BlocBuilder<PeramalanMingguanBloc,
+                              PeramalanMingguanState>(
+                            builder: (context, state) {
+                              if (state is PeramalanMingguanLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (state is PeramalanMingguanLoaded) {
+                                if (state.peramalan.isEmpty) {
+                                  return const Text(
+                                      'Data Peramalan Tidak Tersedia');
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          height: 24,
+                                        ),
+                                        const Text(
+                                          'Perkiraan Total Penjualan Setiap Minggu Pada Bulan Ini',
+                                          style: TextStyle(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        ListView.separated(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          padding: const EdgeInsets.all(16),
+                                          itemCount: 1,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Text(
+                                              '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                              style: TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            );
+                                          },
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  const Divider(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else {
+                                return const Text('Something went wrong');
+                              }
+                            },
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const Text('Something went wrong');
+                    }
+                  }),
                 ],
               ),
             ),
@@ -402,7 +496,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                       ),
                                     ),
                                     Text(
-                                      'Pinjaman: 2 Galon',
+                                      'Jumlah Pinjaman: ${state.konsumen[index].jumlahPinjaman}',
                                       style: TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,

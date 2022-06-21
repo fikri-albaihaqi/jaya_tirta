@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/konsumen/home/konfirmasi_pesanan_screen.dart';
+import 'package:jaya_tirta/presentation/konsumen/main_screen/konsumen_main_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
+import 'package:jaya_tirta/utils/validator.dart';
 
 class EditDataDiriScreen extends StatefulWidget {
   EditDataDiriScreen({Key? key, required this.user, required this.konsumen})
@@ -23,10 +26,12 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _namaTextController = TextEditingController();
+  final _keckelurahanTextController = TextEditingController();
   final _alamatTextController = TextEditingController();
   final _noTelpTextController = TextEditingController();
 
   final _focusNama = FocusNode();
+  final _focusKeckelurahan = FocusNode();
   final _focusAlamat = FocusNode();
   final _focusNoTelp = FocusNode();
 
@@ -35,13 +40,14 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
     return GestureDetector(
       onTap: () {
         _focusNama.unfocus();
+        _focusKeckelurahan.unfocus();
         _focusAlamat.unfocus();
         _focusNoTelp.unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kJayaTirtaBlue500,
-          title: const Text('Data Diri'),
+          title: const Text('Ubah Data Diri'),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -84,8 +90,16 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
                                 TextFormField(
                                   controller: _namaTextController,
                                   focusNode: _focusNama,
+                                  maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
+                                  validator: (value) => Validator.validateNama(
+                                    nama: value,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Nama",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -101,10 +115,46 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
                                 ),
                                 const SizedBox(height: 16.0),
                                 TextFormField(
+                                  controller: _keckelurahanTextController,
+                                  focusNode: _focusKeckelurahan,
+                                  maxLength: 25,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
+                                  validator: (value) =>
+                                      Validator.validateKecKelurahan(
+                                    keckelurahan: value,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintText: "Kecamatan/Kelurahan",
+                                    counterText: '',
+                                    errorBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(6.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    context.read<CrudKonsumenBloc>().add(
+                                        UpdateKonsumen(keckelurahan: value));
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextFormField(
                                   controller: _alamatTextController,
                                   focusNode: _focusAlamat,
+                                  maxLength: 200,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(200)
+                                  ],
+                                  validator: (value) =>
+                                      Validator.validateAlamat(
+                                    alamat: value,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Alamat",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -122,8 +172,18 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
                                 TextFormField(
                                   controller: _noTelpTextController,
                                   focusNode: _focusNoTelp,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 13,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(13)
+                                  ],
+                                  validator: (value) =>
+                                      Validator.validateNoTelp(
+                                    noTelp: value,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Nomor Telepon",
+                                    counterText: '',
                                     errorBorder: UnderlineInputBorder(
                                       borderRadius: BorderRadius.circular(6.0),
                                       borderSide: const BorderSide(
@@ -141,7 +201,6 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
                                 const SizedBox(
                                   height: 24.0,
                                 ),
-                                Text(state.toString()),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -149,12 +208,19 @@ class _EditDataDiriScreenState extends State<EditDataDiriScreen> {
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          context.read<CrudKonsumenBloc>().add(
-                                                ConfirmUpdateKonsumen(
-                                                  konsumen: state.konsumen,
-                                                  id: widget.user!.uid,
-                                                ),
-                                              );
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            context
+                                                .read<CrudKonsumenBloc>()
+                                                .add(
+                                                  ConfirmUpdateKonsumen(
+                                                    konsumen: state.konsumen,
+                                                    id: widget.user!.uid,
+                                                  ),
+                                                );
+                                            Navigator.popUntil(context,
+                                                (route) => route.isFirst);
+                                          }
                                         },
                                         child: const Text(
                                           'Simpan',
