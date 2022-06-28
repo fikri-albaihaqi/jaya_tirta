@@ -10,20 +10,20 @@ abstract class CrudPesananEvent extends Equatable {
 class AddPesanan extends CrudPesananEvent {
   final String? id;
   final String? status;
-  final String? jumlah;
-  final String? total;
+  final int? jumlah;
+  final int? total;
   final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
   final String? idKonsumen;
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
-  final String? jumlahPinjaman;
+  final int? jumlahPinjaman;
 
   const AddPesanan({
     this.id,
@@ -77,20 +77,20 @@ class ConfirmAddPesanan extends CrudPesananEvent {
 class UpdatePesanan extends CrudPesananEvent {
   final String? id;
   final String? status;
-  final String? jumlah;
-  final String? total;
+  final int? jumlah;
+  final int? total;
   final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
   final String? idKonsumen;
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
-  final String? jumlahPinjaman;
+  final int? jumlahPinjaman;
 
   const UpdatePesanan({
     this.id,

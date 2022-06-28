@@ -13,8 +13,8 @@ class CrudProdukLoaded extends CrudProdukState {
   final String? id;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
   final Produk produk;
 
   CrudProdukLoaded({

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
+import 'package:jaya_tirta/data/repositories/penjualan_bulanan/penjualan_bulanan_repository.dart';
+import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/detail_data_penjualan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/tambah_data_penjualan_screen.dart';
@@ -81,6 +85,26 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                   },
                                   child: const Text(
                                     'Tambah Data Penjualan',
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TambahDataPenjualanScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Download Data Penjualan',
                                     style: TextStyle(
                                         fontFamily: 'Nunito',
                                         fontWeight: FontWeight.w600),
@@ -231,209 +255,240 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
               ),
             ),
             SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Lihat Peramalan Penjualan Untuk',
-                          style: TextStyle(
-                            fontFamily: 'Kanit',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        DropdownButtonFormField(
-                          elevation: 16,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Nunito',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          icon: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.grey,
-                          ),
-                          value: dropdownValue,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          items: <String>[
-                            'Bulanan',
-                            'Mingguan',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Builder(builder: (context) {
-                    if (dropdownValue == 'Bulanan') {
-                      return Column(
-                        children: [
-                          BlocBuilder<PeramalanBulananBloc,
-                              PeramalanBulananState>(
-                            builder: (context, state) {
-                              if (state is PeramalanBulananLoading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (state is PeramalanBulananLoaded) {
-                                if (state.peramalan.isEmpty) {
-                                  return const Text(
-                                      'Data Peramalan Tidak Tersedia');
-                                } else {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          height: 24,
-                                        ),
-                                        const Text(
-                                          'Perkiraan Total Penjualan Untuk 12 Bulan Selanjutnya',
-                                          style: TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        ListView.separated(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          padding: const EdgeInsets.all(16),
-                                          itemCount: state.peramalan.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return ListTile(
-                                              hoverColor: Colors.grey,
-                                              contentPadding: EdgeInsets.only(
-                                                  top: 0, bottom: 0),
-                                              title: Text(
-                                                'Bulan ke: ${state.peramalan[index].bulan}',
-                                                style: TextStyle(
-                                                  fontFamily: 'Nunito',
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              trailing: Text(
-                                                '${state.peramalan[index].hasilRamal!.toInt()} galon',
-                                                style: TextStyle(
-                                                  fontFamily: 'Nunito',
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          separatorBuilder:
-                                              (BuildContext context,
-                                                      int index) =>
-                                                  const Divider(),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } else {
-                                return const Text('Something went wrong');
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    } else if (dropdownValue == 'Mingguan') {
-                      return Column(
-                        children: [
-                          BlocBuilder<PeramalanMingguanBloc,
-                              PeramalanMingguanState>(
-                            builder: (context, state) {
-                              if (state is PeramalanMingguanLoading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (state is PeramalanMingguanLoaded) {
-                                if (state.peramalan.isEmpty) {
-                                  return const Text(
-                                      'Data Peramalan Tidak Tersedia');
-                                } else {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(
-                                          height: 24,
-                                        ),
-                                        const Text(
-                                          'Perkiraan Total Penjualan Setiap Minggu Pada Bulan Ini',
-                                          style: TextStyle(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        ListView.separated(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          padding: const EdgeInsets.all(16),
-                                          itemCount: 1,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Text(
-                                              '${state.peramalan[index].hasilRamal!.toInt()} galon',
-                                              style: TextStyle(
-                                                fontFamily: 'Nunito',
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            );
-                                          },
-                                          separatorBuilder:
-                                              (BuildContext context,
-                                                      int index) =>
-                                                  const Divider(),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } else {
-                                return const Text('Something went wrong');
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const Text('Something went wrong');
+              child: BlocBuilder<PenjualanBulananBloc, PenjualanBulananState>(
+                builder: (context, state) {
+                  DateTime now = DateTime.now();
+                  initializeDateFormatting('id-ID', '');
+                  String bulan = DateFormat('y-MM').format(now);
+                  PeramalanRepository peramalanRepository =
+                      PeramalanRepository();
+                  if (state is PenjualanBulananLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is PenjualanBulananLoaded) {
+                    if (bulan != state.penjualanBulanan.tanggal) {
+                      peramalanRepository.runRamalan();
                     }
-                  }),
-                ],
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Lihat Peramalan Penjualan Untuk',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              DropdownButtonFormField(
+                                elevation: 16,
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Nunito',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.grey,
+                                ),
+                                value: dropdownValue,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  'Bulanan',
+                                  'Mingguan',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Builder(builder: (context) {
+                          if (dropdownValue == 'Bulanan') {
+                            return Column(
+                              children: [
+                                BlocBuilder<PeramalanBulananBloc,
+                                    PeramalanBulananState>(
+                                  builder: (context, state) {
+                                    if (state is PeramalanBulananLoading) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (state
+                                        is PeramalanBulananLoaded) {
+                                      if (state.peramalan.isEmpty) {
+                                        return const Text(
+                                            'Data Peramalan Tidak Tersedia');
+                                      } else {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(
+                                                height: 24,
+                                              ),
+                                              const Text(
+                                                'Perkiraan Total Penjualan Untuk 12 Bulan Selanjutnya',
+                                                style: TextStyle(
+                                                  fontFamily: 'Nunito',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              ListView.separated(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                itemCount:
+                                                    state.peramalan.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return ListTile(
+                                                    hoverColor: Colors.grey,
+                                                    contentPadding:
+                                                        EdgeInsets.only(
+                                                            top: 0, bottom: 0),
+                                                    title: Text(
+                                                      'Bulan ke: ${state.peramalan[index].bulan!.substring(0, 7)}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    trailing: Text(
+                                                      '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (BuildContext context,
+                                                            int index) =>
+                                                        const Divider(),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      return const Text('Something went wrong');
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          } else if (dropdownValue == 'Mingguan') {
+                            return Column(
+                              children: [
+                                BlocBuilder<PeramalanMingguanBloc,
+                                    PeramalanMingguanState>(
+                                  builder: (context, state) {
+                                    if (state is PeramalanMingguanLoading) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (state
+                                        is PeramalanMingguanLoaded) {
+                                      if (state.peramalan.isEmpty) {
+                                        return const Text(
+                                            'Data Peramalan Tidak Tersedia');
+                                      } else {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              const SizedBox(
+                                                height: 24,
+                                              ),
+                                              const Text(
+                                                'Perkiraan Total Penjualan Setiap Minggu Pada Bulan Ini',
+                                                style: TextStyle(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              ListView.separated(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                itemCount: 1,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Text(
+                                                    '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Nunito',
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  );
+                                                },
+                                                separatorBuilder:
+                                                    (BuildContext context,
+                                                            int index) =>
+                                                        const Divider(),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      return const Text('Something went wrong');
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          } else {
+                            return const Text('Something went wrong');
+                          }
+                        }),
+                      ],
+                    );
+                  } else {
+                    return const Text('Something went wrong');
+                  }
+                },
               ),
             ),
             SingleChildScrollView(

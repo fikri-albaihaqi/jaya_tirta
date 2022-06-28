@@ -11,8 +11,8 @@ class AddProduk extends CrudProdukEvent {
   final String? id;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
 
   const AddProduk({
     this.id,
@@ -45,8 +45,8 @@ class UpdateProduk extends CrudProdukEvent {
   final String? id;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
 
   const UpdateProduk({
     this.id,
@@ -78,7 +78,7 @@ class ConfirmUpdateProduk extends CrudProdukEvent {
 
 class UpdateStok extends CrudProdukEvent {
   final String? id;
-  final String? stok;
+  final int? stok;
 
   const UpdateStok({required this.id, required this.stok});
 

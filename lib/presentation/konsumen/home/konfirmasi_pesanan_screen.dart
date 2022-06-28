@@ -43,9 +43,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int stokBaru = int.parse(widget.produk.stok!) - widget.jumlah;
+    int stokBaru = widget.produk.stok! - widget.jumlah;
     DateTime now = DateTime.now();
-    initializeDateFormatting('id-ID', '');
     String tanggal = DateFormat.yMMMMEEEEd('id-ID').format(now);
     return GestureDetector(
       onTap: () {
@@ -346,11 +345,9 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                                     status:
                                                                         'Menunggu Konfirmasi',
                                                                     jumlah: widget
-                                                                        .jumlah
-                                                                        .toString(),
+                                                                        .jumlah,
                                                                     total: widget
-                                                                        .total
-                                                                        .toString(),
+                                                                        .total,
                                                                     tanggalPembelian:
                                                                         tanggal,
                                                                     idProduk:
@@ -366,8 +363,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                                     harga: widget
                                                                         .produk
                                                                         .harga,
-                                                                    stok: stokBaru
-                                                                        .toString(),
+                                                                    stok:
+                                                                        stokBaru,
                                                                     idKonsumen: status
                                                                         .konsumen
                                                                         .elementAt(
@@ -388,9 +385,9 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                                         .konsumen
                                                                         .elementAt(
                                                                             4),
-                                                                    jumlahPinjaman: widget
-                                                                        .jumlah
-                                                                        .toString(),
+                                                                    jumlahPinjaman:
+                                                                        widget
+                                                                            .jumlah,
                                                                   ),
                                                                 );
                                                             context
@@ -455,8 +452,8 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                                       id: widget
                                                                           .produk
                                                                           .id,
-                                                                      stok: stokBaru
-                                                                          .toString(),
+                                                                      stok:
+                                                                          stokBaru,
                                                                     ),
                                                                   );
                                                               Navigator

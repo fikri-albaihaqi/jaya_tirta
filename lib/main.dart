@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:jaya_tirta/data/repositories/authentication/authentication_repos
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/repositories/konsumen/konsumen_repository.dart';
 import 'package:jaya_tirta/data/repositories/penjual/penjual_repository.dart';
+import 'package:jaya_tirta/data/repositories/penjualan_bulanan/penjualan_bulanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
@@ -68,9 +70,19 @@ Future<void> main() async {
           ),
         ),
         BlocProvider(
+          create: (_) => CrudPenjualanBulananBloc(
+            penjualanBulananRepository: PenjualanBulananRepository(),
+          ),
+        ),
+        BlocProvider(
           create: (_) => KonsumenBloc(
             konsumenRepository: KonsumenRepository(),
           ),
+        ),
+        BlocProvider(
+          create: (_) => PenjualanBulananBloc(
+            penjualanBulananRepository: PenjualanBulananRepository(),
+          )..add(LoadPenjualanBulanan()),
         ),
         BlocProvider(
           create: (_) => SharedPreferencesBloc(
@@ -128,6 +140,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('id-ID', '');
     return RepositoryProvider(
       create: (context) {
         return AuthenticationRepository();

@@ -5,8 +5,8 @@ class Produk extends Equatable {
   final String? id;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
 
   const Produk({
     this.id,
@@ -41,8 +41,8 @@ class Produk extends Equatable {
       id: '1',
       namaProduk: 'Galon Prima 19 Liter',
       gambar: 'graphics/prima.png',
-      harga: '17000',
-      stok: '250',
+      harga: 17000,
+      stok: 250,
     ),
   ];
 

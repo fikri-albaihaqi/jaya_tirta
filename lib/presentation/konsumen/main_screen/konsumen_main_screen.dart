@@ -3,6 +3,7 @@ import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/navigation/konsumen/konsumen_navigation_cubit.dart';
+import 'package:jaya_tirta/presentation/konsumen/chat/konsumen_obrolan_screen.dart';
 import 'package:jaya_tirta/presentation/konsumen/home/home_screen.dart';
 import 'package:jaya_tirta/presentation/konsumen/pesanan/pesanan_screen.dart';
 import 'package:jaya_tirta/presentation/konsumen/profil/profil_screen.dart';
@@ -67,7 +68,7 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${state.konsumen.elementAt(0).nama}',
+                        '${state.konsumen.first.nama}',
                         style: const TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 18.0,
@@ -83,13 +84,58 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
             },
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.mail_outline),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_outlined),
+            BlocBuilder<KonsumenBloc, KonsumenState>(
+              builder: (context, state) {
+                context.read<KonsumenBloc>().add(LoadKonsumen(id: user?.uid));
+                if (state is KonsumenLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is KonsumenLoaded) {
+                  if (state.konsumen.isEmpty) {
+                    return IconButton(
+                      style: IconButton.styleFrom(
+                        splashFactory: NoSplash.splashFactory,
+                      ),
+                      onPressed: () {
+                        null;
+                      },
+                      icon: const Icon(
+                        Icons.mail_outline,
+                        color: Colors.grey,
+                      ),
+                    );
+                  } else {
+                    return BlocBuilder<PenjualBloc, PenjualState>(
+                      builder: (context, status) {
+                        context.read<PenjualBloc>().add(LoadAllPenjual());
+                        if (status is PenjualLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (status is PenjualLoaded) {
+                          return IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => KonsumenObrolanScreen(
+                                    penjual: status.penjual.first,
+                                    konsumen: state.konsumen.first,
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.mail_outline),
+                          );
+                        } else {
+                          return const Text('Something went wrong');
+                        }
+                      },
+                    );
+                  }
+                } else {
+                  return const Text('Something went worng');
+                }
+              },
             ),
           ],
         ),

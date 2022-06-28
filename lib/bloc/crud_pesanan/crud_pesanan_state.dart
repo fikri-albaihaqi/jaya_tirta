@@ -12,20 +12,20 @@ class CrudPesananLoading extends CrudPesananState {}
 class CrudPesananLoaded extends CrudPesananState {
   final String? id;
   final String? status;
-  final String? jumlah;
-  final String? total;
+  final int? jumlah;
+  final int? total;
   final String? tanggalPembelian;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
-  final String? harga;
-  final String? stok;
+  final int? harga;
+  final int? stok;
   final String? idKonsumen;
   final String? namaKonsumen;
   final String? alamat;
   final String? noTelp;
   final String? keckelurahan;
-  final String? jumlahPinjaman;
+  final int? jumlahPinjaman;
   final Pesanan pesanan;
 
   CrudPesananLoaded({

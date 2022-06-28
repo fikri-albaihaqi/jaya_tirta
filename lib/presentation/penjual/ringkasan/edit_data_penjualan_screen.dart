@@ -65,7 +65,7 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
   Produk? dropdownValue;
 
   int hitungTotal(Produk produk) {
-    return total = int.parse(produk.harga!) * jumlah;
+    return total = produk.harga! * jumlah;
   }
 
   @override
@@ -138,8 +138,7 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
                                         } else if (state is ProdukLoaded) {
                                           dropdownValue = state.produk.first;
                                           stokBaru =
-                                              int.parse(dropdownValue!.stok!) -
-                                                  jumlah;
+                                              dropdownValue!.stok! - jumlah;
 
                                           return Column(
                                             children: [
@@ -368,11 +367,9 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
                                                       UpdatePesanan(
                                                         status:
                                                             'Pesanan Selesai',
-                                                        jumlah:
-                                                            jumlah.toString(),
+                                                        jumlah: jumlah,
                                                         total: hitungTotal(
-                                                                dropdownValue!)
-                                                            .toString(),
+                                                            dropdownValue!),
                                                         tanggalPembelian:
                                                             tanggal,
                                                         idProduk:
@@ -384,8 +381,7 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
                                                             .gambar,
                                                         harga: dropdownValue!
                                                             .harga,
-                                                        stok:
-                                                            stokBaru.toString(),
+                                                        stok: stokBaru,
                                                         idKonsumen: '',
                                                         namaKonsumen:
                                                             state.namaKonsumen,
@@ -393,8 +389,7 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
                                                         noTelp: state.noTelp,
                                                         keckelurahan:
                                                             state.keckelurahan,
-                                                        jumlahPinjaman:
-                                                            jumlah.toString(),
+                                                        jumlahPinjaman: jumlah,
                                                       ),
                                                     );
                                                 Timer(
@@ -411,8 +406,7 @@ class _EditDataPenjualanScreenState extends State<EditDataPenjualanScreen> {
                                                       .read<CrudProdukBloc>()
                                                       .add(UpdateStok(
                                                           id: dropdownValue!.id,
-                                                          stok: stokBaru
-                                                              .toString()));
+                                                          stok: stokBaru));
                                                   Navigator.popUntil(context,
                                                       (route) => route.isFirst);
                                                 });

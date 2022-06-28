@@ -1,5 +1,6 @@
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class PeramalanRepository {
   final FirebaseFirestore _firebaseFirestore;
@@ -25,5 +26,10 @@ class PeramalanRepository {
         .map((snapshot) {
       return snapshot.docs.map((doc) => Ramalan.fromSnapshot(doc)).toList();
     });
+  }
+
+  Future<http.Response> runRamalan() {
+    return http.get(Uri.parse(
+        'https://fastapi-fikri-albaihaqi.cloud.okteto.net/peramalan'));
   }
 }

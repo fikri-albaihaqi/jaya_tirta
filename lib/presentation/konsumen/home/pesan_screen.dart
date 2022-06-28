@@ -35,7 +35,7 @@ class _PesanScreenState extends State<PesanScreen> {
   }
 
   int hitungTotal(Produk produk) {
-    return total = int.parse(produk.harga!) * jumlah;
+    return total = produk.harga! * jumlah;
   }
 
   @override

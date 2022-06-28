@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Ramalan extends Equatable {
-  final int? bulan;
+  final String? bulan;
   final double? hasilRamal;
 
   const Ramalan({

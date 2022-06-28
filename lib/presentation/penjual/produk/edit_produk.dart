@@ -170,9 +170,8 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                       ),
                                     ),
                                     onChanged: (value) {
-                                      context
-                                          .read<CrudProdukBloc>()
-                                          .add(UpdateProduk(stok: value));
+                                      context.read<CrudProdukBloc>().add(
+                                          UpdateProduk(stok: int.parse(value)));
                                     },
                                   ),
                                   const SizedBox(height: 8.0),
@@ -203,12 +202,12 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
                                       if (urlGambar == '') {
                                         context.read<CrudProdukBloc>().add(
                                             UpdateProduk(
-                                                harga: value,
+                                                harga: int.parse(value),
                                                 gambar: widget.produk.gambar));
                                       } else {
                                         context.read<CrudProdukBloc>().add(
                                             UpdateProduk(
-                                                harga: value,
+                                                harga: int.parse(value),
                                                 gambar: urlGambar));
                                       }
                                     },

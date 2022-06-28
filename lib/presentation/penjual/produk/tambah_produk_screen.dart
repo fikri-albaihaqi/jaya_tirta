@@ -178,9 +178,8 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                       ),
                                     ),
                                     onChanged: (value) {
-                                      context
-                                          .read<CrudProdukBloc>()
-                                          .add(AddProduk(stok: value));
+                                      context.read<CrudProdukBloc>().add(
+                                          AddProduk(stok: int.parse(value)));
                                     },
                                   ),
                                   const SizedBox(height: 8.0),
@@ -208,7 +207,8 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                     onChanged: (value) {
                                       context.read<CrudProdukBloc>().add(
                                           AddProduk(
-                                              harga: value, gambar: urlGambar));
+                                              harga: int.parse(value),
+                                              gambar: urlGambar));
                                     },
                                   ),
                                   const SizedBox(height: 24.0),

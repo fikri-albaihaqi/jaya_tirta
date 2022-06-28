@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
+import 'package:jaya_tirta/presentation/penjual/chat/daftar_chat_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/pesanan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,13 +76,30 @@ class _MainScreenState extends State<MainScreen> {
             },
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.mail_outline),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_outlined),
+            BlocBuilder<PenjualBloc, PenjualState>(
+              builder: (context, state) {
+                if (state is PenjualLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is PenjualLoaded) {
+                  return IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DaftarChatScreen(
+                            penjual: state.penjual[0],
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.mail_outline),
+                  );
+                } else {
+                  return const Text('Something went wrong');
+                }
+              },
             ),
           ],
         ),
