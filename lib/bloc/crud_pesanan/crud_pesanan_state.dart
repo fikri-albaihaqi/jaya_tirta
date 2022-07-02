@@ -15,6 +15,8 @@ class CrudPesananLoaded extends CrudPesananState {
   final int? jumlah;
   final int? total;
   final String? tanggalPembelian;
+  final String? timestamp;
+  final String? dateSort;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -34,6 +36,8 @@ class CrudPesananLoaded extends CrudPesananState {
     this.jumlah,
     this.total,
     this.tanggalPembelian,
+    this.timestamp,
+    this.dateSort,
     this.idProduk,
     this.namaProduk,
     this.gambar,
@@ -51,6 +55,8 @@ class CrudPesananLoaded extends CrudPesananState {
           jumlah: jumlah,
           total: total,
           tanggalPembelian: tanggalPembelian,
+          timestamp: timestamp,
+          dateSort: dateSort,
           idProduk: idProduk,
           namaProduk: namaProduk,
           gambar: gambar,
@@ -71,6 +77,8 @@ class CrudPesananLoaded extends CrudPesananState {
         jumlah,
         total,
         tanggalPembelian,
+        timestamp,
+        dateSort,
         idProduk,
         namaProduk,
         gambar,

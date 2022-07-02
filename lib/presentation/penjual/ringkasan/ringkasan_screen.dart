@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/repositories/penjualan_bulanan/penjualan_bulanan_repository.dart';
 import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
+import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/detail_data_penjualan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/tambah_data_penjualan_screen.dart';
@@ -23,6 +24,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
 
   @override
   Widget build(BuildContext context) {
+    PesananRepository pesananRepository = PesananRepository();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -91,17 +93,19 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              const SearchBox(),
+                              const SizedBox(
+                                height: 16,
+                              ),
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const TambahDataPenjualanScreen(),
-                                      ),
-                                    );
+                                    pesananRepository
+                                        .saveDataPenjualan(state.pesanan);
                                   },
                                   child: const Text(
                                     'Download Data Penjualan',
@@ -110,13 +114,6 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              const SearchBox(),
-                              const SizedBox(
-                                height: 16,
                               ),
                               ListView.separated(
                                 physics: const NeverScrollableScrollPhysics(),
@@ -255,21 +252,15 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
               ),
             ),
             SingleChildScrollView(
-              child: BlocBuilder<PenjualanBulananBloc, PenjualanBulananState>(
+              child: BlocBuilder<PeramalanBulananBloc, PeramalanBulananState>(
                 builder: (context, state) {
                   DateTime now = DateTime.now();
                   initializeDateFormatting('id-ID', '');
-                  String bulan = DateFormat('y-MM').format(now);
-                  PeramalanRepository peramalanRepository =
-                      PeramalanRepository();
-                  if (state is PenjualanBulananLoading) {
+                  if (state is PeramalanBulananLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is PenjualanBulananLoaded) {
-                    if (bulan != state.penjualanBulanan.tanggal) {
-                      peramalanRepository.runRamalan();
-                    }
+                  } else if (state is PeramalanBulananLoaded) {
                     return Column(
                       children: [
                         Padding(
@@ -382,7 +373,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                                       ),
                                                     ),
                                                     trailing: Text(
-                                                      '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                                      '${state.peramalan[index].hasilRamal!.ceil()} galon',
                                                       style: TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 16,
@@ -453,7 +444,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                                     (BuildContext context,
                                                         int index) {
                                                   return Text(
-                                                    '${state.peramalan[index].hasilRamal!.toInt()} galon',
+                                                    '${state.peramalan[index].hasilRamal!.ceil()} galon',
                                                     style: TextStyle(
                                                       fontFamily: 'Nunito',
                                                       fontSize: 20,

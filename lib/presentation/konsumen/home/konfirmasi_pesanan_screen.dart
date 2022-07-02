@@ -46,6 +46,9 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
     int stokBaru = widget.produk.stok! - widget.jumlah;
     DateTime now = DateTime.now();
     String tanggal = DateFormat.yMMMMEEEEd('id-ID').format(now);
+    String bulanTanggal = DateFormat('y-MM-d').format(now);
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    String timestampString = timestamp.toString();
     return GestureDetector(
       onTap: () {
         _focusNama.unfocus();
@@ -350,6 +353,10 @@ class _KonfirmasiPesananScreenState extends State<KonfirmasiPesananScreen> {
                                                                         .total,
                                                                     tanggalPembelian:
                                                                         tanggal,
+                                                                    timestamp:
+                                                                        timestampString,
+                                                                    dateSort:
+                                                                        bulanTanggal,
                                                                     idProduk:
                                                                         widget
                                                                             .produk

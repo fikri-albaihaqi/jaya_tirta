@@ -13,6 +13,8 @@ class AddPesanan extends CrudPesananEvent {
   final int? jumlah;
   final int? total;
   final String? tanggalPembelian;
+  final String? timestamp;
+  final String? dateSort;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -31,6 +33,8 @@ class AddPesanan extends CrudPesananEvent {
     this.jumlah,
     this.total,
     this.tanggalPembelian,
+    this.timestamp,
+    this.dateSort,
     this.idProduk,
     this.namaProduk,
     this.gambar,
@@ -51,6 +55,8 @@ class AddPesanan extends CrudPesananEvent {
         jumlah,
         total,
         tanggalPembelian,
+        timestamp,
+        dateSort,
         idProduk,
         namaProduk,
         gambar,
@@ -80,6 +86,8 @@ class UpdatePesanan extends CrudPesananEvent {
   final int? jumlah;
   final int? total;
   final String? tanggalPembelian;
+  final String? timestamp;
+  final String? dateSort;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -98,6 +106,8 @@ class UpdatePesanan extends CrudPesananEvent {
     this.jumlah,
     this.total,
     this.tanggalPembelian,
+    this.timestamp,
+    this.dateSort,
     this.idProduk,
     this.namaProduk,
     this.gambar,
@@ -118,6 +128,8 @@ class UpdatePesanan extends CrudPesananEvent {
         jumlah,
         total,
         tanggalPembelian,
+        timestamp,
+        dateSort,
         idProduk,
         namaProduk,
         gambar,

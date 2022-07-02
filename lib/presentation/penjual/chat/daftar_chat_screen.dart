@@ -78,15 +78,6 @@ class _DaftarChatScreenState extends State<DaftarChatScreen> {
                         //     color: Colors.grey,
                         //   ),
                         // ),
-                        trailing: Text(
-                          '10.15',
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey,
-                          ),
-                        ),
                       ),
                     );
                   },

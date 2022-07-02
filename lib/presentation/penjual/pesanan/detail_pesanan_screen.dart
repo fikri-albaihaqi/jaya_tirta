@@ -588,10 +588,13 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                                     .pesanan.id,
                                                               ),
                                                             );
-                                                        Navigator.popUntil(
-                                                            context,
-                                                            (route) =>
-                                                                route.isFirst);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MainScreen(),
+                                                          ),
+                                                        );
                                                       },
                                                       child: const Text(
                                                         'Batalkan Pesanan',
@@ -621,9 +624,6 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(keadaan.penjualanBulanan.toString()),
-                                    Text(
-                                        '${status.penjualanBulanan.tanggal != bulan}'),
                                     Expanded(
                                       child: ElevatedButton(
                                         style: widget.pesanan.status ==
@@ -763,10 +763,15 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                                                 jumlahPenjualan: status.penjualanBulanan.jumlahPenjualan! + widget.pesanan.jumlah!),
                                                                           );
                                                                     }
-                                                                    Navigator.popUntil(
-                                                                        context,
-                                                                        (route) =>
-                                                                            route.isFirst);
+                                                                    Navigator
+                                                                        .push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                MainScreen(),
+                                                                      ),
+                                                                    );
                                                                   });
                                                                 },
                                                                 child:

@@ -32,6 +32,10 @@ class _PesananScreenState extends State<PesananScreen> {
                   SizedBox(
                     height: 16,
                   ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  SearchBox(),
                   Text(
                     'Daftar Pesanan',
                     style: TextStyle(
@@ -41,10 +45,6 @@ class _PesananScreenState extends State<PesananScreen> {
                       color: kJayaTirtaBlack900,
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  SearchBox(),
                 ],
               ),
             ),

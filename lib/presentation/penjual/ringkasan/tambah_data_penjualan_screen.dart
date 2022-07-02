@@ -74,6 +74,9 @@ class _TambahDataPenjualanScreenState extends State<TambahDataPenjualanScreen> {
     initializeDateFormatting('id-ID', '');
     String tanggal = DateFormat.yMMMMEEEEd('id-ID').format(now);
     String bulan = DateFormat('y-MM').format(now);
+    String bulanTanggal = DateFormat('y-MM-d').format(now);
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    String timestampString = timestamp.toString();
     return GestureDetector(
       onTap: () {
         _focusNamaKonsumen.unfocus();
@@ -421,6 +424,10 @@ class _TambahDataPenjualanScreenState extends State<TambahDataPenjualanScreen> {
                                                                         dropdownValue!),
                                                                     tanggalPembelian:
                                                                         tanggal,
+                                                                    timestamp:
+                                                                        timestampString,
+                                                                    dateSort:
+                                                                        bulanTanggal,
                                                                     idProduk:
                                                                         dropdownValue!
                                                                             .id,

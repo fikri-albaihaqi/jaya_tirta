@@ -35,6 +35,8 @@ class CrudPesananBloc extends Bloc<CrudPesananEvent, CrudPesananState> {
           jumlah: event.jumlah ?? state.jumlah,
           total: event.total ?? state.total,
           tanggalPembelian: event.tanggalPembelian ?? state.tanggalPembelian,
+          timestamp: event.timestamp ?? state.timestamp,
+          dateSort: event.dateSort ?? state.dateSort,
           idProduk: event.idProduk ?? state.idProduk,
           namaProduk: event.namaProduk ?? state.namaProduk,
           gambar: event.gambar ?? state.gambar,

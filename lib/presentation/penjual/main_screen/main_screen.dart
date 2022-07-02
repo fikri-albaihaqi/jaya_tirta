@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/navigation/constants/nav_bar_items.dart';
 import 'package:jaya_tirta/bloc/navigation/penjual/penjual_navigation_cubit.dart';
+import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/presentation/penjual/chat/daftar_chat_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/pesanan/pesanan_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String bulan = DateFormat('y-MM').format(now);
+    PeramalanRepository peramalanRepository = PeramalanRepository();
     final user = FirebaseAuth.instance.currentUser!;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
@@ -61,13 +66,29 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   );
                 } else {
-                  return Text(
-                    '${state.penjual[0].nama}',
-                    style: const TextStyle(
-                      fontFamily: 'Nunito',
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  return BlocBuilder<PenjualanBulananBloc,
+                      PenjualanBulananState>(
+                    builder: (context, status) {
+                      if (status is PenjualanBulananLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (status is PenjualanBulananLoaded) {
+                        if (bulan != status.penjualanBulanan) {
+                          peramalanRepository.runRamalan();
+                        }
+                        return Text(
+                          '${state.penjual[0].nama}',
+                          style: const TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        );
+                      } else {
+                        return const Text('Something went wrong');
+                      }
+                    },
                   );
                 }
               } else {

@@ -7,6 +7,8 @@ class Pesanan extends Equatable {
   final int? jumlah;
   final int? total;
   final String? tanggalPembelian;
+  final String? timestamp;
+  final String? dateSort;
   final String? idProduk;
   final String? namaProduk;
   final String? gambar;
@@ -25,6 +27,8 @@ class Pesanan extends Equatable {
     required this.jumlah,
     required this.total,
     required this.tanggalPembelian,
+    required this.timestamp,
+    required this.dateSort,
     required this.idProduk,
     required this.namaProduk,
     required this.gambar,
@@ -45,6 +49,8 @@ class Pesanan extends Equatable {
       jumlah: snap['jumlah'],
       total: snap['total'],
       tanggalPembelian: snap['tanggalPembelian'],
+      timestamp: snap['timestamp'],
+      dateSort: snap['dateSort'],
       idProduk: snap['produk']['idProduk'],
       namaProduk: snap['produk']['namaProduk'],
       gambar: snap['produk']['gambar'],
@@ -67,6 +73,8 @@ class Pesanan extends Equatable {
         jumlah,
         total,
         tanggalPembelian,
+        timestamp,
+        dateSort,
         idProduk,
         namaProduk,
         gambar,
@@ -101,6 +109,8 @@ class Pesanan extends Equatable {
       'jumlah': jumlah!,
       'total': total!,
       'tanggalPembelian': tanggalPembelian!,
+      'timestamp': timestamp!,
+      'dateSort': dateSort!,
       'produk': produk,
       'konsumen': konsumen,
     };
