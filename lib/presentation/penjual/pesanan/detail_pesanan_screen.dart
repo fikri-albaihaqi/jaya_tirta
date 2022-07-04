@@ -576,6 +576,9 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                               noTelp: widget
                                                                   .pesanan
                                                                   .noTelp,
+                                                              jumlahPinjaman: widget
+                                                                  .pesanan
+                                                                  .jumlahPinjaman,
                                                             ));
                                                         context
                                                             .read<
