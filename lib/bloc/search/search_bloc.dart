@@ -25,7 +25,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     LoadSearch event,
     Emitter<SearchState> emit,
   ) {
-    emit(SearchLoaded());
+    emit(const SearchLoaded());
   }
 
   void _onSearchProduct(
@@ -57,7 +57,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }).toList();
       emit(SearchLoaded(pesanan: searchResults));
     } else {
-      emit(SearchLoaded());
+      emit(const SearchLoaded());
     }
   }
 

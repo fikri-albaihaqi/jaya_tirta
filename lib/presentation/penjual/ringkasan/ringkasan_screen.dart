@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
-import 'package:jaya_tirta/data/repositories/penjualan_bulanan/penjualan_bulanan_repository.dart';
-import 'package:jaya_tirta/data/repositories/peramalan/peramalan_repository.dart';
 import 'package:jaya_tirta/data/repositories/pesanan/pesanan_repository.dart';
-import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/detail_data_penjualan_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/tambah_data_penjualan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
@@ -29,10 +25,10 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
       length: 3,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(50),
           child: AppBar(
             backgroundColor: kJayaTirtaBlue500,
-            bottom: TabBar(
+            bottom: const TabBar(
               isScrollable: true,
               indicatorColor: Colors.white,
               tabs: [
@@ -267,7 +263,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                           padding: const EdgeInsets.all(24.0),
                           child: Column(
                             children: [
-                              Text(
+                              const Text(
                                 'Lihat Peramalan Penjualan Untuk',
                                 style: TextStyle(
                                   fontFamily: 'Kanit',
@@ -361,11 +357,11 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                                   return ListTile(
                                                     hoverColor: Colors.grey,
                                                     contentPadding:
-                                                        EdgeInsets.only(
+                                                        const EdgeInsets.only(
                                                             top: 0, bottom: 0),
                                                     title: Text(
                                                       'Bulan ke: ${state.peramalan[index].bulan!.substring(0, 7)}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 16,
                                                         fontWeight:
@@ -374,7 +370,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                                     ),
                                                     trailing: Text(
                                                       '${state.peramalan[index].hasilRamal!.ceil()} galon',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 16,
                                                         fontWeight:
@@ -445,7 +441,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                                         int index) {
                                                   return Text(
                                                     '${state.peramalan[index].hasilRamal!.ceil()} galon',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontFamily: 'Nunito',
                                                       fontSize: 20,
                                                       fontWeight:
@@ -513,10 +509,10 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                               return ListTile(
                                 hoverColor: Colors.grey,
                                 contentPadding:
-                                    EdgeInsets.only(top: 0, bottom: 0),
+                                    const EdgeInsets.only(top: 0, bottom: 0),
                                 leading: Text(
                                   '${state.konsumen[index].nama}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
@@ -527,7 +523,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                   children: [
                                     Text(
                                       '${state.konsumen[index].alamat}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -535,7 +531,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                     ),
                                     Text(
                                       '${state.konsumen[index].noTelp}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -543,7 +539,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                     ),
                                     Text(
                                       'Jumlah Pinjaman: ${state.konsumen[index].jumlahPinjaman}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -588,7 +584,7 @@ class _RingkasanScreenState extends State<RingkasanScreen> {
                                         ),
                                       );
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete_outlined,
                                       color: kJayaTirtaErrorRed,
                                       size: 28,

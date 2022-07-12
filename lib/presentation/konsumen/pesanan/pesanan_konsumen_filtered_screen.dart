@@ -19,7 +19,7 @@ class _PesananKonsumenFilteredScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pesanan Hasil Filter'),
+        title: const Text('Pesanan Hasil Filter'),
         centerTitle: true,
         backgroundColor: kJayaTirtaBlue500,
         elevation: 0,
@@ -118,7 +118,7 @@ class _PesananKonsumenFilteredScreenState
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             child: Text(
                               'Lihat Detail',
                               style: TextStyle(

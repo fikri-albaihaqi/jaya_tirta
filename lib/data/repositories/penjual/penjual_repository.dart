@@ -23,30 +23,13 @@ class PenjualRepository {
     });
   }
 
-  Future<void> addPenjual(Penjual penjual) {
-    return _firebaseFirestore.collection('penjual').doc(penjual.id).set({
-      'id': penjual.id,
-      'nama': penjual.nama,
-      'noTelp': penjual.noTelp,
-    });
-  }
-
-  Future<void> deletePenjual(String id) {
-    return _firebaseFirestore.collection('penjual').doc(id).delete();
-  }
-
   Future<void> updatePenjual(Penjual penjual, String id) {
-    return _firebaseFirestore
-        .collection('penjual')
-        .doc(id)
-        .update(
-          {
-            'id': id,
-            'nama': penjual.nama,
-            'noTelp': penjual.noTelp,
-          },
-        )
-        .then((_) => print(penjual.nama))
-        .catchError((onError) => print('Update failed: $onError'));
+    return _firebaseFirestore.collection('penjual').doc(id).update(
+      {
+        'id': id,
+        'nama': penjual.nama,
+        'noTelp': penjual.noTelp,
+      },
+    );
   }
 }

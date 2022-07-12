@@ -41,36 +41,26 @@ class KonsumenRepository {
 
   Future<void> updateKonsumen(Konsumen konsumen, String id) {
     if (konsumen.jumlahPinjaman != null) {
-      return _firebaseFirestore
-          .collection('konsumen')
-          .doc(id)
-          .update(
-            {
-              'id': id,
-              'nama': konsumen.nama,
-              'alamat': konsumen.alamat,
-              'noTelp': konsumen.noTelp,
-              'keckelurahan': konsumen.keckelurahan,
-              'jumlahPinjaman': konsumen.jumlahPinjaman,
-            },
-          )
-          .then((_) => print(konsumen.nama))
-          .catchError((onError) => print('Update failed: $onError'));
+      return _firebaseFirestore.collection('konsumen').doc(id).update(
+        {
+          'id': id,
+          'nama': konsumen.nama,
+          'alamat': konsumen.alamat,
+          'noTelp': konsumen.noTelp,
+          'keckelurahan': konsumen.keckelurahan,
+          'jumlahPinjaman': konsumen.jumlahPinjaman,
+        },
+      );
     } else {
-      return _firebaseFirestore
-          .collection('konsumen')
-          .doc(id)
-          .update(
-            {
-              'id': id,
-              'nama': konsumen.nama,
-              'alamat': konsumen.alamat,
-              'noTelp': konsumen.noTelp,
-              'keckelurahan': konsumen.keckelurahan,
-            },
-          )
-          .then((_) => print(konsumen.nama))
-          .catchError((onError) => print('Update failed: $onError'));
+      return _firebaseFirestore.collection('konsumen').doc(id).update(
+        {
+          'id': id,
+          'nama': konsumen.nama,
+          'alamat': konsumen.alamat,
+          'noTelp': konsumen.noTelp,
+          'keckelurahan': konsumen.keckelurahan,
+        },
+      );
     }
   }
 

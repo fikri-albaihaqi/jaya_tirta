@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/obrolan/obrolan_bloc.dart';
@@ -60,7 +59,7 @@ class ObrolanView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 213, 242, 255),
+      backgroundColor: const Color.fromARGB(255, 213, 242, 255),
       appBar: AppBar(
         title: Text(receiver.nama),
         centerTitle: true,

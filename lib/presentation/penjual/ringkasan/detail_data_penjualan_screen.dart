@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
-import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
 import 'package:jaya_tirta/presentation/penjual/ringkasan/edit_data_penjualan_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
@@ -32,7 +31,7 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.message,
             ),
           ),
@@ -118,7 +117,7 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
                                       ),
                                       Text(
                                         '${widget.penjualan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -166,7 +165,7 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
                                       ),
                                       Text(
                                         '${widget.penjualan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -214,7 +213,7 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
                                       ),
                                       Text(
                                         '${widget.penjualan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -329,8 +328,8 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
                                   ],
                                 ),
                                 Text(
-                                  '22 Mei 2022',
-                                  style: TextStyle(
+                                  state.tanggalPembelian.toString(),
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Nunito',
                                     fontWeight: FontWeight.bold,
@@ -491,7 +490,7 @@ class _DetailDataPenjualanScreenState extends State<DetailDataPenjualanScreen> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: kJayaTirtaErrorRed),
+                                backgroundColor: kJayaTirtaErrorRed),
                             onPressed: () {
                               showDialog(
                                   context: context,

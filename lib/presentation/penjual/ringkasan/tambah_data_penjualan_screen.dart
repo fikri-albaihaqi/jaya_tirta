@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/data/repositories/penjualan_bulanan/penjualan_bulanan_repository.dart';
-import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -110,8 +109,6 @@ class _TambahDataPenjualanScreenState extends State<TambahDataPenjualanScreen> {
                       color: kJayaTirtaBlue50,
                       child: ListView(
                         children: [
-                          // Text(status.penjualanBulanan.tanggal.toString()),
-                          // Text(bulan),
                           Container(
                             width: double.infinity,
                             decoration: const BoxDecoration(

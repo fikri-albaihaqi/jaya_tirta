@@ -11,7 +11,6 @@ class AuthenticationBloc
   final AuthenticationRepository authRepository;
   AuthenticationBloc({required this.authRepository})
       : super(UnAuthenticated()) {
-    // When User Presses the SignIn Button, we will send the SignInRequested Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
     on<PenjualLogInRequested>((event, emit) async {
       emit(Loading());
       try {
@@ -23,7 +22,6 @@ class AuthenticationBloc
         emit(UnAuthenticated());
       }
     });
-    // When User Presses the SignOut Button, we will send the SignOutRequested Event to the AuthBloc to handle it and emit the UnAuthenticated State
     on<LogOutRequested>((event, emit) async {
       emit(Loading());
       await authRepository.logOut();

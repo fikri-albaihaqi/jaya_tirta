@@ -6,7 +6,7 @@ class UserChat extends Equatable {
   final String uid;
   final String nama;
 
-  UserChat({
+  const UserChat({
     required this.uid,
     required this.nama,
   });

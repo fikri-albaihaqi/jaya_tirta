@@ -25,7 +25,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     builder: (context) => const KonsumenMainScreen()));
           }
           if (state is AuthError) {
-            // Showing the error message if the user has entered invalid credentials
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
           }
@@ -33,7 +32,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             if (state is Loading) {
-              // Showing the loading indicator while the user is signing in
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -89,7 +87,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.white),
+                                  backgroundColor: Colors.white),
                             ),
                           ),
                           SizedBox(

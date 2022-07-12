@@ -26,7 +26,7 @@ class SearchPesananKonsumenBloc
     LoadPesananKonsumenSearch event,
     Emitter<SearchPesananKonsumenState> emit,
   ) {
-    emit(SearchPesananKonsumenLoaded());
+    emit(const SearchPesananKonsumenLoaded());
   }
 
   void _onSearchProduct(
@@ -59,7 +59,7 @@ class SearchPesananKonsumenBloc
       }).toList();
       emit(SearchPesananKonsumenLoaded(pesanan: searchResults));
     } else {
-      emit(SearchPesananKonsumenLoaded());
+      emit(const SearchPesananKonsumenLoaded());
     }
   }
 

@@ -27,7 +27,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
-      // If email is valid adding new Event [SignInRequested].
       BlocProvider.of<AuthenticationBloc>(context).add(
         PenjualLogInRequested(
             _emailTextController.text, _passwordTextController.text),
@@ -54,7 +53,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               );
             }
             if (state is AuthError) {
-              // Showing the error message if the user has entered invalid credentials
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text(state.error)));
             }
@@ -62,13 +60,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
               if (state is Loading) {
-                // Showing the loading indicator while the user is signing in
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               if (state is UnAuthenticated) {
-                // Showing the sign in form if the user is not authenticated
                 return Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(

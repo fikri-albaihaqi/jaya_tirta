@@ -417,7 +417,6 @@ class PesananRepository {
       File(join("/storage/emulated/0/Download/excel.xlsx"))
         ..createSync(recursive: true)
         ..writeAsBytesSync(excel.encode()!);
-      print('done');
     } else {
       print('failed');
     }
@@ -445,28 +444,23 @@ class PesananRepository {
   }
 
   Future<void> updatePesanan(Pesanan pesanan, String id) {
-    return _firebaseFirestore
-        .collection('pesanan')
-        .doc(id)
-        .update(
-          {
-            'status': pesanan.status,
-            'jumlah': pesanan.jumlah,
-            'total': pesanan.total,
-            'produk.idProduk': pesanan.idProduk,
-            'produk.namaProduk': pesanan.namaProduk,
-            'produk.gambar': pesanan.gambar,
-            'produk.harga': pesanan.harga,
-            'produk.stok': pesanan.stok,
-            'konsumen.idKonsumen': pesanan.idKonsumen,
-            'konsumen.namaKonsumen': pesanan.namaKonsumen,
-            'konsumen.alamat': pesanan.alamat,
-            'konsumen.noTelp': pesanan.noTelp,
-            'konsumen.keckelurahan': pesanan.keckelurahan,
-            'konsumen.jumlahPinjaman': pesanan.jumlahPinjaman,
-          },
-        )
-        .then((_) => print(pesanan.status))
-        .catchError((onError) => print('Update failed: $onError'));
+    return _firebaseFirestore.collection('pesanan').doc(id).update(
+      {
+        'status': pesanan.status,
+        'jumlah': pesanan.jumlah,
+        'total': pesanan.total,
+        'produk.idProduk': pesanan.idProduk,
+        'produk.namaProduk': pesanan.namaProduk,
+        'produk.gambar': pesanan.gambar,
+        'produk.harga': pesanan.harga,
+        'produk.stok': pesanan.stok,
+        'konsumen.idKonsumen': pesanan.idKonsumen,
+        'konsumen.namaKonsumen': pesanan.namaKonsumen,
+        'konsumen.alamat': pesanan.alamat,
+        'konsumen.noTelp': pesanan.noTelp,
+        'konsumen.keckelurahan': pesanan.keckelurahan,
+        'konsumen.jumlahPinjaman': pesanan.jumlahPinjaman,
+      },
+    );
   }
 }

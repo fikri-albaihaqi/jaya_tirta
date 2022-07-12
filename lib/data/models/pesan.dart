@@ -60,7 +60,6 @@ class Pesan extends Equatable {
 
   @override
   String toString() {
-    // ignore: lines_longer_than_80_chars
     return 'Pesan(obrolanId: $obrolanId, senderUID: $senderUID, receiverUID: $receiverUID, content: $content, timeStamp: $timeStamp)';
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
-import 'package:jaya_tirta/presentation/penjual/produk/produk_screen.dart';
 import 'package:jaya_tirta/utils/validator.dart';
 
 import '../../../bloc/blocs.dart';
@@ -27,7 +26,6 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
     final _namaProdukTextController = TextEditingController();
     final _stokTextController = TextEditingController();
     final _hargaTextController = TextEditingController();
-    final _gambarTextController = TextEditingController();
 
     final _focusNamaProduk = FocusNode();
     final _focusGambar = FocusNode();
@@ -35,7 +33,6 @@ class _EditProdukScreenState extends State<EditProdukScreen> {
     final _focusHarga = FocusNode();
 
     String urlGambar = '';
-    print('url: ${urlGambar}');
     return GestureDetector(
       onTap: () {
         _focusNamaProduk.unfocus();

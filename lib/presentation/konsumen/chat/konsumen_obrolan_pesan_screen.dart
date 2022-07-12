@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
-import 'package:jaya_tirta/utils/colors.dart';
 
 class KonsumenObrolanPesanScreen extends StatelessWidget {
   final UserChat loginUser;
@@ -30,7 +29,7 @@ class KonsumenObrolanPesanScreen extends StatelessWidget {
             );
           }
           return Text(
-            '${state.runtimeType.toString()}',
+            state.runtimeType.toString(),
           );
         },
       ),
@@ -50,7 +49,7 @@ class _PesanListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return pesans.isEmpty
-        ? Text('Tidak ada pesan')
+        ? const Text('Tidak ada pesan')
         : ListView.builder(
             itemCount: pesans.length,
             reverse: true,

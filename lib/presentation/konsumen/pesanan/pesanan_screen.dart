@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/presentation/konsumen/pesanan/detail_pesanan_konsumen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
-import 'package:jaya_tirta/widgets/search_box.dart';
 import 'package:jaya_tirta/widgets/search_pesanan_konsumen_box.dart';
 
 class PesananScreen extends StatefulWidget {
@@ -149,7 +148,7 @@ class _PesananScreenState extends State<PesananScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       child: Text(
                                         'Lihat Detail',
                                         style: TextStyle(

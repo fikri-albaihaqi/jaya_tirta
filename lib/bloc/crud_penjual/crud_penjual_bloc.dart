@@ -16,53 +16,8 @@ class CrudPenjualBloc extends Bloc<CrudPenjualEvent, CrudPenjualState> {
     required PenjualRepository penjualRepository,
   })  : _penjualRepository = penjualRepository,
         super(CrudPenjualLoaded()) {
-    on<AddPenjual>(_onAddPenjual);
-    on<ConfirmAddPenjual>(_onConfirmAddPenjual);
-    on<DeletePenjual>(_onDeletePenjual);
     on<UpdatePenjual>(_onUpdatePenjual);
     on<ConfirmUpdatePenjual>(_onConfirmUpdatePenjual);
-  }
-
-  void _onAddPenjual(
-    AddPenjual event,
-    Emitter<CrudPenjualState> emit,
-  ) {
-    if (this.state is CrudPenjualLoaded) {
-      final state = this.state as CrudPenjualLoaded;
-      emit(
-        CrudPenjualLoaded(
-          id: event.id ?? state.id,
-          nama: event.nama ?? state.nama,
-          noTelp: event.noTelp ?? state.noTelp,
-        ),
-      );
-    }
-  }
-
-  void _onConfirmAddPenjual(
-    ConfirmAddPenjual event,
-    Emitter<CrudPenjualState> emit,
-  ) async {
-    _crudPenjualSubscription?.cancel();
-    if (this.state is CrudPenjualLoaded) {
-      try {
-        await _penjualRepository.addPenjual(event.penjual);
-        emit(CrudPenjualLoaded());
-      } catch (_) {}
-    }
-  }
-
-  void _onDeletePenjual(
-    DeletePenjual event,
-    Emitter<CrudPenjualState> emit,
-  ) async {
-    _crudPenjualSubscription?.cancel();
-    if (this.state is CrudPenjualLoaded) {
-      try {
-        await _penjualRepository.deletePenjual(event.id);
-        emit(CrudPenjualLoaded());
-      } catch (_) {}
-    }
   }
 
   void _onUpdatePenjual(

@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/crud_produk/crud_produk_bloc.dart';
 import 'package:jaya_tirta/data/repositories/produk/produk_repository.dart';
-import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
-import 'package:jaya_tirta/presentation/penjual/produk/produk_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:jaya_tirta/utils/validator.dart';
 
@@ -231,7 +229,7 @@ class _TambahProdukScreenState extends State<TambahProdukScreen> {
                                               Navigator.popUntil(context,
                                                   (route) => route.isFirst);
                                             } else if (state.gambar!.isEmpty) {
-                                              final snackBar = SnackBar(
+                                              const snackBar = SnackBar(
                                                   content: Text(
                                                       'Produk belum memiliki gambar!'));
                                               ScaffoldMessenger.of(context)

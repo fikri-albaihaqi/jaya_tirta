@@ -43,7 +43,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TambahProdukScreen(),
+                        builder: (context) => const TambahProdukScreen(),
                       ),
                     );
                   },
@@ -58,7 +58,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
             BlocBuilder<ProdukBloc, ProdukState>(
               builder: (context, state) {
                 if (state is ProdukLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -97,7 +97,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(bottom: 8.0),
+                                padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
                                   '\Rp. ${state.produk[index].harga}',
                                   style: const TextStyle(
@@ -116,7 +116,7 @@ class _ProdukScreenState extends State<ProdukScreen> {
                         const Divider(),
                   );
                 } else {
-                  return Text('Something went wrong');
+                  return const Text('Something went wrong');
                 }
               },
             ),

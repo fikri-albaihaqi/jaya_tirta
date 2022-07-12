@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/data/models/models.dart';
-import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class DetailPesananKonsumenScreen extends StatefulWidget {
@@ -33,7 +30,7 @@ class _DetailPesananKonsumenScreenState
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.message,
             ),
           ),
@@ -119,7 +116,7 @@ class _DetailPesananKonsumenScreenState
                                       ),
                                       Text(
                                         '${widget.pesanan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -167,7 +164,7 @@ class _DetailPesananKonsumenScreenState
                                       ),
                                       Text(
                                         '${widget.pesanan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -215,7 +212,7 @@ class _DetailPesananKonsumenScreenState
                                       ),
                                       Text(
                                         '${widget.pesanan.status}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Nunito',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -444,7 +441,7 @@ class _DetailPesananKonsumenScreenState
                                           AlertDialog(
                                             title:
                                                 const Text('Batalkan Pesanan'),
-                                            content: Text(
+                                            content: const Text(
                                                 'Apakah anda yakin akan membatalkan pesanan ini?'),
                                             actions: [
                                               TextButton(

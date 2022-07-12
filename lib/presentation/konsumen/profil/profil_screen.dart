@@ -182,7 +182,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               child: Container(
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -213,7 +213,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               child: Container(
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -242,7 +242,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               child: Container(
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

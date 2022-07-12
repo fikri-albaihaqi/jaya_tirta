@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -22,7 +21,6 @@ class CrudPenjualanBulananBloc
     on<ConfirmAddPenjualanBulanan>(_onConfirmAddPenjualanBulanan);
     on<DeletePenjualanBulanan>(_onDeletePenjualanBulanan);
     on<UpdatePenjualanBulanan>(_onUpdatePenjualanBulanan);
-    // on<ConfirmUpdatePenjualanBulanan>(_onConfirmUpdateJumlahPenjualanBulanan);
     on<UpdateJumlahPenjualan>(_onUpdateJumlahPenjualan);
   }
 
@@ -52,8 +50,6 @@ class CrudPenjualanBulananBloc
       try {
         await _penjualanBulananRepository
             .addPenjualanBulanan(state.penjualanBulanan!);
-        print(event.penjualanBulanan);
-        print('done');
         emit(CrudPenjualanBulananLoaded());
       } catch (_) {}
     }
@@ -96,24 +92,8 @@ class CrudPenjualanBulananBloc
       try {
         await _penjualanBulananRepository.updateJumlahPenjualan(
             event.id!, event.jumlahPenjualan!);
-        print(event.jumlahPenjualan);
-        print('done');
         emit(CrudPenjualanBulananLoaded());
       } catch (_) {}
     }
   }
-
-  // void _onConfirmUpdateJumlahPenjualanBulanan(
-  //   ConfirmUpdatePenjualanBulanan event,
-  //   Emitter<CrudPenjualanBulananState> emit,
-  // ) async {
-  //   _crudPenjualanBulananSubscription?.cancel();
-  //   if (this.state is CrudPenjualanBulananLoaded) {
-  //     final state = this.state as CrudPenjualanBulananLoaded;
-  //     try {
-  //       await _penjualanBulananRepository.updateJumlahPenjualan(event.id!, event.);
-  //       emit(CrudPenjualanBulananLoaded());
-  //     } catch (_) {}
-  //   }
-  // }
 }

@@ -45,8 +45,6 @@ dependencies:
   path: ^1.8.1
   image_picker: ^0.8.5+3
   responsive_framework: ^0.1.9
-  firebase_messaging: ^11.4.2
-  flutter_local_notifications: ^9.6.1
   fluttertoast: ^8.0.9
   http: ^0.13.4
   excel: ^2.0.0-null-safety-3

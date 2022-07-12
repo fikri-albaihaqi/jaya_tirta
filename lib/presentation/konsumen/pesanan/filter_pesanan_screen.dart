@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
 import 'package:jaya_tirta/presentation/konsumen/pesanan/pesanan_konsumen_filtered_screen.dart';
-import 'package:jaya_tirta/presentation/penjual/pesanan/detail_pesanan_screen.dart';
-import 'package:jaya_tirta/presentation/penjual/pesanan/pesanan_filtered_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 
 class FilterPesananScreen extends StatelessWidget {
@@ -26,7 +24,7 @@ class FilterPesananScreen extends StatelessWidget {
             BlocBuilder<FilterPesananKonsumenBloc, FilterPesananKonsumenState>(
               builder: (context, state) {
                 if (state is FilterPesananKonsumenLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -34,12 +32,12 @@ class FilterPesananScreen extends StatelessWidget {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
+                      backgroundColor: kJayaTirtaBlue300,
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      primary: kJayaTirtaBlue300,
                     ),
-                    child: Text('Terapkan'),
+                    child: const Text('Terapkan'),
                     onPressed: () {
                       print(state.filteredPesanan);
                       Navigator.push(
@@ -53,7 +51,7 @@ class FilterPesananScreen extends StatelessWidget {
                     },
                   );
                 } else {
-                  return Text('Something went wrong.');
+                  return const Text('Something went wrong.');
                 }
               },
             ),
@@ -65,7 +63,7 @@ class FilterPesananScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Status Pesanan',
+            const Text('Status Pesanan',
                 style: TextStyle(
                   fontFamily: 'Kanit',
                   fontSize: 24,
@@ -75,7 +73,7 @@ class FilterPesananScreen extends StatelessWidget {
             BlocBuilder<FilterPesananKonsumenBloc, FilterPesananKonsumenState>(
               builder: (context, state) {
                 if (state is FilterPesananKonsumenLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (state is FilterPesananKonsumenLoaded) {
                   return Wrap(
@@ -108,15 +106,15 @@ class FilterPesananScreen extends StatelessWidget {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                color:
-                                    state.filter.statusFilters[status.key].value
-                                        ? kJayaTirtaBlue100
-                                        : Color.fromARGB(255, 224, 224, 224),
+                                color: state
+                                        .filter.statusFilters[status.key].value
+                                    ? kJayaTirtaBlue100
+                                    : const Color.fromARGB(255, 224, 224, 224),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
                                 '${state.filter.statusFilters[status.key].status}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 18,
                                 ),
@@ -127,7 +125,7 @@ class FilterPesananScreen extends StatelessWidget {
                         .toList(),
                   );
                 } else {
-                  return Text('Something went wrong');
+                  return const Text('Something went wrong');
                 }
               },
             ),

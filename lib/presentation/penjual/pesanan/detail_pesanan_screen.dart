@@ -36,7 +36,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.message,
             ),
           ),
@@ -136,7 +136,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                             ),
                                             Text(
                                               '${widget.pesanan.status}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontFamily: 'Nunito',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -189,7 +189,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                             ),
                                             Text(
                                               '${widget.pesanan.status}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontFamily: 'Nunito',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -359,7 +359,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                       ),
                                       Text(
                                         '${widget.pesanan.tanggalPembelian}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'Nunito',
                                           fontWeight: FontWeight.bold,
@@ -507,11 +507,11 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                   style: widget.pesanan.status ==
                                           'Pesanan Selesai'
                                       ? ElevatedButton.styleFrom(
-                                          primary: Colors.grey,
+                                          backgroundColor: Colors.grey,
                                           splashFactory: NoSplash.splashFactory,
                                         )
                                       : ElevatedButton.styleFrom(
-                                          primary: kJayaTirtaErrorRed),
+                                          backgroundColor: kJayaTirtaErrorRed),
                                   onPressed: () {
                                     widget.pesanan.status == 'Pesanan Selesai'
                                         ? null
@@ -521,7 +521,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                 AlertDialog(
                                                   title: const Text(
                                                       'Batalkan Pesanan'),
-                                                  content: Text(
+                                                  content: const Text(
                                                       'Apakah anda yakin akan membatalkan pesanan ini?'),
                                                   actions: [
                                                     TextButton(
@@ -632,10 +632,11 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                         style: widget.pesanan.status ==
                                                 'Pesanan Dikirim'
                                             ? ElevatedButton.styleFrom(
-                                                primary: Theme.of(context)
-                                                    .primaryColor)
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .primaryColor)
                                             : ElevatedButton.styleFrom(
-                                                primary: Colors.grey,
+                                                backgroundColor: Colors.grey,
                                                 splashFactory:
                                                     NoSplash.splashFactory,
                                               ),
@@ -649,7 +650,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                                           AlertDialog(
                                                             title: const Text(
                                                                 'Selesaikan Pesanan'),
-                                                            content: Text(
+                                                            content: const Text(
                                                                 'Apakah anda yakin akan menyelesaikan pesanan? Pastikan pesanan sudah selesai!'),
                                                             actions: [
                                                               TextButton(
@@ -811,7 +812,7 @@ class _DetailPesananScreenState extends State<DetailPesananScreen> {
                                             AlertDialog(
                                               title: const Text(
                                                   'Update Status Pesanan'),
-                                              content: Text(
+                                              content: const Text(
                                                   'Apakah anda yakin akan mengubah status pesanan?'),
                                               actions: [
                                                 TextButton(

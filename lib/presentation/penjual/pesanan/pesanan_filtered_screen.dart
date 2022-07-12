@@ -17,7 +17,7 @@ class _PesananFilteredScreenState extends State<PesananFilteredScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pesanan Hasil Filter'),
+        title: const Text('Pesanan Hasil Filter'),
         centerTitle: true,
         backgroundColor: kJayaTirtaBlue500,
         elevation: 0,

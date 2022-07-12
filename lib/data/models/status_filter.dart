@@ -5,7 +5,7 @@ class StatusFilter extends Equatable {
   final String? status;
   final bool value;
 
-  StatusFilter({
+  const StatusFilter({
     required this.id,
     required this.status,
     required this.value,
@@ -30,7 +30,7 @@ class StatusFilter extends Equatable {
         value,
       ];
 
-  static List<StatusFilter> filters = [
+  static List<StatusFilter> filters = const [
     StatusFilter(id: 1, status: 'Menunggu Konfirmasi', value: false),
     StatusFilter(id: 2, status: 'Pesanan Diproses', value: false),
     StatusFilter(id: 3, status: 'Pesanan Dikirim', value: false),

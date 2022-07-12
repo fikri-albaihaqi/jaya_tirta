@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jaya_tirta/data/models/produk.dart';
 import 'package:path/path.dart' as path;
@@ -58,7 +57,6 @@ class ProdukRepository {
     final String fileName = path.basename(pickedImage!.path);
     File imageFile = File(pickedImage.path);
 
-    // Uploading the selected image with some custom meta data
     UploadTask uploadTask = storage.ref(fileName).putFile(
         imageFile,
         SettableMetadata(
@@ -86,9 +84,5 @@ class ProdukRepository {
     });
 
     return files;
-  }
-
-  Future<void> deleteImage(String ref) async {
-    await storage.ref(ref).delete();
   }
 }

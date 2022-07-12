@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jaya_tirta/bloc/blocs.dart';
-import 'package:jaya_tirta/data/models/models.dart';
 import 'package:jaya_tirta/presentation/penjual/main_screen/main_screen.dart';
 import 'package:jaya_tirta/utils/colors.dart';
 import 'package:jaya_tirta/utils/validator.dart';
@@ -22,13 +19,9 @@ class EditDataPenjualScreen extends StatefulWidget {
 class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
   final _namaTextController = TextEditingController();
   final _noTelpTextController = TextEditingController();
 
-  final _focusEmail = FocusNode();
-  final _focusPassword = FocusNode();
   final _focusNama = FocusNode();
   final _focusNoTelp = FocusNode();
 
@@ -36,8 +29,6 @@ class _EditDataPenjualScreenState extends State<EditDataPenjualScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _focusEmail.unfocus();
-        _focusPassword.unfocus();
         _focusNama.unfocus();
         _focusNoTelp.unfocus();
       },

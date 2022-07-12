@@ -26,7 +26,6 @@ class _KonsumenMainScreenState extends State<KonsumenMainScreen> {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is UnAuthenticated) {
-          // Navigate to the sign in screen when the user Signs Out
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const WelcomeScreen()),
             (route) => false,

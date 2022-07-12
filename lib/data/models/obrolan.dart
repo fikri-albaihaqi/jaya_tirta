@@ -14,25 +14,6 @@ class Obrolan extends Equatable {
     required this.members,
   });
 
-  // Conversation copyWith({
-  //   String? id,
-  //   List<String>? members,
-  // }) {
-  //   return Conversation(
-  //     id: id ?? this.id,
-  //     members: members ?? this.members,
-  //   );
-  // }
-
-  // Map<String, Object> toDocument() {
-  //   return {
-  //     'id': id!,
-  //     'creator': creator!.toMap(),
-  //     'receiver': receiver!.toMap(),
-  //     'members': members,
-  //   };
-  // }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -70,17 +51,4 @@ class Obrolan extends Equatable {
         receiver,
         members,
       ];
-
-  // String toJson() => json.encode(toMap());
-
-  // factory Conversation.fromJson(String source) =>
-  //     Conversation.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  // @override
-  // String toString() {
-  //   return 'Conversation(id: $id, creator: $creator, receiver: $receiver, members: $members)';
-  // }
-
-  // @override
-  // List<Object> get props => [creator, receiver, members];
 }

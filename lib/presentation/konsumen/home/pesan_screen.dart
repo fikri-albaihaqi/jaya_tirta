@@ -183,7 +183,7 @@ class _PesanScreenState extends State<PesanScreen> {
                                   .add(LoadSharedPreferences());
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
+                              backgroundColor: Colors.white,
                             ),
                             child: const Text(
                               'Beli',

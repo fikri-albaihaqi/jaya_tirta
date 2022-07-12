@@ -19,7 +19,7 @@ class _DaftarChatScreenState extends State<DaftarChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 224, 245, 255),
+      backgroundColor: const Color.fromARGB(255, 224, 245, 255),
       appBar: AppBar(
         title: const Text('Chat'),
         centerTitle: true,
@@ -56,28 +56,20 @@ class _DaftarChatScreenState extends State<DaftarChatScreen> {
                       },
                       child: ListTile(
                         hoverColor: Colors.grey,
-                        contentPadding: EdgeInsets.only(top: 0, bottom: 0),
-                        leading: Icon(
+                        contentPadding:
+                            const EdgeInsets.only(top: 0, bottom: 0),
+                        leading: const Icon(
                           Icons.account_circle,
                           size: 56,
                         ),
                         title: Text(
                           '${state.konsumen[index].nama}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        // subtitle: Text(
-                        //   'Halo',
-                        //   style: TextStyle(
-                        //     fontFamily: 'Nunito',
-                        //     fontSize: 16,
-                        //     fontWeight: FontWeight.w500,
-                        //     color: Colors.grey,
-                        //   ),
-                        // ),
                       ),
                     );
                   },

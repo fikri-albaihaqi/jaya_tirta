@@ -27,20 +27,6 @@ class ObrolanRepository {
     } else {
       return null;
     }
-
-    // return firestore
-    //     .collection('obrolan')
-    //     .where(
-    //       'members',
-    //       whereIn: [
-    //         members,
-    //         members.reversed.toList(),
-    //       ],
-    //     )
-    //     .snapshots()
-    //     .map((snapshot) {
-    //       return Obrolan.fromSnapshot(snapshot.docs.first);
-    //     });
   }
 
   Future<String> createObrolan({
@@ -50,8 +36,6 @@ class ObrolanRepository {
         await firestore.collection('obrolan').add(obrolan.toMap());
 
     await obrolanRef.update({'id': obrolanRef.id});
-    print(obrolanRef.id);
-    print('done');
     return obrolanRef.id;
   }
 }

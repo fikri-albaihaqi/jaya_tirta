@@ -17,22 +17,9 @@ class PenjualanBulananBloc
       {required PenjualanBulananRepository penjualanBulananRepository})
       : _penjualanBulananRepository = penjualanBulananRepository,
         super(PenjualanBulananLoading()) {
-    // on<LoadAllPenjualanBulanan>(_onLoadAllPenjualanBulanan);
     on<LoadPenjualanBulanan>(_onLoadPenjualanBulanan);
     on<LoadedPenjualanBulanan>(_onLoadedPenjualanBulanan);
   }
-
-  // void _onLoadAllPenjualanBulanan(
-  //   LoadAllPenjualanBulanan event,
-  //   Emitter<PenjualanBulananState> emit,
-  // ) {
-  //   _penjualanBulananSubscription?.cancel();
-  //   _penjualanBulananSubscription = _penjualanBulananRepository.getAllPenjualanBulanan().listen(
-  //         (penjualanBulanan) => add(
-  //           LoadedPenjualanBulanan(penjualanBulanan),
-  //         ),
-  //       );
-  // }
 
   void _onLoadPenjualanBulanan(
     LoadPenjualanBulanan event,
